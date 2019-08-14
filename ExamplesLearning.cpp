@@ -11,6 +11,17 @@
 #include "math.h"
 #include "ExamplesLearning.hpp"
 
+// TODO: Empty constructor for Attribute class
+Attribute::Attribute(std::string t_attributeName, T t_attributeValue)
+{
+
+}
+
+// TODO: Empty constructor for example
+Example::Example()
+{
+
+} 
 /* Author: Lam Duong
  * Function: Example(exampleName, exampleType, goalName, goal)
  * Parameters: string, string, string, bool
@@ -24,7 +35,7 @@
 
 void Example::addAttribute(std::string t_attributeName, int t_value)
 {
-    Example::Attribute attribute = {t_attributeName, t_value};
+    Attribute attribute = {t_attributeName, t_value};
     Example::inputAttributes.push_back(attribute);
 }
 // Remove every attribute with this name
@@ -71,7 +82,7 @@ std::string Example::getExampleType()
 {
     return this->exampleType;
 }
-std::vector<Example::Attribute> Example::getInputAttributes()
+std::vector<Attribute> Example::getInputAttributes()
 {
     return this->inputAttributes;
 }
@@ -93,13 +104,13 @@ bool Example::getGoal()
  *              attributes that match up with the examples' attributes.
  *              Inspiration from the alogirthm by Russell and Norvyg, 3rd Ed. */
 DecisionTree decisionTreeLearning(std::vector<Example> t_examples,
-    std::vector<Example::Attribute> t_attributes, std::vector<Example> t_parentExamples)
+    std::vector<Attribute> t_attributes, std::vector<Example> t_parentExamples)
 {
     DecisionTree resultTree;
 
     // if examples is empty then return Plurality-Value(parentExamples)
     // No examples mean that for this tree, there are no examples from
-    // the training set to habe been observed for these attribute values.
+    // the training set have been observed for these attribute values.
     if (t_examples.empty())
     {
         resultTree = pluralityValue(t_parentExamples);
@@ -126,7 +137,6 @@ DecisionTree decisionTreeLearning(std::vector<Example> t_examples,
         // A <-argmax Importance(a, examples)
         // tree <- a new decision tree with root test A
         // for each value vk of A do
-
     }
     return resultTree;
 }
@@ -139,7 +149,9 @@ DecisionTree decisionTreeLearning(std::vector<Example> t_examples,
  *              breaking ties randomly.*/
 DecisionTree pluralityValue(std::vector<Example> t_examples)
 {
-    return DecisionTree();
+
+    DecisionTree decisionTree(modalValue);
+    return decisionTree;
 }
 
 /* Author: Lam Duong
@@ -155,7 +167,6 @@ int importance(Example::Attribute attribute, std::vector<Example> examples)
     // Find entropy, H(attribute)
     // Find Remainder(attribute)
     // Find Gain(attribute)
-    
 }
 
 /* Author: Lam Duong
@@ -187,6 +198,8 @@ bool sameClassification(std::vector<Example> examples)
     }
     return sameClassification;
 }
+
+ExamplesLearning::DecisionTree
 
 int main()
 {

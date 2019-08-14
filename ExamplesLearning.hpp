@@ -14,15 +14,26 @@
 #include <map>
 #include "math.h"
 
+template <typename T> // 
+class Attribute
+{
+public:
+    Attribute();
+    Attribute(std::string t_attributeName, T t_attributeValue)
+    T getAttributeValue();
+    std::string getAttributeName();
+    void setAttributeValue;
+    void setAttributeName;
+private:
+    std::string attributeName;
+    T attributeValue;
+};
+
 class Example
 {
 public:
+    Example();
     Example(std::string t_exampleName, std::string t_exampleType, std::string t_goalName, bool t_goal);
-    struct Attribute
-    {
-        std::string attributeName;
-        int value;
-    };
     void addAttribute(std::string t_attributeName, int t_value);
     void removeAttribute(std::string t_attributeName);
     void removeAttribute(std::string t_attributeName, int t_value);
@@ -39,10 +50,10 @@ private:
     std::string goalName;
     bool goal;
 };
-
 class DecisionTree
 {
-
+    DecisionTree();
+    DecisionTree(Example::Attribute attribute);
 };
 
 DecisionTree decisionTreeLearning(std::vector<Example> t_examples,
