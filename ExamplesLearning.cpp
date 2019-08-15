@@ -172,16 +172,63 @@ void AttributeTypesList::removeAttributeType(std::string attributeName)
     {
         if (listOfAttributeTypes.at(i).getAttributeName() == attributeName)
         {
-            listOfAttributeTypes.erase(i);
+            listOfAttributeTypes.erase(listOfAttributeTypes.begin()+i);
         }
     }
 }
 
-/* Function: 
- * Parameters: 
+/* Function: containsAttribute(attributeName)
+ * Parameters: string
  * Return: bool
- * Description: */
+ * Description: Returns true if the Attribute of that name is in the list.*/
 bool AttributeTypesList::containsAttribute(std::string attributeName)
+{
+    bool found = false;
+    for (int i = 0; i < listOfAttributeTypes.size; i++)
+    {
+        if (listOfAttributeTypes[i].getAttributeName() == attributeName)
+        {
+            found = true;
+            break;
+        }
+    }
+    return found;
+}
+
+/* Function: valueToName(t_attributeValue, t_attributeName)
+ * Parameters: double, string
+ * Return: string
+ * Description: Return a string, the name of the value, given
+ *              its numeric value.
+ *              Example: given value of 1 with attribute name of "Hungry?"
+ *              The function will return "very hungry", which is mapped to 3. */
+std::string AttributeTypesList::valueToName(double t_attributeValue, std::string t_attributeName)
+{
+    std::string nameOfValue;
+    bool found = false;
+    for (int index = 0; index < listOfAttributeTypes.size; index++)
+    {
+        if (listOfAttributeTypes[index].getAttributeName() == t_attributeName)
+        {
+            for (auto const& key : listOfAttributeTypes[index].getMapOfValues)
+            {
+                if (key.first == t_attributeValue)
+                {
+                    found = true;
+                    nameOfValue = key.second;
+                }
+            }
+        }
+    }
+    if (found == false)
+    {
+        throw std::invalid_argument("No attribute value of that name and numeric value was found.");
+    }
+    return nameOfValue;
+}
+
+// IMPLEMENT ONLY IF NEEDED
+double AttributeTypesList::nameToValue(double t_attributeValue, std::string t_attributeName)
 {
 
 }

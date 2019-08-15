@@ -13,7 +13,9 @@
  * value to denote something which is translated to string. */
 class AttributeType
 {
+public:
     //CONSTRUCTOR:
+
     AttributeType();
     AttributeType(std::string t_attributeName);
 
@@ -24,6 +26,7 @@ class AttributeType
     void deleteValue(std::string t_valueName);
 
     // ACCESSORS
+
     std::string getAttributeName();
     std::string getValueName(double t_value);
     double getValue(std::string t_valueName);
@@ -42,6 +45,8 @@ public:
     void addAttributeType(AttributeType t_attributeType);
     void removeAttributeType(std::string t_attributeName);
     bool containsAttribute(std::string t_attributeName);
+    std::string valueToName(double t_attributeValue, std::string t_attributeName);
+    double nameToValue(double t_attributeValue, std::string t_attributeName);
 private:
     std::vector<AttributeType> listOfAttributeTypes;
 
