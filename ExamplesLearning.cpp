@@ -10,20 +10,224 @@
 #include <map>
 #include "math.h"
 #include "ExamplesLearning.hpp"
+#include "Attribute.hpp"
 
-// TODO: Empty constructor for Attribute class
-Attribute::Attribute(std::string t_attributeName, T t_attributeValue)
+/* Function: AttributeType(t_attributeName)
+ * Parameters: string
+ * Description: AttributeType constructor with attributeName.*/
+AttributeType::AttributeType(std::string t_attributeName)
+{
+    this->attributeName = t_attributeName;
+}
+
+/* Function: addValue(t_value, t_valueName)
+ * Parameters: double, string
+ * Description: Add a value and its name to the map of values.
+ *              The numeric value will be the key and value name as mapped item.*/
+void AttributeType::addValue(double t_value, std::string t_valueName)
+{
+    // If the key and value aren't already in the map of values
+    if (mapContainsKey(t_value) || mapContainsValue(t_valueName))
+    {
+        this->mapOfValues.insert(std::pair<double, std::string>(t_value, t_valueName));
+    }
+    else
+    {
+        std::string errorMessage = "Cannot add value because the value or its value name";
+        errorMessage += "is already in the map of values";
+        throw std::invalid_argument(errorMessage);
+    }
+}
+
+/* Function: deleteValue(t_value)
+ * Parameters: double
+ * Description: Delete value by a numeric value.*/
+void AttributeType::deleteValue(double t_value)
+{
+    this->mapOfValues.erase(t_value);
+}
+
+/* Function: deleteValue(t_valueName)
+ * Parameters: string
+ * Description: Delete value by the name of the value*/
+void AttributeType::deleteValue(std::string t_valueName)
+{
+    for (auto const& key : this->mapOfValues)
+    {
+        if (key.second == t_valueName)
+        {
+            this->mapOfValues.erase(key.first);
+        }
+    }
+}
+
+
+/* Function: getAttributeName()
+ * Parameters: none
+ * Return: string
+ * Description: Return the name of the AttributeType.
+ */
+std::string AttributeType::getAttributeName()
+{
+    return this->attributeName;
+}
+
+/* Function: getValueName(t_value)
+ * Parameters: double
+ * Return: string
+ * Description: Get the value name of a value given its numeric value*/
+std::string AttributeType::getValueName(double t_value)
+{
+    return this->mapOfValues.at(t_value);
+}
+
+/* Function: getValue(t_value)
+ * Parameters: string
+ * Return: double
+ * Description: get the numeric value of a value given a value name*/
+double AttributeType::getValue(std::string t_valueName)
+{
+    bool found = false;
+    double value = 0;
+    for (auto const& key : this->mapOfValues)
+    {
+        if (key.second == t_valueName)
+        {
+            found = true;
+            value = key.first;
+        }
+    }
+    if (found == false)
+    {
+        throw std::invalid_argument("No value by that name found in map of Attributes.");
+    }
+    return value;
+}
+
+/* Function: getMapOfValues()
+ * Parameters: none
+ * Return: map<double,string>
+ * Description: Return the map of values of the AttributeType*/
+std::map<double, std::string> AttributeType::getMapOfValues()
+{
+    return this->mapOfValues;
+}
+
+/* Function: mapContainsKey(t_value)
+ * Parameters: double
+ * Return: bool
+ * Description: Check whether the map contains a key with a specific
+ *              numeric value. */
+bool AttributeType::mapContainsKey(double t_value)
+{
+    bool isInMap = false;
+    for (auto const& key : this->mapOfValues)
+    {
+        if (key.first == t_value)
+        {
+            isInMap = true;
+            break;
+        }
+    }
+    return isInMap;
+}
+
+/* Function: mapContainsValue(t_valueName)
+ * Parameters: string
+ * Return: bool
+ * Description: Check whether the map contains a value with the given name.*/
+bool AttributeType::mapContainsValue(std::string t_valueName)
+{
+    bool isInMap = false;
+    for (auto const& key : this->mapOfValues)
+    {
+        if (key.second == t_valueName)
+        {
+            isInMap = true;
+            break;
+        }
+    }
+    return isInMap;
+}
+
+/* Function: AttributeTypesList()
+ * Parameters: none
+ * Description: Empty constructor to get the list of AttributeType started.*/
+AttributeTypesList::AttributeTypesList(){}
+
+/* Function: addAttributeType(attributeType)
+ * Parameters: AttributeType
+ * Description: Add an AttributeType to the list*/
+void AttributeTypesList::addAttributeType(AttributeType t_attributeType)
+{
+    this->listOfAttributeTypes.push_back(t_attributeType);
+}
+
+/* Function: removeAttributeType(attributeName)
+ * Parameters: 
+ * Description: */
+void AttributeTypesList::removeAttributeType(std::string attributeName)
+{
+    for (int i = 0; i < listOfAttributeTypes.size; i++)
+    {
+        if (listOfAttributeTypes.at(i).getAttributeName() == attributeName)
+        {
+            listOfAttributeTypes.erase(i);
+        }
+    }
+}
+
+/* Function: 
+ * Parameters: 
+ * Return: bool
+ * Description: */
+bool AttributeTypesList::containsAttribute(std::string attributeName)
 {
 
 }
 
-// TODO: Empty constructor for example
-Example::Example()
+/* Function: Attribute(t_attributeName, t_attributeValue)
+ * Parameters: string, double
+ * Description: Simple constructor that instantiate initial values.*/
+Attribute::Attribute(double t_attributeValue, std::string t_attributeName)
 {
+    this->attributeName = t_attributeName;
+    this->attributeValue = t_attributeValue;
+}
 
-} 
-/* Author: Lam Duong
- * Function: Example(exampleName, exampleType, goalName, goal)
+/* Function: setAttributeValue(t_attributeValue)
+ * Parameters: double
+ * Description: Set the value of the Attribute to the given value.*/
+void Attribute::setAttributeValue(double t_attributeValue)
+{
+    this->attributeValue = t_attributeValue;
+}
+
+/* Function: setAttributeName(t_attributeName)
+ * Parameters: string
+ * Description: Set the name of the attribute to the given name.*/
+void Attribute::setAttributeName(std::string t_attributeName)
+{
+    this->attributeName = t_attributeName;
+}
+
+/* Function: getAttributeValue()
+ * Parameters: none
+ * Description: Get the value of the attribute*/
+double Attribute::getAttributeValue()
+{
+    return this->attributeValue
+}
+
+/* Function: getAttributeName()
+ * Parameters: none
+ * Description: Get the name of the attribute*/
+std::string Attribute::getAttributeName()
+{
+    return this->attributeName;
+}
+
+/* Function: Example(exampleName, exampleType, goalName, goal)
  * Parameters: string, string, string, bool
  * Description: A constructor member function that will create an example
  *              with no input attributes initially. Refer to addAttribute()
@@ -95,8 +299,7 @@ bool Example::getGoal()
     return this->goal;
 }
 
-/* Author: Lam Duong
- * Function: decisionTreeLearning(examples, attributes, parentExamples)
+/* Function: decisionTreeLearning(examples, attributes, parentExamples)
  * Parameters: vector<Example>, vector<Attribute>, vector<Example>
  * Return: DecisionTree
  * Description: A Decision Tree learning algorithm that will return a tree given
@@ -141,8 +344,7 @@ DecisionTree decisionTreeLearning(std::vector<Example> t_examples,
     return resultTree;
 }
 
-/* Author: Lam Duong
- * Function: pluralityValue(t_examples)
+/* Function: pluralityValue(t_examples)
  * Parameters: vector<Example>
  * Return: DecisionTree
  * Description: Selects the most common output values among a set of examples, 
@@ -154,8 +356,7 @@ DecisionTree pluralityValue(std::vector<Example> t_examples)
     return decisionTree;
 }
 
-/* Author: Lam Duong
- * Function: importance(attribute, examples)
+/* Function: importance(attribute, examples)
  * Parameters: Attribute, vector<Example>
  * Return: int
  * Description: This finds the information gain, which is the attribute test
@@ -169,8 +370,7 @@ int importance(Example::Attribute attribute, std::vector<Example> examples)
     // Find Gain(attribute)
 }
 
-/* Author: Lam Duong
- * Function: sameClassification(examples)
+/* Function: sameClassification(examples)
  * Parameters: vector
  * Return: bool
  * Description: Simple method that determines whether all examples have the same classiication.*/

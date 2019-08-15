@@ -13,21 +13,7 @@
 #include <vector>
 #include <map>
 #include "math.h"
-
-template <typename T> // 
-class Attribute
-{
-public:
-    Attribute();
-    Attribute(std::string t_attributeName, T t_attributeValue)
-    T getAttributeValue();
-    std::string getAttributeName();
-    void setAttributeValue;
-    void setAttributeName;
-private:
-    std::string attributeName;
-    T attributeValue;
-};
+#include "Attribute.hpp"
 
 class Example
 {
