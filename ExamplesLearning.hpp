@@ -20,9 +20,9 @@ class Example
 public:
     Example();
     Example(std::string t_exampleName, std::string t_exampleType, std::string t_goalName, bool t_goal);
-    void addAttribute(std::string t_attributeName, int t_value);
+    void addAttribute(std::string t_attributeName, double t_value);
     void removeAttribute(std::string t_attributeName);
-    void removeAttribute(std::string t_attributeName, int t_value);
+    void removeAttribute(std::string t_attributeName, double t_value);
     void clearAttributes();
     std::string getExampleName();
     std::string getExampleType();
@@ -38,14 +38,18 @@ private:
 };
 class DecisionTree
 {
+public:
     DecisionTree();
-    DecisionTree(Example::Attribute attribute);
+    DecisionTree(Attribute t_attribute);
+private:
+    Attribute attribute;
+    std::map<Attribute,DecisionTree> nodes;
 };
 
 DecisionTree decisionTreeLearning(std::vector<Example> t_examples,
     std::vector<Example::Attribute> t_attributes, std::vector<Example> t_parentExamples);
 DecisionTree pluralityValue(std::vector<Example> t_examples);
-int importance(Example::Attribute attribute, std::vector<Example> examples);
+int importance(Attribute attribute, std::vector<Example> examples);
 bool sameClassification(std::vector<Example> examples);
 
 #endif /*EXAMPLESLEARNING_H_*/

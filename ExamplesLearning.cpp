@@ -10,7 +10,6 @@
 #include <map>
 #include "math.h"
 #include "ExamplesLearning.hpp"
-#include "Attribute.hpp"
 
 /* Function: AttributeType(t_attributeName)
  * Parameters: string
@@ -164,8 +163,8 @@ void AttributeTypesList::addAttributeType(AttributeType t_attributeType)
 }
 
 /* Function: removeAttributeType(attributeName)
- * Parameters: 
- * Description: */
+ * Parameters: string
+ * Description: Remove an attribute from listOfAttributeTypes given its name.*/
 void AttributeTypesList::removeAttributeType(std::string attributeName)
 {
     for (int i = 0; i < listOfAttributeTypes.size; i++)
@@ -260,15 +259,17 @@ void Attribute::setAttributeName(std::string t_attributeName)
 
 /* Function: getAttributeValue()
  * Parameters: none
- * Description: Get the value of the attribute*/
+ * Return: double
+ * Description: Get the value of the attribute.*/
 double Attribute::getAttributeValue()
 {
-    return this->attributeValue
+    return this->attributeValue;
 }
 
 /* Function: getAttributeName()
  * Parameters: none
- * Description: Get the name of the attribute*/
+ * Return: string
+ * Description: Get the name of the attribute.*/
 std::string Attribute::getAttributeName()
 {
     return this->attributeName;
@@ -284,9 +285,9 @@ std::string Attribute::getAttributeName()
 
 // Example Mutator Member Functions:
 
-void Example::addAttribute(std::string t_attributeName, int t_value)
+void Example::addAttribute(std::string t_attributeName, double t_value)
 {
-    Attribute attribute = {t_attributeName, t_value};
+    Attribute attribute(t_value, t_attributeName);
     Example::inputAttributes.push_back(attribute);
 }
 // Remove every attribute with this name
@@ -294,7 +295,7 @@ void Example::removeAttribute(std::string t_attributeName)
 {
     for (int index = 0; index < this->inputAttributes.size; index++)
     {
-        if (inputAttributes[index].attributeName == t_attributeName)
+        if (inputAttributes[index].getAttributeName() == t_attributeName)
         {
             this->inputAttributes.erase(inputAttributes.begin()+index);
         }
@@ -306,8 +307,8 @@ void Example::removeAttribute(std::string t_attributeName, int t_value)
     bool attributeFound = false;
     for (int index = 0; index < this->inputAttributes.size; index++)
     {
-        if ((inputAttributes[index].attributeName == t_attributeName)
-        && (inputAttributes[index].value == t_value))
+        if ((inputAttributes[index].getAttributeName() == t_attributeName)
+        && (inputAttributes[index].getAttributeValue() == t_value))
         {
             attributeFound = true;
             this->inputAttributes.erase(inputAttributes.begin()+index);
@@ -366,7 +367,7 @@ DecisionTree decisionTreeLearning(std::vector<Example> t_examples,
         resultTree = pluralityValue(t_parentExamples);
     }
 
-    // Else if all examples have the same classification then return the classification
+    // Else if all examples have the same classification then return --the classification
     else if (sameClassification(t_examples))
     {
         // TODO: Return the classification as a decision tree here
@@ -399,7 +400,7 @@ DecisionTree decisionTreeLearning(std::vector<Example> t_examples,
 DecisionTree pluralityValue(std::vector<Example> t_examples)
 {
 
-    DecisionTree decisionTree(modalValue);
+    DecisionTree decisionTree(/*modal value*/);
     return decisionTree;
 }
 
@@ -410,7 +411,7 @@ DecisionTree pluralityValue(std::vector<Example> t_examples)
  *              on an attribute, A, and the expected reduction in entropy.
  *              This returns the amount of bits (from 0 to 1), so it should not
  *              return anything that's not in between that range. */
-int importance(Example::Attribute attribute, std::vector<Example> examples)
+int importance(Attribute attribute, std::vector<Example> examples)
 {
     // Find entropy, H(attribute)
     // Find Remainder(attribute)
@@ -446,7 +447,10 @@ bool sameClassification(std::vector<Example> examples)
     return sameClassification;
 }
 
-ExamplesLearning::DecisionTree
+DecisionTree(Attribute t_attribute)
+{
+
+}
 
 int main()
 {
