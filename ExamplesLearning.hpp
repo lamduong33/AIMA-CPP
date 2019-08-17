@@ -15,27 +15,43 @@
 #include "math.h"
 #include "Attribute.hpp"
 
+/* A class made for individual examples. These examples will
+contain example name and attributes (input), goal name and 
+value (output). This is primarily used for training sets.*/
 class Example
 {
 public:
+
+    // CONSTRUCTOR
+
     Example();
-    Example(std::string t_exampleName, std::string t_exampleType, std::string t_goalName, bool t_goal);
+    Example(std::string t_exampleName, std::string t_goalName, bool t_goal);
+
+    // MUTATORS:
+
     void addAttribute(std::string t_attributeName, double t_value);
     void removeAttribute(std::string t_attributeName);
     void removeAttribute(std::string t_attributeName, double t_value);
     void clearAttributes();
+
+    //ACCESSORS:
+
     std::string getExampleName();
-    std::string getExampleType();
     std::vector<Attribute> getInputAttributes();
     std::string getGoalName();
     bool getGoal();
+
 private:
+
     std::string exampleName;
-    std::string exampleType;
     std::vector<Attribute> inputAttributes;
     std::string goalName;
     bool goal;
+
 };
+
+
+
 class DecisionTree
 {
 public:
@@ -47,7 +63,7 @@ private:
 };
 
 DecisionTree decisionTreeLearning(std::vector<Example> t_examples,
-    std::vector<Example::Attribute> t_attributes, std::vector<Example> t_parentExamples);
+    std::vector<Attribute> t_attributes, std::vector<Example> t_parentExamples);
 DecisionTree pluralityValue(std::vector<Example> t_examples);
 int importance(Attribute attribute, std::vector<Example> examples);
 bool sameClassification(std::vector<Example> examples);

@@ -11,9 +11,7 @@
 #include "math.h"
 #include "ExamplesLearning.hpp"
 
-/* Function: AttributeType(t_attributeName)
- * Parameters: string
- * Description: AttributeType constructor with attributeName.*/
+/* Description: AttributeType constructor with attributeName.*/
 AttributeType::AttributeType(std::string t_attributeName)
 {
     this->attributeName = t_attributeName;
@@ -38,17 +36,13 @@ void AttributeType::addValue(double t_value, std::string t_valueName)
     }
 }
 
-/* Function: deleteValue(t_value)
- * Parameters: double
- * Description: Delete value by a numeric value.*/
+/* Delete value by a numeric value.*/
 void AttributeType::deleteValue(double t_value)
 {
     this->mapOfValues.erase(t_value);
 }
 
-/* Function: deleteValue(t_valueName)
- * Parameters: string
- * Description: Delete value by the name of the value*/
+/* Delete value by the name of the value*/
 void AttributeType::deleteValue(std::string t_valueName)
 {
     for (auto const& key : this->mapOfValues)
@@ -61,20 +55,13 @@ void AttributeType::deleteValue(std::string t_valueName)
 }
 
 
-/* Function: getAttributeName()
- * Parameters: none
- * Return: string
- * Description: Return the name of the AttributeType.
- */
+/* Return the name of the AttributeType. */
 std::string AttributeType::getAttributeName()
 {
     return this->attributeName;
 }
 
-/* Function: getValueName(t_value)
- * Parameters: double
- * Return: string
- * Description: Get the value name of a value given its numeric value*/
+/*Get the value name of a value given its numeric value*/
 std::string AttributeType::getValueName(double t_value)
 {
     return this->mapOfValues.at(t_value);
@@ -103,10 +90,7 @@ double AttributeType::getValue(std::string t_valueName)
     return value;
 }
 
-/* Function: getMapOfValues()
- * Parameters: none
- * Return: map<double,string>
- * Description: Return the map of values of the AttributeType*/
+/*Return the map of values of the AttributeType*/
 std::map<double, std::string> AttributeType::getMapOfValues()
 {
     return this->mapOfValues;
@@ -149,14 +133,10 @@ bool AttributeType::mapContainsValue(std::string t_valueName)
     return isInMap;
 }
 
-/* Function: AttributeTypesList()
- * Parameters: none
- * Description: Empty constructor to get the list of AttributeType started.*/
+/*Empty constructor to get the list of AttributeType started.*/
 AttributeTypesList::AttributeTypesList(){}
 
-/* Function: addAttributeType(attributeType)
- * Parameters: AttributeType
- * Description: Add an AttributeType to the list*/
+/*Add an AttributeType to the list*/
 void AttributeTypesList::addAttributeType(AttributeType t_attributeType)
 {
     this->listOfAttributeTypes.push_back(t_attributeType);
@@ -199,7 +179,7 @@ bool AttributeTypesList::containsAttribute(std::string attributeName)
  * Return: string
  * Description: Return a string, the name of the value, given
  *              its numeric value.
- *              Example: given value of 1 with attribute name of "Hungry?"
+ *              Example: given value of 3 with attribute name of "Hungry?"
  *              The function will return "very hungry", which is mapped to 3. */
 std::string AttributeTypesList::valueToName(double t_attributeValue, std::string t_attributeName)
 {
@@ -226,50 +206,37 @@ std::string AttributeTypesList::valueToName(double t_attributeValue, std::string
     return nameOfValue;
 }
 
-// IMPLEMENT ONLY IF NEEDED
-double AttributeTypesList::nameToValue(double t_attributeValue, std::string t_attributeName)
-{
-
-}
+/* IMPLEMENT ONLY IF NEEDED
+double AttributeTypesList::nameToValue(double t_attributeValue, std::string t_attributeName){}*/
 
 /* Function: Attribute(t_attributeName, t_attributeValue)
  * Parameters: string, double
  * Description: Simple constructor that instantiate initial values.*/
 Attribute::Attribute(double t_attributeValue, std::string t_attributeName)
 {
-    this->attributeName = t_attributeName;
     this->attributeValue = t_attributeValue;
+    this->attributeName = t_attributeName;
 }
 
-/* Function: setAttributeValue(t_attributeValue)
- * Parameters: double
- * Description: Set the value of the Attribute to the given value.*/
+/* Set the value of the Attribute to the given value.*/
 void Attribute::setAttributeValue(double t_attributeValue)
 {
     this->attributeValue = t_attributeValue;
 }
 
-/* Function: setAttributeName(t_attributeName)
- * Parameters: string
- * Description: Set the name of the attribute to the given name.*/
+/* Set the name of the attribute to the given name.*/
 void Attribute::setAttributeName(std::string t_attributeName)
 {
     this->attributeName = t_attributeName;
 }
 
-/* Function: getAttributeValue()
- * Parameters: none
- * Return: double
- * Description: Get the value of the attribute.*/
+/* Get the value of the attribute.*/
 double Attribute::getAttributeValue()
 {
     return this->attributeValue;
 }
 
-/* Function: getAttributeName()
- * Parameters: none
- * Return: string
- * Description: Get the name of the attribute.*/
+/* Get the name of the attribute.*/
 std::string Attribute::getAttributeName()
 {
     return this->attributeName;
@@ -280,8 +247,12 @@ std::string Attribute::getAttributeName()
  * Description: A constructor member function that will create an example
  *              with no input attributes initially. Refer to addAttribute()
  *              for population of attributes. */
- Example::Example(std::string t_exampleName, std::string t_exampleType, std::string t_goalName, bool t_goal)
-    :exampleName(t_exampleName), exampleType(t_exampleType), goalName(t_goalName), goal(t_goal){}
+ Example::Example(std::string t_exampleName, std::string t_goalName, bool t_goal)
+{
+    this->exampleName = t_exampleName;
+    this->goalName = t_goalName;
+    this->goal = t_goal;
+}
 
 // Example Mutator Member Functions:
 
@@ -290,7 +261,10 @@ void Example::addAttribute(std::string t_attributeName, double t_value)
     Attribute attribute(t_value, t_attributeName);
     Example::inputAttributes.push_back(attribute);
 }
-// Remove every attribute with this name
+/* Function: removeAttribute(t_attributeName)
+ * Parameters: string
+ * Return: void
+ * Description: Remove every attribute with this name.*/
 void Example::removeAttribute(std::string t_attributeName)
 {
     for (int index = 0; index < this->inputAttributes.size; index++)
@@ -301,8 +275,11 @@ void Example::removeAttribute(std::string t_attributeName)
         }
     }
 }
-// Remove every attribute with this name and value
-void Example::removeAttribute(std::string t_attributeName, int t_value)
+/* Function: removeAttribute(t_attributeName, t_value)
+ * Parameters: string
+ * Return: void
+ * Description: Overloading: Remove every attribute with this name and value*/
+void Example::removeAttribute(std::string t_attributeName, double t_value)
 {
     bool attributeFound = false;
     for (int index = 0; index < this->inputAttributes.size; index++)
@@ -314,34 +291,29 @@ void Example::removeAttribute(std::string t_attributeName, int t_value)
             this->inputAttributes.erase(inputAttributes.begin()+index);
         }
     }
-    if (attributeFound == false)
-    {
-        throw std::invalid_argument("Could not find the attribute with given name and value. Nothing was removed.");
-    }
 }
+
+
 void Example::clearAttributes()
 {
     this->inputAttributes.clear();
 }
 
-// Example Accessor Member Functions:
-
 std::string Example::getExampleName()
 {
     return this->exampleName;
 }
-std::string Example::getExampleType()
-{
-    return this->exampleType;
-}
+
 std::vector<Attribute> Example::getInputAttributes()
 {
     return this->inputAttributes;
 }
+
 std::string Example::getGoalName()
 {
     return this->goalName;
 }
+
 bool Example::getGoal()
 {
     return this->goal;
@@ -400,7 +372,7 @@ DecisionTree decisionTreeLearning(std::vector<Example> t_examples,
 DecisionTree pluralityValue(std::vector<Example> t_examples)
 {
 
-    DecisionTree decisionTree(/*modal value*/);
+    DecisionTree decisionTree/*modal value*/;
     return decisionTree;
 }
 
@@ -445,11 +417,6 @@ bool sameClassification(std::vector<Example> examples)
         }
     }
     return sameClassification;
-}
-
-DecisionTree(Attribute t_attribute)
-{
-
 }
 
 int main()

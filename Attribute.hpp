@@ -38,6 +38,9 @@ private:
     std::map<double, std::string> mapOfValues;
 };
 
+/* AttributeTypesList simply act as a container using a vector
+ * to store a list of AttributeType objects. It also allows 
+ * the translation of an attribute numeric value to its name.*/
 class AttributeTypesList
 {
 public:
@@ -52,15 +55,27 @@ private:
 
 };
 
+/* Attribute class is a class that holds numeric value and a name
+ * for a certain Attribute. In this case, it holds a double for the
+ * numeric value and a string for the name of the attribute. */
 class Attribute
 {
 public:
+    //CONSTRUCTOR:
+    
+    Attribute();
     Attribute(double t_attributeValue, std::string t_attributeName);
-    void setAttributeValue(double t_attributeValue);
-    void setAttributeName(std::string t_attributeName);
+
+    //ACCESSORS:
+
     double getAttributeValue();
     std::string getAttributeName();
-    std::string getAttributeValueName();
+
+    // MUTATORS:
+
+    void setAttributeValue(double t_attributeValue);
+    void setAttributeName(std::string t_attributeName);
+
 private:
     std::string attributeName;
     double attributeValue;
