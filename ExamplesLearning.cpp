@@ -1,21 +1,19 @@
 /*
- * Author: Lam Duong
- * Description: For learning from examples. Includes functions
- * that compute learning.
+ * @Author: Lam Duong
+ * @Description: For learning from examples. 
  */
 
 #include <iostream>
 #include <string>
 #include <vector>
 #include <map>
+#include <memory>
 #include "math.h"
 #include "ExamplesLearning.hpp"
 
 /* Description: AttributeType constructor with attributeName.*/
-AttributeType::AttributeType(std::string t_attributeName)
-{
-    this->attributeName = t_attributeName;
-}
+AttributeType::AttributeType(std::string t_attributeName):
+    m_attributeName(t_attributeName){}
 
 /* Function: addValue(t_value, t_valueName)
  * Parameters: double, string
@@ -26,7 +24,7 @@ void AttributeType::addValue(double t_value, std::string t_valueName)
     // If the key and value aren't already in the map of values
     if (mapContainsKey(t_value) || mapContainsValue(t_valueName))
     {
-        this->mapOfValues.insert(std::pair<double, std::string>(t_value, t_valueName));
+        m_mapOfValues.insert(std::pair<double, std::string>(t_value, t_valueName));
     }
     else
     {
@@ -39,32 +37,32 @@ void AttributeType::addValue(double t_value, std::string t_valueName)
 /* Delete value by a numeric value.*/
 void AttributeType::deleteValue(double t_value)
 {
-    this->mapOfValues.erase(t_value);
+    m_mapOfValues.erase(t_value);
 }
 
 /* Delete value by the name of the value*/
 void AttributeType::deleteValue(std::string t_valueName)
 {
-    for (auto const& key : this->mapOfValues)
+    for (auto const& key : m_mapOfValues)
     {
         if (key.second == t_valueName)
         {
-            this->mapOfValues.erase(key.first);
+           m_mapOfValues.erase(key.first);
         }
     }
 }
 
 
 /* Return the name of the AttributeType. */
-std::string AttributeType::getAttributeName()
+std::string const AttributeType::getAttributeName()
 {
-    return this->attributeName;
+    return m_attributeName;
 }
 
 /*Get the value name of a value given its numeric value*/
-std::string AttributeType::getValueName(double t_value)
+std::string const AttributeType::getValueName(double t_value)
 {
-    return this->mapOfValues.at(t_value);
+    return m_mapOfValues.at(t_value);
 }
 
 /* Function: getValue(t_value)
@@ -75,7 +73,7 @@ double AttributeType::getValue(std::string t_valueName)
 {
     bool found = false;
     double value = 0;
-    for (auto const& key : this->mapOfValues)
+    for (auto const& key : m_mapOfValues)
     {
         if (key.second == t_valueName)
         {
@@ -91,9 +89,9 @@ double AttributeType::getValue(std::string t_valueName)
 }
 
 /*Return the map of values of the AttributeType*/
-std::map<double, std::string> AttributeType::getMapOfValues()
+std::map<double, std::string> const AttributeType::getMapOfValues()
 {
-    return this->mapOfValues;
+    return m_mapOfValues;
 }
 
 /* Function: mapContainsKey(t_value)
@@ -104,7 +102,7 @@ std::map<double, std::string> AttributeType::getMapOfValues()
 bool AttributeType::mapContainsKey(double t_value)
 {
     bool isInMap = false;
-    for (auto const& key : this->mapOfValues)
+    for (auto const& key : m_mapOfValues)
     {
         if (key.first == t_value)
         {
@@ -122,7 +120,7 @@ bool AttributeType::mapContainsKey(double t_value)
 bool AttributeType::mapContainsValue(std::string t_valueName)
 {
     bool isInMap = false;
-    for (auto const& key : this->mapOfValues)
+    for (auto const& key : m_mapOfValues)
     {
         if (key.second == t_valueName)
         {
@@ -139,7 +137,7 @@ AttributeTypesList::AttributeTypesList(){}
 /*Add an AttributeType to the list*/
 void AttributeTypesList::addAttributeType(AttributeType t_attributeType)
 {
-    this->listOfAttributeTypes.push_back(t_attributeType);
+    m_listOfAttributeTypes.push_back(t_attributeType);
 }
 
 /* Function: removeAttributeType(attributeName)
@@ -147,11 +145,11 @@ void AttributeTypesList::addAttributeType(AttributeType t_attributeType)
  * Description: Remove an attribute from listOfAttributeTypes given its name.*/
 void AttributeTypesList::removeAttributeType(std::string attributeName)
 {
-    for (int i = 0; i < listOfAttributeTypes.size; i++)
+    for (int i = 0; i < m_listOfAttributeTypes.size; i++)
     {
-        if (listOfAttributeTypes.at(i).getAttributeName() == attributeName)
+        if (m_listOfAttributeTypes.at(i).getAttributeName() == attributeName)
         {
-            listOfAttributeTypes.erase(listOfAttributeTypes.begin()+i);
+            m_listOfAttributeTypes.erase(m_listOfAttributeTypes.begin()+i);
         }
     }
 }
@@ -163,9 +161,9 @@ void AttributeTypesList::removeAttributeType(std::string attributeName)
 bool AttributeTypesList::containsAttribute(std::string attributeName)
 {
     bool found = false;
-    for (int i = 0; i < listOfAttributeTypes.size; i++)
+    for (int i = 0; i < m_listOfAttributeTypes.size; i++)
     {
-        if (listOfAttributeTypes[i].getAttributeName() == attributeName)
+        if (m_listOfAttributeTypes[i].getAttributeName() == attributeName)
         {
             found = true;
             break;
@@ -185,11 +183,11 @@ std::string AttributeTypesList::valueToName(double t_attributeValue, std::string
 {
     std::string nameOfValue;
     bool found = false;
-    for (int index = 0; index < listOfAttributeTypes.size; index++)
+    for (int index = 0; index < m_listOfAttributeTypes.size; index++)
     {
-        if (listOfAttributeTypes[index].getAttributeName() == t_attributeName)
+        if (m_listOfAttributeTypes[index].getAttributeName() == t_attributeName)
         {
-            for (auto const& key : listOfAttributeTypes[index].getMapOfValues)
+            for (auto const& key : m_listOfAttributeTypes[index].getMapOfValues())
             {
                 if (key.first == t_attributeValue)
                 {
@@ -212,34 +210,31 @@ double AttributeTypesList::nameToValue(double t_attributeValue, std::string t_at
 /* Function: Attribute(t_attributeName, t_attributeValue)
  * Parameters: string, double
  * Description: Simple constructor that instantiate initial values.*/
-Attribute::Attribute(double t_attributeValue, std::string t_attributeName)
-{
-    this->attributeValue = t_attributeValue;
-    this->attributeName = t_attributeName;
-}
+Attribute::Attribute(double t_attributeValue, std::string t_attributeName):
+    m_attributeValue(t_attributeValue), m_attributeName(t_attributeName){}
 
 /* Set the value of the Attribute to the given value.*/
 void Attribute::setAttributeValue(double t_attributeValue)
 {
-    this->attributeValue = t_attributeValue;
+   m_attributeValue = t_attributeValue;
 }
 
 /* Set the name of the attribute to the given name.*/
 void Attribute::setAttributeName(std::string t_attributeName)
 {
-    this->attributeName = t_attributeName;
+    m_attributeName = t_attributeName;
 }
 
 /* Get the value of the attribute.*/
-double Attribute::getAttributeValue()
+double const Attribute::getAttributeValue()
 {
-    return this->attributeValue;
+    return m_attributeValue;
 }
 
 /* Get the name of the attribute.*/
-std::string Attribute::getAttributeName()
+std::string const Attribute::getAttributeName()
 {
-    return this->attributeName;
+    return m_attributeName;
 }
 
 /* Function: Example(exampleName, exampleType, goalName, goal)
@@ -247,34 +242,32 @@ std::string Attribute::getAttributeName()
  * Description: A constructor member function that will create an example
  *              with no input attributes initially. Refer to addAttribute()
  *              for population of attributes. */
- Example::Example(std::string t_exampleName, std::string t_goalName, bool t_goal)
-{
-    this->exampleName = t_exampleName;
-    this->goalName = t_goalName;
-    this->goal = t_goal;
-}
+ Example::Example(std::string t_exampleName, std::string t_goalName, bool t_goal) :
+    m_exampleName(t_exampleName), m_goalName(t_goalName), m_goal(t_goal){}
 
-// Example Mutator Member Functions:
 
+/* Added */
 void Example::addAttribute(std::string t_attributeName, double t_value)
 {
     Attribute attribute(t_value, t_attributeName);
-    Example::inputAttributes.push_back(attribute);
+    m_inputAttributes.push_back(attribute);
 }
+
 /* Function: removeAttribute(t_attributeName)
  * Parameters: string
  * Return: void
  * Description: Remove every attribute with this name.*/
 void Example::removeAttribute(std::string t_attributeName)
 {
-    for (int index = 0; index < this->inputAttributes.size; index++)
+    for (int index = 0; index < m_inputAttributes.size; index++)
     {
-        if (inputAttributes[index].getAttributeName() == t_attributeName)
+        if (m_inputAttributes[index].getAttributeName() == t_attributeName)
         {
-            this->inputAttributes.erase(inputAttributes.begin()+index);
+            m_inputAttributes.erase(m_inputAttributes.begin()+index);
         }
     }
 }
+
 /* Function: removeAttribute(t_attributeName, t_value)
  * Parameters: string
  * Return: void
@@ -282,42 +275,53 @@ void Example::removeAttribute(std::string t_attributeName)
 void Example::removeAttribute(std::string t_attributeName, double t_value)
 {
     bool attributeFound = false;
-    for (int index = 0; index < this->inputAttributes.size; index++)
+    for (int index = 0; index < m_inputAttributes.size; index++)
     {
-        if ((inputAttributes[index].getAttributeName() == t_attributeName)
-        && (inputAttributes[index].getAttributeValue() == t_value))
+        if ((m_inputAttributes[index].getAttributeName() == t_attributeName)
+        && (m_inputAttributes[index].getAttributeValue() == t_value))
         {
             attributeFound = true;
-            this->inputAttributes.erase(inputAttributes.begin()+index);
+            m_inputAttributes.erase(m_inputAttributes.begin()+index);
         }
     }
 }
 
-
+/* Clear all attributes in the example */
 void Example::clearAttributes()
 {
-    this->inputAttributes.clear();
+    this->m_inputAttributes.clear();
 }
 
-std::string Example::getExampleName()
+/* Get the name of the example */
+std::string const Example::getExampleName()
 {
-    return this->exampleName;
+    return m_exampleName;
 }
 
-std::vector<Attribute> Example::getInputAttributes()
+/* Get the attributes in a form a vector */
+std::vector<Attribute> const Example::getInputAttributes()
 {
-    return this->inputAttributes;
+    return m_inputAttributes;
 }
 
-std::string Example::getGoalName()
+/* Get the name of the goal as a string */
+std::string const Example::getGoalName()
 {
-    return this->goalName;
+    return m_goalName;
 }
 
-bool Example::getGoal()
+/* Get the goal of example as a boolean value */
+bool const Example::getGoal()
 {
-    return this->goal;
+    return m_goal;
 }
+
+/* Empty constructor for a decision tree */
+DecisionTree::DecisionTree(){}
+
+/* DecisionTree constructor that takes in an Attribute object */
+DecisionTree::DecisionTree(Attribute t_attribute):
+    m_attribute(t_attribute){}
 
 /* Function: decisionTreeLearning(examples, attributes, parentExamples)
  * Parameters: vector<Example>, vector<Attribute>, vector<Example>
@@ -371,8 +375,7 @@ DecisionTree decisionTreeLearning(std::vector<Example> t_examples,
  *              breaking ties randomly.*/
 DecisionTree pluralityValue(std::vector<Example> t_examples)
 {
-
-    DecisionTree decisionTree/*modal value*/;
+    DecisionTree decisionTree;
     return decisionTree;
 }
 

@@ -36,31 +36,32 @@ public:
 
     //ACCESSORS:
 
-    std::string getExampleName();
-    std::vector<Attribute> getInputAttributes();
-    std::string getGoalName();
-    bool getGoal();
+    std::string const getExampleName();
+    std::vector<Attribute> const getInputAttributes();
+    std::string const getGoalName();
+    bool const getGoal();
 
 private:
 
-    std::string exampleName;
-    std::vector<Attribute> inputAttributes;
-    std::string goalName;
-    bool goal;
+    std::string m_exampleName;
+    std::vector<Attribute> m_inputAttributes;
+    std::string m_goalName;
+    bool m_goal;
 
 };
-
-
 
 class DecisionTree
 {
 public:
     DecisionTree();
-    DecisionTree(Attribute t_attribute);
+    DecisionTree(Attribute t_attribute);    
+    void addLeaf();
+    void addNode();
 private:
-    Attribute attribute;
-    std::map<Attribute,DecisionTree> nodes;
+    Attribute m_attribute;
+    std::map<Attribute,DecisionTree> m_nodes;
 };
+
 
 DecisionTree decisionTreeLearning(std::vector<Example> t_examples,
     std::vector<Attribute> t_attributes, std::vector<Example> t_parentExamples);

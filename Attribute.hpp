@@ -27,15 +27,16 @@ public:
 
     // ACCESSORS
 
-    std::string getAttributeName();
-    std::string getValueName(double t_value);
+    std::string const getAttributeName();
+    std::string const getValueName(double t_value);
+    std::map<double, std::string> const getMapOfValues();
+
     double getValue(std::string t_valueName);
-    std::map<double, std::string> getMapOfValues();
     bool mapContainsKey(double t_value);
     bool mapContainsValue(std::string t_valueName);
 private:
-    std::string attributeName;
-    std::map<double, std::string> mapOfValues;
+    std::string m_attributeName;
+    std::map<double, std::string> m_mapOfValues;
 };
 
 /* AttributeTypesList simply act as a container using a vector
@@ -51,8 +52,7 @@ public:
     std::string valueToName(double t_attributeValue, std::string t_attributeName);
     double nameToValue(double t_attributeValue, std::string t_attributeName);
 private:
-    std::vector<AttributeType> listOfAttributeTypes;
-
+    std::vector<AttributeType> m_listOfAttributeTypes;
 };
 
 /* Attribute class is a class that holds numeric value and a name
@@ -61,24 +61,18 @@ private:
 class Attribute
 {
 public:
-    //CONSTRUCTOR:
-    
     Attribute();
     Attribute(double t_attributeValue, std::string t_attributeName);
 
-    //ACCESSORS:
-
-    double getAttributeValue();
-    std::string getAttributeName();
-
-    // MUTATORS:
+    double const getAttributeValue();
+    std::string const getAttributeName();
 
     void setAttributeValue(double t_attributeValue);
     void setAttributeName(std::string t_attributeName);
 
 private:
-    std::string attributeName;
-    double attributeValue;
+    std::string m_attributeName;
+    double m_attributeValue;
 };
 
 #endif
