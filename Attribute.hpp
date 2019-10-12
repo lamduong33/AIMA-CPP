@@ -5,8 +5,6 @@
 #include <vector>
 #include <map>
 
-
-
 /* AttributeType class is a map that allows the translation
  * of numeric value to a string value and vice versa. 
  * This allows for a more fluid Attribute. Assign numeric 
