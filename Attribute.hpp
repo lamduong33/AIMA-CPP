@@ -5,8 +5,6 @@
 #include <vector>
 #include <map>
 
-
-
 /* AttributeType class is a map that allows the translation
  * of numeric value to a string value and vice versa. 
  * This allows for a more fluid Attribute. Assign numeric 
@@ -15,25 +13,22 @@ class AttributeType
 {
 public:
     //CONSTRUCTOR:
-
     AttributeType();
     AttributeType(std::string t_attributeName);
 
     // MUTATORS:
-
     void addValue(double t_value, std::string t_valueName);
     void deleteValue(double t_value);
     void deleteValue(std::string t_valueName);
 
-    // ACCESSORS
-
+    // ACCESSORS:
     std::string const getAttributeName();
     std::string const getValueName(double t_value);
     std::map<double, std::string> const getMapOfValues();
-
     double getValue(std::string t_valueName);
     bool mapContainsKey(double t_value);
     bool mapContainsValue(std::string t_valueName);
+
 private:
     std::string m_attributeName;
     std::map<double, std::string> m_mapOfValues;
