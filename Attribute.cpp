@@ -160,8 +160,7 @@ bool AttributeTypesList::containsAttribute(std::string attributeName)
     return found;
 }
 
-/* Return a string, the name of the value, given
- * its numeric value.
+/* Return a string, the name of the value, given its numeric value.
  * Example: given value of 3 with attribute name of "Hungry?"
  * The function will return "very hungry", which is mapped to 3. */
 std::string AttributeTypesList::valueToName(double t_attributeValue, std::string t_attributeName)
