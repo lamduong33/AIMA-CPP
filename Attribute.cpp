@@ -6,6 +6,7 @@
  */
 
 #include <iostream>
+#include <string>
 #include <map>
 #include "Attribute.hpp"
 
@@ -23,7 +24,18 @@ void Attributes::removeAttribute(std::string t_attributeName)
     this->m_mapOfAttributes.erase(t_attributeName);
 }
 
-
+void Attributes::changeValue(std::string t_attributeName, double t_attributeValue)
+{
+    bool found;
+    for (auto const& key: m_mapOfAttributes)
+    {
+        if (key.first == t_attributeName)
+        {
+            found = true;
+            m_mapOfAttributes[key.first] = t_attributeValue;
+        }
+    }
+}
 
 /* Check to see if the map has the attribute */
 bool Attributes::hasAttribute(std::string t_attributeName)
@@ -67,4 +79,14 @@ double Attributes::getAttributeValue(const std::string t_attributeName)
 std::map<std::string, double> Attributes::getMap()
 {
     return m_mapOfAttributes;
+}
+
+std::string Attributes::toString()
+{
+    std::string result = "";
+    for (auto const& key : m_mapOfAttributes)
+    {
+        result = result + "Attribute: " + key.first;
+        result = result + " | Value: " + std::to_string(key.second) + "\n";
+    }
 }

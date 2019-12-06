@@ -17,8 +17,10 @@ public:
     void removeAttribute(std::string t_attributeName);
     void changeValue(std::string t_attributeName, double t_attributeValue);
     bool hasAttribute(std::string t_attributeName);
-    double getAttributeValue(std::string t_attributeName);
+    double getAttributeValue(const std::string t_attributeName);
     bool isEmpty();
+
+    std::string toString();
 
     std::map<std::string, double> getMap();
 private:
