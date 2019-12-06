@@ -1,7 +1,10 @@
 #include "DecisionTree.hpp"
 
 /* Empty constructor for a decision tree */
-DecisionTree::DecisionTree(){}
+DecisionTree::DecisionTree()
+{
+    
+}
 
 /* DecisionTree constructor that takes in an Attribute object */
 DecisionTree::DecisionTree(Attribute t_attribute):

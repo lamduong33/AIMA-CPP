@@ -28,11 +28,10 @@ public:
     bool const getGoal();
 
 private:
-    std::string m_exampleName;
-    std::vector<Attribute> m_inputAttributes;
-    std::string m_goalName;
-    bool m_goal;
-
+    std::string m_exampleName; // Input name. such as x1, x2
+    std::vector<Attribute> m_inputAttributes; // "Hungry? -> Yes"
+    std::string m_goalName; // The output of the example.
+    bool m_goal; // The binary output of the example
 };
 
 #endif

@@ -9,12 +9,17 @@
 #include "DecisionTree.hpp"
 
 
+int main()
+{
+    // Manual testing
+    return 0;
+}
 /* A Decision Tree learning algorithm that will return a tree given
  * a set of examples. This set of examples will have a corresponding
  * attributes that match up with the examples' attributes.
  * Inspiration from the alogirthm by Russell and Norvyg, 3rd Ed. */
 DecisionTree decisionTreeLearning(std::vector<Example> t_examples,
-    std::vector<Attribute> t_attributes, std::vector<Example> t_parentExamples)
+    Attributes t_attributes, std::vector<Example> t_parentExamples)
 {
     DecisionTree resultTree;
 
@@ -38,7 +43,7 @@ DecisionTree decisionTreeLearning(std::vector<Example> t_examples,
 
     // else if attributes is empty, then return Plurality-Value(examples)
     // 
-    else if (t_attributes.empty())
+    else if (t_attributes.getMap().empty)
     {
         resultTree = pluralityValue(t_examples);
     }
@@ -70,7 +75,7 @@ DecisionTree pluralityValue(std::vector<Example> t_examples)
  * on an attribute, A, and the expected reduction in entropy.
  * This returns the amount of bits (from 0 to 1), so it should not
  * return anything that's not in between that range. */
-int importance(Attribute attribute, std::vector<Example> examples)
+int importance(std::string attribute, std::vector<Example> examples)
 {
     // Find entropy, H(attribute)
     // Find Remainder(attribute)
@@ -101,9 +106,4 @@ bool sameClassification(std::vector<Example> examples)
         }
     }
     return sameClassification;
-}
-
-int main()
-{
-    return 0;
 }
