@@ -11,7 +11,7 @@
 
 int main()
 {
-    // Manual testing
+
     return 0;
 }
 /* A Decision Tree learning algorithm that will return a tree given
