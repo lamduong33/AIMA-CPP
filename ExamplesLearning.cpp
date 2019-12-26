@@ -4,7 +4,7 @@
  */
 #include <iostream>
 #include "ExamplesLearning.hpp"
-#include "Attribute.hpp"
+#include "Attributes.hpp"
 #include "Example.hpp"
 #include "DecisionTree.hpp"
 

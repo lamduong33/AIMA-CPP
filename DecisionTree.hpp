@@ -1,7 +1,9 @@
 #ifndef DECISIONTREE_HPP
 #define DECISIONTREE_HPP
 
-#include "Attribute.hpp"
+#include "Attributes.hpp"
+#include "Example.hpp"
+#include <vector>
 
 /* A Decision tree class. This class will have nodes and leaves. It
 will recursively add nodes and leaves. Leaves have their own special
@@ -10,12 +12,12 @@ class DecisionTree
 {
 public:
     DecisionTree();
-    DecisionTree(Attribute t_attribute);    
+    DecisionTree(std::vector<Example> t_examples);    
     void addLeaf();
     void addNode();
 private:
-    Attribute m_attribute;
-    std::map<Attribute,DecisionTree> m_nodes;
+    std::vector<Attributes> m_attributes;
+    DecisionTreeLeaf m_nodes;
 };
 
 /* A decision tree leaf node that inherits from Decision tree. It will

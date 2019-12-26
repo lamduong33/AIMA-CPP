@@ -1,73 +1,46 @@
 #include "Example.hpp"
-#include <string>
 
-/* A constructor member function that will create an example
- * with no input attributes initially. Refer to addAttribute()
- * for population of attributes. */
-Example::Example(std::string t_exampleName, std::string t_goalName, bool t_goal) :
-    m_exampleName(t_exampleName), m_goalName(t_goalName), m_goal(t_goal){}
+Example::Example(){}
 
-
-/* Add an attribute by name and value */
-void Example::addAttribute(std::string t_attributeName, double t_value)
+Example::Example(std::string t_exampleName, std::string t_goalName, int t_goal)
 {
-    Attribute attribute(t_value, t_attributeName);
-    m_inputAttributes.push_back(attribute);
+    m_exampleName = t_exampleName;
+    m_goalName = t_goalName;
+    m_goal = t_goal;
 }
 
-/* Remove every attribute with this name.*/
-void Example::removeAttribute(std::string t_attributeName)
+void Example::setExampleName(std::string t_exampleName)
 {
-    for (int index = 0; index < m_inputAttributes.size; index++)
-    {
-        if (m_inputAttributes[index].getAttributeName() == t_attributeName)
-        {
-            m_inputAttributes.erase(m_inputAttributes.begin()+index);
-        }
-    }
+    m_exampleName = t_exampleName;
 }
 
-/* Overloading: Remove every attribute with this name and value*/
-void Example::removeAttribute(std::string t_attributeName, double t_value)
+void Example::setGoalName(std::string t_goalName)
 {
-    bool attributeFound = false;
-    for (int index = 0; index < m_inputAttributes.size; index++)
-    {
-        if ((m_inputAttributes[index].getAttributeName() == t_attributeName)
-        && (m_inputAttributes[index].getAttributeValue() == t_value))
-        {
-            attributeFound = true;
-            m_inputAttributes.erase(m_inputAttributes.begin()+index);
-        }
-    }
+    m_goalName = t_goalName;
 }
 
-/* Clear all attributes in the example */
-void Example::clearAttributes()
+void Example::setGoal(int t_goal)
 {
-    this->m_inputAttributes.clear();
+    m_goal = t_goal;
 }
 
-/* Get the name of the example */
 std::string const Example::getExampleName()
 {
-    return m_exampleName;
+    return m_goalName;
 }
 
-/* Get the attributes in a form a vector */
-std::vector<Attribute> const Example::getInputAttributes()
+Attributes const Example::getInputAttributes()
 {
     return m_inputAttributes;
 }
 
-/* Get the name of the goal as a string */
 std::string const Example::getGoalName()
 {
     return m_goalName;
 }
 
-/* Get the goal of example as a boolean value */
 bool const Example::getGoal()
 {
     return m_goal;
 }
+

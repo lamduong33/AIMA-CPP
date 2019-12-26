@@ -1,9 +1,9 @@
-#ifndef EXAMPLE_HPP
-#define EXAMPLE_HPP
+#ifndef EXAMPLES_HPP
+#define EXAMPLES_HPP
 
 #include <string>
 #include <vector>
-#include "Attribute.hpp"
+#include "Attributes.hpp"
 
 /* A class made for individual examples. These examples will
 contain example name and attributes (input), goal name and 
@@ -13,25 +13,24 @@ class Example
 public:
     // CONSTRUCTOR:
     Example();
-    Example(std::string t_exampleName, std::string t_goalName, bool t_goal);
+    Example(std::string t_exampleName, std::string t_goalName, int t_goal);
 
     // MUTATORS:
-    void addAttribute(std::string t_attributeName, double t_value);
-    void removeAttribute(std::string t_attributeName);
-    void removeAttribute(std::string t_attributeName, double t_value);
-    void clearAttributes();
+    void setExampleName(std::string t_exampleName);
+    void setGoalName(std::string t_goalName);
+    void setGoal(int t_goal);
 
     //ACCESSORS:
     std::string const getExampleName();
-    std::vector<Attribute> const getInputAttributes();
+    Attributes const getInputAttributes();
     std::string const getGoalName();
     bool const getGoal();
 
 private:
     std::string m_exampleName; // Input name. such as x1, x2
-    std::vector<Attribute> m_inputAttributes; // "Hungry? -> Yes"
+    Attributes m_inputAttributes; // "Hungry? -> Yes"
     std::string m_goalName; // The output of the example.
-    bool m_goal; // The binary output of the example
+    int m_goal; // The output of the example (preferable binary)
 };
 
 #endif

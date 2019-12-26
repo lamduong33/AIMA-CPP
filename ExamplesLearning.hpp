@@ -9,7 +9,7 @@
 #define EXAMPLESLEARNING_H_
 
 #include <iostream>
-#include "Attribute.hpp"
+#include "Attributes.hpp"
 #include "Example.hpp"
 
 DecisionTree decisionTreeLearning(std::vector<Example> t_examples,

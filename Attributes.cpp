@@ -7,7 +7,7 @@
 
 #include <iostream>
 #include <map>
-#include "Attribute.hpp"
+#include "Attributes.hpp"
 
 Attributes::Attributes(){}
 
@@ -22,8 +22,6 @@ void Attributes::removeAttribute(std::string t_attributeName)
 {
     this->m_mapOfAttributes.erase(t_attributeName);
 }
-
-
 
 /* Check to see if the map has the attribute */
 bool Attributes::hasAttribute(std::string t_attributeName)
@@ -40,7 +38,7 @@ bool Attributes::hasAttribute(std::string t_attributeName)
     return isInMap;
 }
 
-/* Return the value of an attribute */
+/* Return the value of an attribute, given its name*/
 double Attributes::getAttributeValue(const std::string t_attributeName)
 {
     bool found = false;
@@ -60,6 +58,16 @@ double Attributes::getAttributeValue(const std::string t_attributeName)
         throw std::invalid_argument(errorMessage);
     }
     return value;
+}
+
+bool Attributes::isEmpty()
+{
+    bool empty = false;
+    if (m_mapOfAttributes.empty == true)
+    {
+        empty = true;
+    }
+    return empty;
 }
 
 

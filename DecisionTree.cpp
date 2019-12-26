@@ -1,11 +1,11 @@
 #include "DecisionTree.hpp"
 
-/* Empty constructor for a decision tree */
-DecisionTree::DecisionTree()
-{
-    
-}
+DecisionTree::DecisionTree(){}
 
-/* DecisionTree constructor that takes in an Attribute object */
-DecisionTree::DecisionTree(Attribute t_attribute):
-    m_attribute(t_attribute){}
+DecisionTree::DecisionTree(std::vector<Example> t_examples)
+{
+    for (int i = 0; i < t_examples.size; i++)
+    {
+        
+    }
+}
