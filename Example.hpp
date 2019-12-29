@@ -1,5 +1,5 @@
-#ifndef EXAMPLES_HPP
-#define EXAMPLES_HPP
+#ifndef EXAMPLE_HPP
+#define EXAMPLE_HPP
 
 #include <string>
 #include <vector>

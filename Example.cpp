@@ -2,6 +2,9 @@
 
 Example::Example(){}
 
+/* Each example has a an example name, a goal name, and a goal which is a value.
+ * The goal is 
+ */
 Example::Example(std::string t_exampleName, std::string t_goalName, int t_goal)
 {
     m_exampleName = t_exampleName;
