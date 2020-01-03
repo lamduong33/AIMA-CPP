@@ -24,8 +24,6 @@ void Attributes::removeAttribute(std::string t_attributeName)
     this->m_mapOfAttributes.erase(t_attributeName);
 }
 
-<<<<<<< HEAD:Attributes.cpp
-=======
 void Attributes::changeValue(std::string t_attributeName, double t_attributeValue)
 {
     bool found;
@@ -39,7 +37,6 @@ void Attributes::changeValue(std::string t_attributeName, double t_attributeValu
     }
 }
 
->>>>>>> f67ee40beecd8e189c93695c1ceca434f6841584:Attribute.cpp
 /* Check to see if the map has the attribute */
 bool Attributes::hasAttribute(std::string t_attributeName)
 {
@@ -87,12 +84,19 @@ bool Attributes::isEmpty()
     return empty;
 }
 
+int Attributes::size()
+{
+    return this->m_mapOfAttributes.size;
+}
+
 
 /* Return the map that holds all the attributes*/
 std::map<std::string, double> Attributes::getMap()
 {
     return m_mapOfAttributes;
 }
+
+
 
 std::string Attributes::toString()
 {
