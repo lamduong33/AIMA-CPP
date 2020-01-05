@@ -23,12 +23,12 @@ std::string Attribute::getName()
 	return this->attributeName;
 }
 
-void Attribute::setName(std::string t_name)
+void Attribute::setName(const std::string t_name)
 {
 	this->attributeName = t_name;
 }
 
-void Attribute::setValue(std::string t_value)
+void Attribute::setValue(const std::string t_value)
 {
 	this->attributeValue = t_value;
 }

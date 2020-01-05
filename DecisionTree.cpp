@@ -22,7 +22,9 @@ template <class T> void DecisionTree<T>::addLeaf(std::string t_attributeValue, s
 
 template <class T> T DecisionTree<T>::predict(Example t_example)
 {
-    std::string attributeString = t_example.getInputAttributes();
+    std::string value = t_example.getAttributeValueString(this->attributeName);
+    bool found = false;
+
 } 
 
 /*Add a node to the Decision Tree. This will continue until it
@@ -32,29 +34,44 @@ template <class T> void DecisionTree<T>::addNode(std::string t_attributeValue, D
     nodes->insert(std::pair<std::string, DecisionTree>(t_attributeValue, t_tree));
 }
 
-DecisionTreeLeaf::DecisionTreeLeaf(std::string t_attributeValue)
+/*====================DECISION TREE LEAF DEFINITIONS=======================*/
+
+template <class T> DecisionTreeLeaf<T>::DecisionTreeLeaf(std::string t_attributeValue)
 {
     m_attributeValue = t_attributeValue;
 }
 
-std::string const DecisionTreeLeaf::getAttributeValue()
+template <class T> std::string const DecisionTreeLeaf<T>::getAttributeValue()
 {
-    return m_attributeValue;
+    return this->m_attributeValue;
 }
 
-void DecisionTreeLeaf::setAttributeValue(std::string t_attributeValue)
+template <class T> void DecisionTreeLeaf<T>::setAttributeValue(std::string t_attributeValue)
 {
     m_attributeValue = t_attributeValue;
 }
 
-void DecisionTreeLeaf::addLeaf()
+/*Override virtual function from Decision Tree class.*/
+template <class T> void DecisionTreeLeaf<T>::addLeaf()
 {
     std::cout << "Cannot add leaf to a leaf!\n";
 }
 
-void DecisionTreeLeaf::addNode()
+/*Override virtual function from Decision Tree class.*/
+template <class T> void DecisionTreeLeaf<T>::addNode()
 {
     std::cout << "Cannot add node to a leaf!\n";
+}
+
+/*Override virtual function from Decision Tree class.*/
+template <class T> T DecisionTreeLeaf<T>::predict()
+{
+    return this->m_attributeValue;
+}
+
+template <class T> std::string DecisionTreeLeaf<T>::toString()
+{
+    return "Decision: " + this->m_attributeValue;
 }
 
 int main()
