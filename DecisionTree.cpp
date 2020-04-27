@@ -16,7 +16,8 @@ template <class T> DecisionTree<T>::DecisionTree(std::string t_attributeName)
 This is where the decision of attributes take place.*/
 template <class T> void DecisionTree<T>::addLeaf(std::string t_attributeValue, std::string t_decision)
 {
-    DecisionTreeLeaf newLeaf(t_decision);
+    //DecisionTreeLeaf newLeaf(t_decision);
+    DecisionTree newLeaf(t_decision);
     nodes->insert(std::pair<std::string, DecisionTree>(t_attributeValue, newLeaf));
 }
 
