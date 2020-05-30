@@ -17,8 +17,10 @@ public:
     /* Default constructor that takes in a string */
     DecisionTree(std::string t_attributeName);
 
-    /* Add a leaf to the tree */
+    /* Add a leaf to the tree. Just like adding a node, but since the node
+     * here ends, it is adding a leaf. */
     virtual void addLeaf(std::string t_attributeValue, std::string t_decision);
+
     virtual void addNode(std::string _attributeValue, DecisionTree t_tree);
     virtual T predict(Example t_example);
 private:
@@ -32,7 +34,9 @@ not go any further. */
 template <class T> class DecisionTreeLeaf : public DecisionTree<T>
 {
 public:
+    /* Default constructor that takes in a string */
     DecisionTreeLeaf(std::string t_attributeValue);
+
     std::string const getAttributeValue();
     void setAttributeValue(std::string t_attributeValue);
     void addLeaf();

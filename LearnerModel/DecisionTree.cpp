@@ -35,7 +35,6 @@ template <class T> void DecisionTree<T>::addNode(std::string t_attributeValue, D
     nodes->insert(std::pair<std::string, DecisionTree>(t_attributeValue, t_tree));
 }
 
-
 /*====================DECISION TREE LEAF DEFINITIONS=======================*/
 
 template <class T> DecisionTreeLeaf<T>::DecisionTreeLeaf(std::string t_attributeValue)
