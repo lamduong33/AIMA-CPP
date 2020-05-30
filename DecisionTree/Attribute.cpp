@@ -1,13 +1,12 @@
 #include "Attribute.hpp"
 
-/* Empty constructor */
+
 Attribute::Attribute()
 {
 	this->attributeName = "";
 	this->attributeValue = "";
 }
 
-/* Default constructor */
 Attribute::Attribute(std::string t_value, std::string t_name)
 {
 	this->attributeName = t_name;
