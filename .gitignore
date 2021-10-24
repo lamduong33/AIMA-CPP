@@ -1,5 +1,6 @@
-/.vscode
-/.gitignore
-/*.exe
-/*.o
-/.vs
+/*
+!.gitignore
+!src/*.cpp
+!test/*.cpp
+!include/*.hpp
+!Makefile
