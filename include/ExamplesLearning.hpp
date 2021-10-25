@@ -11,6 +11,7 @@
 #include <iostream>
 #include "Attribute.hpp"
 #include "Example.hpp"
+#include "DecisionTree.hpp"
 
 DecisionTree decisionTreeLearning(std::vector<Example> t_examples,
     std::vector<Attribute> t_attributes, std::vector<Example> t_parentExamples);
