@@ -3,10 +3,10 @@
  * @Description: For learning from examples. 
  */
 #include <iostream>
-#include "ExamplesLearning.hpp"
-#include "Attributes.hpp"
-#include "Example.hpp"
-#include "DecisionTree.hpp"
+#include "../include/ExamplesLearning.hpp"
+#include "../include/Attribute.hpp"
+#include "../include/Example.hpp"
+#include "../include/DecisionTree.hpp"
 
 
 int main()
