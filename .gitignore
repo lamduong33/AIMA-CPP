@@ -1,6 +1,18 @@
-/*
+*
 !.gitignore
-!src/*.cpp
-!test/*.cpp
-!include/*.hpp
 !Makefile
+
+# Only cpp files within src
+!src/
+src/*
+!src/*.cpp
+
+# Only hpp files within include
+!include/
+include/*
+!include/*.hpp
+
+# Only cpp files within test, prevent binary inclusion
+!test/
+test/*
+!test/*.cpp
