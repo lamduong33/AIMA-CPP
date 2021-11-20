@@ -1,36 +1,68 @@
 #ifndef NEURALNETWORK_H_
 #define NEURALNETWORK_H_
 
-#include <iostream>
 #include <vector>
+#include <memory> // smart pointers
+#include <random> // RNG
+#include <cmath>
+#include <string>
 
-/* A simple neuron that takes in double float input and output. */
-class Neuron
+using rng_engine = std::default_random_engine;
+using rng_distribution = std::uniform_real_distribution<float>;
+
+/* A neural node represents a list of connections of inputs being fed to it and
+ * outputs that it will send forward.*/
+struct NeuralNode
 {
-protected:
-    double weight;
-    double output;
-
-public:
-    // Default constructor to initialize a Neuron
-    Neuron() : weight{0.0}, output{0.0} {}
-    /* Simply return the output double float value. */
-    double getOutput();
-    double getWeight();
-    /* Do some math magic to get the output. */
-    double giveOutput(std::vector<double>& inputs);
-    // TODO: A function to take in inputs with variadic arguments.
+    // Inputs are a pair of <output, weight>
+    std::vector<std::pair<double, std::unique_ptr<NeuralNode>>> inputs;
+    // Outputs are a pair of <output, weight>
+    std::vector<std::pair<double, std::unique_ptr<NeuralNode>>> outputs;
 };
 
-class Layer
+/* A network input node will not have inputs. */
+class NetworkInput : NeuralNode
 {
-    std::vector<Neuron> layer;
+protected:
+    double inputValue; // input value is also the output value
+public:
+    // An input node MUST not have inputs, only outputs.
+    NetworkInput(double t_inputValue);
+    bool noInputs();
+};
+
+class NetworkOutput : NeuralNode
+{
+    std::string label;
+public:
+};
+
+/* A neuron is meant to be in the layers between the NetworkInput nodes and
+ * NetworkOutput nodes.*/
+class Neuron : NeuralNode
+{
+    double bias;
+public:
+    Neuron();
+    double activationFunction();
+    double sigmoidFunction();
+    double reluFunction();
+    double getBias();
+    std::vector<std::pair<double, double>> getOutputs();
+    std::vector<std::pair<double, double>> getInputs();
+};
+
+template<class NeuralNode>
+struct Layer
+{
+    std::vector<NeuralNode> nodes;
 };
 
 class NeuralNetWork
 {
-    std::vector<Layer> hiddenLayers;
-    Layer outputLayer;
+    std::vector<NetworkInput> inputLayer;
+    std::vector<NetworkOutput> outputLayer;
 };
+
 
 #endif // NEURALNETWORK_H_
