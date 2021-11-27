@@ -1,4 +1,4 @@
-#include "../include/NeuralNetwork.hpp"
+#include "../include/ANN.hpp"
 
 NetworkInput::NetworkInput(double t_inputValue) : inputValue(t_inputValue) {}
 

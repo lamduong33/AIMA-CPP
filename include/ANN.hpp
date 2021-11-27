@@ -1,5 +1,5 @@
-#ifndef NEURALNETWORK_H_
-#define NEURALNETWORK_H_
+#ifndef ANN_H_
+#define ANN_H_
 
 #include <vector>
 #include <memory> // smart pointers
@@ -65,4 +65,4 @@ class NeuralNetWork
 };
 
 
-#endif // NEURALNETWORK_H_
+#endif // ANN_H_
