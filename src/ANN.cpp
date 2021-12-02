@@ -7,7 +7,7 @@ double Neuron::activationFunction()
     double result = 0.0;
     for (auto& input : this->inputs)
     {
-        result += input.first * input.second;
+        //result += input.first * input.second;
     }
     result += this->bias;
     return result;
