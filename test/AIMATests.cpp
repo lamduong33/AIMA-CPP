@@ -2,12 +2,15 @@
 #include <catch2/catch.hpp> // NOTE: assuming intalled via package manager.
 #include <iostream>
 //#include "catch2.hpp" // NOTE: assuming catch.hpp is in local dir
-#include "../include/NeuralNetwork.hpp"
+#include "../include/ANN.hpp"
 
-TEST_CASE("BinaryTree Order Test 1")
+TEST_CASE("ANN Test 1")
 {
-    std::vector<double> inputs;
-    inputs.push_back(20.3);
+    Neuron neuron1{};
+    Neuron neuron2{};
+    Neuron neuron3{};
+    Neuron neuron4{};
+    Neuron neuron5{};
 }
 
 int main(int argc, char *argv[])
