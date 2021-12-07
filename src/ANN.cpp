@@ -1,38 +1,26 @@
 #include "../include/ANN.hpp"
 
-/* ============================== NEURON ===================================== */
-
-Neuron::Neuron() : bias{0.0} {}
-
-double Neuron::sigmoidFunction(std::vector<double>& inputs,
-                               std::vector<double>& weights)
+double Neuron::sigmoidFunction()
 {
-    return (1 / (1 + (exp(-activationInput(inputs, weights)))));
+    return (1 / (1 + (exp(-activationInput()))));
 }
 
-/* ReLu function makes the net non-linear. */
-double Neuron::reluFunction(std::vector<double>& inputs,
-                            std::vector<double>& weights)
-{
-    return std::fmax(0.0, activationInput(inputs, weights));
-}
+double Neuron::reluFunction() { return std::fmax(0.0, activationInput()); }
 
-double Neuron::activationInput(std::vector<double>& inputs,
-                               std::vector<double>& weights)
+double Neuron::activationInput()
 {
     double result = 0.0;
-    if (inputs.size() != weights.size())
-        throw new std::exception;
-    for (int i = 0; i < (int)inputs.size(); i++)
+    for (int i = 0; i < (int)this->inputWeights.size(); i++)
     {
-        result += inputs[i] * weights[i];
+        // input is output of the incoming input neuron
+        auto input = inputWeights[i].getDestination().getOutput();
+        auto weight = inputWeights[i].getValue();
+        result += (input * weight);
     }
     return result += this->bias;
 }
 
 double Neuron::getBias() { return this->bias; }
-
-/* ============================== WEIGHT ===================================== */
 
 Weight::Weight(Neuron& t_source, Neuron& t_destination)
     : source{t_source}, destination{t_destination}
@@ -60,4 +48,38 @@ void Weight::setDestination(Neuron& t_destination)
     this->destination = t_destination;
 }
 
-/* ============================== LAYER ===================================== */
+Layer::Layer() : layer{vector<Neuron>()} {}
+void Layer::insert(Neuron& neuron) { this->layer.push_back(neuron); }
+Neuron Layer::getNeuron(int index) { return this->layer[index]; }
+vector<Neuron> Layer::getLayer() { return this->layer; }
+
+NeuralNetwork::NeuralNetwork()
+    : inputLayer{Layer()}, hiddenLayers{vector<Layer>()}, outputLayer(Layer())
+{
+    NeuralNetwork(3);
+}
+
+NeuralNetwork::NeuralNetwork(int t_inputSize)
+    : inputLayer{Layer()}, hiddenLayers{vector<Layer>()}, outputLayer(Layer())
+{
+    // Input layer
+    for (int i = 0; i < t_inputSize; i++)
+    {
+        Neuron newNeuron{};
+        inputLayer.insert(newNeuron);
+    }
+    // No hidden layers, but one output layer with one neuron
+    Neuron outputNeuron{};
+    outputLayer.insert(outputNeuron);
+    // Assign weights
+    for (auto& inputNeuron : inputLayer.getLayer())
+    {
+        Weight newWeight(inputNeuron, outputNeuron);
+        outputLayer.insert(outputNeuron);
+    }
+}
+
+Layer NeuralNetwork::getInputLayer() { return this->inputLayer; }
+vector<Layer> NeuralNetwork::getHiddenLayers() { return this->hiddenLayers; }
+vector<Weight> NeuralNetwork::getWeights() { return this->weights;}
+Layer NeuralNetwork::getOutputLayer() { return this->outputLayer;}
