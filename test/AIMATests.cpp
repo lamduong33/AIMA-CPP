@@ -4,13 +4,33 @@
 //#include "catch2.hpp" // NOTE: assuming catch.hpp is in local dir
 #include "../include/ANN.hpp"
 
-TEST_CASE("ANN Test 1")
+/* Sanity check to ensure that objects are instantiation correctly. */
+TEST_CASE("NeuralNetwork Test 1")
 {
-    Neuron neuron1{};
-    Neuron neuron2{};
-    Neuron neuron3{};
-    Neuron neuron4{};
-    Neuron neuron5{};
+    NeuralNetwork net(5);
+
+    // Input layer test
+    REQUIRE(net.getInputLayer().getLayer().size() == 5);
+    auto n1 = net.getInputLayer().getNeuron(0);
+    auto n2 = net.getInputLayer().getNeuron(1);
+    auto n3 = net.getInputLayer().getNeuron(2);
+    auto n4 = net.getInputLayer().getNeuron(3);
+    auto n5 = net.getInputLayer().getNeuron(4);
+    REQUIRE((&n1 != &n2) && (&n1 != &n3) && (&n1 != &n4) && (&n1 != &n5));
+
+    // Hidden layers test
+    REQUIRE(net.getHiddenLayers().empty());
+
+    // Output test
+    REQUIRE(!net.getOutputLayer().getLayer().empty());
+    REQUIRE(net.getOutputLayer().getLayer()[0].getBias() == 0.0);
+    REQUIRE(net.getOutputLayer().getLayer()[0].getOutput() == 0.0);
+
+    // Test weights
+    for (auto& weight : net.getWeights())
+    {
+
+    }
 }
 
 int main(int argc, char *argv[])
