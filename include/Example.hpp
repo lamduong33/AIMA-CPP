@@ -9,17 +9,16 @@
 /* A class made for individual examples for learning.*/
 class Example
 {
+    std::map<std::string, Attribute> m_attributes;
+    bool goal;
+    Attribute m_mainAttribute;
 public:
     Example(std::map<std::string, Attribute>& t_attributes,
             Attribute& t_mainAttribute);
     std::string getAttributeValueString(std::string t_attributeName);
     double getAttributeValue(std::string t_attributeName);
     Attribute getMainAttribute();
-
-private:
-    // Attribute attribute;
-    std::map<std::string, Attribute> m_attributes;
-    Attribute m_mainAttribute;
+    bool getGoal();
 };
 
 #endif

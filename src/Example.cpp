@@ -20,3 +20,5 @@ double Example::getAttributeValue(std::string t_attributeName)
 }
 
 Attribute Example::getMainAttribute() { return m_mainAttribute; }
+
+bool Example::getGoal() { return this->goal; }
