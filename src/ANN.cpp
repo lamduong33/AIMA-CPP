@@ -1,6 +1,6 @@
 #include "../include/ANN.hpp"
 
-Neuron::Neuron() : bias{0.0} {}
+Neuron::Neuron() : bias{0.0}, output{0.0} {}
 
 double Neuron::sigmoidFunction(std::vector<double>& inputs,
         std::vector<double>& weights)
@@ -25,6 +25,7 @@ double Neuron::activationInput(std::vector<double>& inputs,
 }
 
 double Neuron::getBias() { return this->bias; }
+double Neuron::getOutput() { return this->output; }
 
 Weight::Weight(Neuron& t_source, Neuron& t_destination)
     : source{t_source}, destination{t_destination}

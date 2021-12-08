@@ -16,7 +16,10 @@ TEST_CASE("NeuralNetwork Test 1")
     auto n3 = net.getInputLayer().getNeuron(2);
     auto n4 = net.getInputLayer().getNeuron(3);
     auto n5 = net.getInputLayer().getNeuron(4);
-    REQUIRE((&n1 != &n2) && (&n1 != &n3) && (&n1 != &n4) && (&n1 != &n5));
+    REQUIRE(&n1 != &n2);
+    REQUIRE(&n1 != &n3);
+    REQUIRE(&n1 != &n4);
+    REQUIRE(&n1 != &n5);
 
     // Hidden layers test
     REQUIRE(net.getHiddenLayers().empty());
@@ -29,7 +32,6 @@ TEST_CASE("NeuralNetwork Test 1")
     // Test weights
     for (auto& weight : net.getWeights())
     {
-
     }
 }
 
