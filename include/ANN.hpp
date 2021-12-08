@@ -46,8 +46,8 @@ public:
 
 class Weight
 {
-    Neuron& source;
-    Neuron& destination;
+    Neuron source;
+    Neuron destination;
     double weightValue;
 
 public:
@@ -79,6 +79,8 @@ public:
     vector<Neuron> getLayer();
 };
 
+/**
+ * A feed-forward network. */
 class NeuralNetwork
 {
 
@@ -94,7 +96,8 @@ public:
     NeuralNetwork();
 
     /**
-     * Given input size, create a perceptron with given input size. */
+     * Given input size, create a perceptron with given input size. This is
+    similar to a linear regression model. */
     NeuralNetwork(int t_inputSize);
 
     // TODO: Constructor to construct neural network from text file.
