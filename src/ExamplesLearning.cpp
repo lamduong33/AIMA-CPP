@@ -4,15 +4,13 @@
  */
 #include <iostream>
 #include "../include/ExamplesLearning.hpp"
-#include "../include/Attribute.hpp"
-#include "../include/Example.hpp"
-#include "../include/DecisionTree.hpp"
 
 /* A Decision Tree learning algorithm that will return a tree given
  * a set of examples. This set of examples will have a corresponding
  * attributes that match up with the examples' attributes.
  * Inspiration from the alogirthm by Russell and Norvyg, 3rd Ed. */
-DecisionTree<double> decisionTreeLearning(std::vector<Example> t_examples,
+template <class T>
+DecisionTree<T> decisionTreeLearning(std::vector<Example> t_examples,
     std::vector<Attribute> t_attributes, std::vector<Example> t_parentExamples)
 {
     DecisionTree<double> resultTree;
@@ -22,7 +20,7 @@ DecisionTree<double> decisionTreeLearning(std::vector<Example> t_examples,
     // the training set have been observed for these attribute values.
     if (t_examples.empty())
     {
-        resultTree = pluralityValue(t_parentExamples);
+        resultTree = pluralityValue<T>(t_parentExamples);
     }
 
     // Else if all examples have the same classification then return --the classification
@@ -39,7 +37,7 @@ DecisionTree<double> decisionTreeLearning(std::vector<Example> t_examples,
     // 
     else if (t_attributes.empty())
     {
-        resultTree = pluralityValue(t_examples);
+        resultTree = pluralityValue<T>(t_examples);
     }
     else
     {
@@ -52,6 +50,7 @@ DecisionTree<double> decisionTreeLearning(std::vector<Example> t_examples,
 
 /* Selects the most common output values among a set of examples, 
  * breaking ties randomly.*/
+template <class T>
 DecisionTree<double> pluralityValue(std::vector<Example> t_examples)
 {
     DecisionTree<double> decisionTree;
