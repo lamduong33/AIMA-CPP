@@ -8,12 +8,6 @@
 #include "../include/Example.hpp"
 #include "../include/DecisionTree.hpp"
 
-
-int main()
-{
-
-    return 0;
-}
 /* A Decision Tree learning algorithm that will return a tree given
  * a set of examples. This set of examples will have a corresponding
  * attributes that match up with the examples' attributes.
