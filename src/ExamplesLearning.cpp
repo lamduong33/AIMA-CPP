@@ -75,7 +75,7 @@ DecisionTree<double> pluralityValue(std::vector<Example> t_examples)
  * on an attribute, A, and the expected reduction in entropy.
  * This returns the amount of bits (from 0 to 1), so it should not
  * return anything that's not in between that range. */
-int importance(std::string attribute, std::vector<Example> examples)
+int importance(std::string& attribute, std::vector<Example> examples)
 {
     // Find entropy, H(attribute)
     // Find Remainder(attribute)
