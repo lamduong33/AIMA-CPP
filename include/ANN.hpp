@@ -1,5 +1,5 @@
-#ifndef ANN_H_
-#define ANN_H_
+#ifndef ANN_HPP_
+#define ANN_HPP_
 
 #include <cmath>
 #include <memory>
@@ -11,31 +11,25 @@ using rng_engine = std::default_random_engine;
 using rng_distribution = std::uniform_real_distribution<double>;
 using std::vector;
 
-class Weight; // declare weight ahead of time for use in Neuron. Neuron needs to
-              // know Weight and Weight needs to know Neuron.
-
 /* A neuron is meant to be in the layers between the NetworkInput nodes and
  * NetworkOutput nodes. */
 class Neuron
 {
-    vector<Weight> inputWeights;
     double bias;
     double output;
 public:
 
     Neuron();
-    /**
-     * Create the Neuron with given input+output weights.
-     * TODO: Make sure that the constructor is only called once during making
-    Neural NEt. */
-    Neuron(const vector<Weight>& t_inputWeights, const vector<Weight>& t_outputWeights);
 
     /* Sigmoid activation function: 1 / (1 + e^-x) */
-    double sigmoidFunction();
+    double sigmoidFunction(std::vector<double>& inputs,
+        std::vector<double>& weights);
     /* ReLU (rectifier) activation function: max(0,x) */
-    double reluFunction();
+    double reluFunction(std::vector<double>& inputs,
+        std::vector<double>& weights);
     /* Calculate x for different activation functions, such as sigmoid and ReLu. */
-    double activationInput();
+    double activationInput(std::vector<double>& inputs,
+        std::vector<double>& weights);
 
     double getBias();
 
@@ -108,4 +102,4 @@ public:
     Layer getOutputLayer();
 };
 
-#endif // ANN_H_
+#endif // ANN_HPP_

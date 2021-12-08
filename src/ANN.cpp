@@ -1,21 +1,25 @@
 #include "../include/ANN.hpp"
 
-double Neuron::sigmoidFunction()
+Neuron::Neuron() : bias{0.0} {}
+
+double Neuron::sigmoidFunction(std::vector<double>& inputs,
+        std::vector<double>& weights)
 {
-    return (1 / (1 + (exp(-activationInput()))));
+    return (1 / (1 + (exp(-activationInput(inputs, weights)))));
 }
 
-double Neuron::reluFunction() { return std::fmax(0.0, activationInput()); }
+double Neuron::reluFunction(std::vector<double>& inputs,
+        std::vector<double>& weights)
+{ return std::fmax(0.0, activationInput(inputs, weights)); }
 
-double Neuron::activationInput()
+double Neuron::activationInput(std::vector<double>& inputs,
+        std::vector<double>& weights)
 {
     double result = 0.0;
-    for (int i = 0; i < (int)this->inputWeights.size(); i++)
+    for (int i = 0; i < (int)inputs.size(); i++)
     {
         // input is output of the incoming input neuron
-        auto input = inputWeights[i].getDestination().getOutput();
-        auto weight = inputWeights[i].getValue();
-        result += (input * weight);
+        result += (inputs[i] * weights[i]);
     }
     return result += this->bias;
 }
@@ -65,7 +69,7 @@ NeuralNetwork::NeuralNetwork(int t_inputSize)
     // Input layer
     for (int i = 0; i < t_inputSize; i++)
     {
-        Neuron newNeuron{};
+        Neuron newNeuron;
         inputLayer.insert(newNeuron);
     }
     // No hidden layers, but one output layer with one neuron
