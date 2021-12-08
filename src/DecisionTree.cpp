@@ -80,5 +80,3 @@ template <class T> std::string DecisionTreeLeaf<T>::toString()
 {
     return "Decision: " + this->m_attributeValue;
 }
-
-int main() { return 0; }
