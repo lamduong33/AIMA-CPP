@@ -21,7 +21,7 @@ INCFILES = $(INCDIR)/*.hpp
 
 all: $(TARGET)
 $(TARGET): $(GUIDIR)/$(TARGET).cpp
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SRCFILES)
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(GUIFILES) $(SRCFILES)
 test: $(TESTS)
 $(TESTS): $(TESTDIR)/$(TESTS).cpp
 	$(CXX) $(TESTDIR)/$(TESTS).cpp -o $(TESTS) $(SRCDIR)/*.cpp
