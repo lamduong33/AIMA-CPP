@@ -14,8 +14,7 @@ public:
     DecisionTree();
 
     /* Default constructor that takes in a string */
-    explicit DecisionTree(std::string &t_attributeName)
-        : attributeName{t_attributeName}, nodes{} {}
+    explicit DecisionTree(std::string& t_attributeName);
 
     /* Add a leaf to the tree. Just like adding a node, but since the node
      * here ends, it is adding a leaf. */
@@ -25,7 +24,7 @@ public:
     virtual T predict(Example t_example);
 
 private:
-    std::map<std::string, DecisionTree> *nodes;
+    std::map<std::string, DecisionTree> nodes;
     std::string attributeName;
 };
 
