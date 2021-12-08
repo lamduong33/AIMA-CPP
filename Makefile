@@ -3,22 +3,24 @@
 # Author: Lam Duong
 #
 # Compiler setup
-CXXFLAGS = -std=c++20 -g -Wall -I $(INCDIR)
+CXXFLAGS = $(pkg-config --cflags --libs Qt5Widgets) -std=c++20 -g -Wall -fPIC -I$(INCDIR)
 CXX = clang++
 
 # Directory setup
 INCDIR := include
 SRCDIR := src
 BINDIR := bin
+GUIDIR := gui
 TESTDIR := test
 
-TARGET = AIMACPP
+TARGET = AIMA
 TESTS = Tests
 SRCFILES = $(SRCDIR)/*.cpp
+GUIFILES = $(GUIDIR)/*.cpp
 INCFILES = $(INCDIR)/*.hpp
 
 all: $(TARGET)
-$(TARGET): $(SRCDIR)/$(TARGET).cpp
+$(TARGET): $(GUIDIR)/$(TARGET).cpp
 	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SRCFILES)
 test: $(TESTS)
 $(TESTS): $(TESTDIR)/$(TESTS).cpp
