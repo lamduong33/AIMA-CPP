@@ -4,11 +4,10 @@
  * ----------------------------------------------------------------------------
  *  Take in string file names for training data and testing data respectively.
  */
-DataSet::DataSet(std::string t_testingFileName, std::string t_trainingFileName)
-{
-    this->m_trainingFileName = t_trainingFileName;
-    this->m_testingFileName = t_testingFileName;
-}
+DataSet::DataSet(std::string t_trainingFileName, std::string t_testingFileName):
+    m_trainingFileName{t_trainingFileName},
+    m_testingFileName{t_testingFileName},
+    labels{std::vector<double>()} {}
 
 /* getData()
  * ----------------------------------------------------------------------------
@@ -31,10 +30,6 @@ void DataSet::getData()
         std::vector<std::string> moleculeData;
         while (std::getline(trainingFile, moleculeString))
         {
-
-            arma::Row<int> rowVector;
-            rowVector.load(moleculeString);
-            std::cout << rowVector << std::endl;
         }
     }
 }
