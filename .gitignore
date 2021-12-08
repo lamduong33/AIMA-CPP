@@ -13,9 +13,9 @@ include/*
 !include/*.hpp
 
 # Only cpp files within test, prevent binary inclusion
-!test/
-test/*
-!test/*.cpp
+!tests/
+tests/*
+!tests/*.cpp
 
 
 # Only cpp files within test, prevent binary inclusion
