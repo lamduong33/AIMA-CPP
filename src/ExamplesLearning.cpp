@@ -18,10 +18,10 @@ int main()
  * a set of examples. This set of examples will have a corresponding
  * attributes that match up with the examples' attributes.
  * Inspiration from the alogirthm by Russell and Norvyg, 3rd Ed. */
-DecisionTree decisionTreeLearning(std::vector<Example> t_examples,
-    Attributes t_attributes, std::vector<Example> t_parentExamples)
+DecisionTree<double> decisionTreeLearning(std::vector<Example> t_examples,
+    std::vector<Attribute> t_attributes, std::vector<Example> t_parentExamples)
 {
-    DecisionTree resultTree;
+    DecisionTree<double> resultTree;
 
     // if examples is empty then return Plurality-Value(parentExamples)
     // No examples mean that for this tree, there are no examples from
@@ -43,7 +43,7 @@ DecisionTree decisionTreeLearning(std::vector<Example> t_examples,
 
     // else if attributes is empty, then return Plurality-Value(examples)
     // 
-    else if (t_attributes.getMap().empty)
+    else if (t_attributes.empty())
     {
         resultTree = pluralityValue(t_examples);
     }
@@ -58,9 +58,9 @@ DecisionTree decisionTreeLearning(std::vector<Example> t_examples,
 
 /* Selects the most common output values among a set of examples, 
  * breaking ties randomly.*/
-DecisionTree pluralityValue(std::vector<Example> t_examples)
+DecisionTree<double> pluralityValue(std::vector<Example> t_examples)
 {
-    DecisionTree decisionTree;
+    DecisionTree<double> decisionTree;
 
     // Iterate through the examples
     for (auto const& example: t_examples)
@@ -80,6 +80,7 @@ int importance(std::string attribute, std::vector<Example> examples)
     // Find entropy, H(attribute)
     // Find Remainder(attribute)
     // Find Gain(attribute)
+    return 0; // temporary
 }
 
 /* Simple method that determines whether all examples have the same classiication.*/
@@ -87,7 +88,7 @@ bool sameClassification(std::vector<Example> examples)
 {
     bool sameClassification = true;
     bool goal;
-    for (int index = 0; index < examples.size; index++)
+    for (int index = 0; index < examples.size(); index++)
     {
         if (index == 0)
         {

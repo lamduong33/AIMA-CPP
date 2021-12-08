@@ -13,9 +13,9 @@
 #include "Example.hpp"
 #include "DecisionTree.hpp"
 
-DecisionTree decisionTreeLearning(std::vector<Example> t_examples,
+DecisionTree<double> decisionTreeLearning(std::vector<Example> t_examples,
     std::vector<Attribute> t_attributes, std::vector<Example> t_parentExamples);
-DecisionTree pluralityValue(std::vector<Example> t_examples);
+DecisionTree<double> pluralityValue(std::vector<Example> t_examples);
 int importance(Attribute attribute, std::vector<Example> examples);
 bool sameClassification(std::vector<Example> examples);
 
