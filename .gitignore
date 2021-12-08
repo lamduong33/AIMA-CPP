@@ -16,3 +16,9 @@ include/*
 !test/
 test/*
 !test/*.cpp
+
+
+# Only cpp files within test, prevent binary inclusion
+!gui/
+gui/*
+!gui/*.cpp
