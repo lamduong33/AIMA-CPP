@@ -3,7 +3,7 @@
 # Author: Lam Duong
 #
 # Compiler setup
-CXXFLAGS = $(pkg-config --cflags --libs Qt5Widgets) -std=c++20 -g -Wall -fPIC -I$(INCDIR)
+CXXFLAGS = `pkg-config --cflags --libs Qt5Widgets` -std=c++20 -g -Wall -fPIC -I $(INCDIR)
 CXX = clang++
 
 # Directory setup
