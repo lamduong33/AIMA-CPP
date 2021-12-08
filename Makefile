@@ -12,7 +12,7 @@ INCDIR := include
 SRCDIR := src
 BINDIR := bin
 GUIDIR := gui
-TESTDIR := test
+TESTDIR := tests
 
 TARGET = AIMA
 TESTS = AIMATests
@@ -23,7 +23,7 @@ INCFILES = $(INCDIR)/*.hpp
 all: $(TARGET)
 $(TARGET): $(GUIDIR)/$(TARGET).cpp
 	$(CXX) $(GUIFLAGS) $(CXXFLAGS) -o $(TARGET) $(GUIFILES) $(SRCFILES)
-test: $(TESTS)
+tests: $(TESTS)
 $(TESTS): $(TESTDIR)/$(TESTS).cpp
 	$(CXX) $(CXXFLAGS) $(TESTDIR)/$(TESTS).cpp -o $(TESTS) $(SRCDIR)/*.cpp
 clean:
