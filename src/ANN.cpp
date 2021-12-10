@@ -46,6 +46,7 @@ Weight::Weight(Neuron& t_source, Neuron& t_destination, double startRange,
 
 Neuron Weight::getSource() { return this->source; }
 Neuron Weight::getDestination() { return this->destination; }
+double Weight::getValue() { return this->weightValue; }
 
 void Weight::setSource(Neuron& t_source) { this->source = t_source; }
 void Weight::setDestination(Neuron& t_destination)
@@ -80,7 +81,7 @@ NeuralNetwork::NeuralNetwork(int t_inputSize)
     for (auto& inputNeuron : inputLayer.getLayer())
     {
         Weight newWeight(inputNeuron, outputNeuron);
-        outputLayer.insert(outputNeuron);
+        this->weights.push_back(newWeight);
     }
 }
 
