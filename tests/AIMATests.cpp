@@ -7,19 +7,22 @@
 /* Sanity check to ensure that objects are instantiation correctly. */
 TEST_CASE("NeuralNetwork Test 1")
 {
-    NeuralNetwork net(5);
+    auto numberOfInputs = 5;
+    NeuralNetwork net(numberOfInputs);
 
-    // Input layer test
-    REQUIRE(net.getInputLayer().getLayer().size() == 5);
-    auto n1 = net.getInputLayer().getNeuron(0);
-    auto n2 = net.getInputLayer().getNeuron(1);
-    auto n3 = net.getInputLayer().getNeuron(2);
-    auto n4 = net.getInputLayer().getNeuron(3);
-    auto n5 = net.getInputLayer().getNeuron(4);
-    REQUIRE(&n1 != &n2);
-    REQUIRE(&n1 != &n3);
-    REQUIRE(&n1 != &n4);
-    REQUIRE(&n1 != &n5);
+    std::vector<Neuron> listOfNeurons;
+    for (int i = 0; i < numberOfInputs; i++)
+    {
+        if (i != numberOfInputs-1)
+        {
+            auto neuron = net.getInputLayer().getNeuron(i);
+            for (int j = i; j < numberOfInputs; j++)
+            {
+                auto neuron2 = net.getInputLayer().getNeuron(j);
+                REQUIRE(&neuron != &neuron2);
+            }
+        }
+    }
 
     // Hidden layers test
     REQUIRE(net.getHiddenLayers().empty());
@@ -30,8 +33,11 @@ TEST_CASE("NeuralNetwork Test 1")
     REQUIRE(net.getOutputLayer().getLayer()[0].getOutput() == 0.0);
 
     // Test weights
+    REQUIRE(!net.getWeights().empty());
     for (auto& weight : net.getWeights())
     {
+        REQUIRE(weight.getValue() < 1.0);
+        REQUIRE(weight.getValue() > -1.0);
     }
 }
 
