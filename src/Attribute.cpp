@@ -1,27 +1,30 @@
 #include "../include/Attribute.hpp"
 
-Attribute::Attribute()
+template <class T> Attribute<T>::Attribute()
 {
-    this->attributeName = "";
-    this->attributeValue = "";
+    this->m_attributeName = "";
+    this->m_attributeValue = T{};
 }
 
-Attribute::Attribute(std::string t_value, std::string t_name)
+template <class T> Attribute<T>::Attribute(T& t_value, std::string& t_name)
 {
-    this->attributeName = t_name;
-    this->attributeValue = t_value;
+    this->m_attributeName = t_name;
+    this->m_attributeValue = t_value;
 }
 
-std::string Attribute::getValue() { return this->attributeValue; }
+template <class T> T Attribute<T>::getValue() { return this->m_attributeValue; }
 
-std::string Attribute::getName() { return this->attributeName; }
-
-void Attribute::setName(const std::string t_name)
+template <class T> std::string Attribute<T>::getName()
 {
-    this->attributeName = t_name;
+    return this->m_attributeName;
 }
 
-void Attribute::setValue(const std::string t_value)
+template <class T> void Attribute<T>::setName(const std::string t_name)
 {
-    this->attributeValue = t_value;
+    this->m_attributeName = t_name;
+}
+
+template <class T> void Attribute<T>::setValue(T& t_value)
+{
+    this->m_attributeValue = t_value;
 }
