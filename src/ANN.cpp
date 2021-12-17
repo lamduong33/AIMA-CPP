@@ -3,17 +3,19 @@
 Neuron::Neuron() : bias{0.0}, output{0.0} {}
 
 double Neuron::sigmoidFunction(std::vector<double>& inputs,
-        std::vector<double>& weights)
+                               std::vector<double>& weights)
 {
     return (1 / (1 + (exp(-activationInput(inputs, weights)))));
 }
 
 double Neuron::reluFunction(std::vector<double>& inputs,
-        std::vector<double>& weights)
-{ return std::fmax(0.0, activationInput(inputs, weights)); }
+                            std::vector<double>& weights)
+{
+    return std::fmax(0.0, activationInput(inputs, weights));
+}
 
 double Neuron::activationInput(std::vector<double>& inputs,
-        std::vector<double>& weights)
+                               std::vector<double>& weights)
 {
     double result = 0.0;
     for (int i = 0; i < (int)inputs.size(); i++)
@@ -87,5 +89,5 @@ NeuralNetwork::NeuralNetwork(int t_inputSize)
 
 Layer NeuralNetwork::getInputLayer() { return this->inputLayer; }
 vector<Layer> NeuralNetwork::getHiddenLayers() { return this->hiddenLayers; }
-vector<Weight> NeuralNetwork::getWeights() { return this->weights;}
-Layer NeuralNetwork::getOutputLayer() { return this->outputLayer;}
+vector<Weight> NeuralNetwork::getWeights() { return this->weights; }
+Layer NeuralNetwork::getOutputLayer() { return this->outputLayer; }
