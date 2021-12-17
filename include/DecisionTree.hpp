@@ -3,6 +3,7 @@
 
 #include "Example.hpp"
 #include <map>
+#include <stdexcept>
 
 /* A Decision tree class. This class will have nodes and leaves. It
 will recursively add nodes and leaves. Leaves have their own special
