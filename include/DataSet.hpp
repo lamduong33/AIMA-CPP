@@ -1,20 +1,30 @@
 #ifndef DATASET_HPP
 #define DATASET_HPP
 
+#include "Example.hpp"
 #include <fstream>
-#include <iostream>
 #include <memory>
 #include <string>
-#include <vector>
 
+class NotCSVException : public std::exception
+{
+    virtual const char* what() const throw()
+    {
+        return "The file is not in a csv format";
+    }
+};
+
+/**
+ * A dataset object is simply a 2 dimensional matrix that takes has labels
+ * associated with the data. Each row of a DataSet is an "Example".*/
 class DataSet
 {
-    std::string m_trainingFileName;
-    std::string m_testingFileName;
-    std::vector<double> labels;
+    std::string m_fileName;
+    std::vector<double> m_labels;
+    std::vector<Example> m_examples;
+
 public:
-    // constructor
-    DataSet(std::string t_trainingFileName, std::string t_testingFileName);
+    DataSet(std::string& t_fileName);
     void getData();
 };
 

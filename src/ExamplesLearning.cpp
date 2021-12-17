@@ -1,6 +1,6 @@
 /*
  * @Author: Lam Duong
- * @Description: For learning from examples. 
+ * @Description: Learning from examples algorithms.
  */
 #include <iostream>
 #include "../include/ExamplesLearning.hpp"
