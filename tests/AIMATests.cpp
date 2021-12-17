@@ -3,6 +3,19 @@
 #include <iostream>
 //#include "catch2.hpp" // NOTE: assuming catch.hpp is in local dir
 #include "../include/ANN.hpp"
+#include "../include/DataSet.hpp"
+
+TEST_CASE("DataSet - file extensions")
+{
+    std::string fileName1 = "fakename.csv";
+    std::string fileName2 = "fakenamecsv";
+    std::string fileName3 = "fakename";
+    std::string fileName4 = "fakename.csv2";
+    REQUIRE_NOTHROW(DataSet{fileName1});
+    REQUIRE_THROWS(DataSet{fileName2});
+    REQUIRE_THROWS(DataSet{fileName3});
+    REQUIRE_THROWS(DataSet{fileName4});
+}
 
 /* Sanity check to ensure that objects are instantiation correctly. */
 TEST_CASE("NeuralNetwork Constructor Test 1")
@@ -10,7 +23,6 @@ TEST_CASE("NeuralNetwork Constructor Test 1")
     auto numberOfInputs = 5;
     NeuralNetwork net(numberOfInputs);
 
-    std::vector<Neuron> listOfNeurons;
     for (int i = 0; i < numberOfInputs; i++)
     {
         if (i != numberOfInputs-1)
