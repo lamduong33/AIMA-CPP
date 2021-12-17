@@ -42,6 +42,5 @@ void DataSet::getData()
 }
 
 std::vector<Example> DataSet::getExamples() { return this->m_examples; }
-
 std::string DataSet::getFileName() { return this->m_fileName; }
 std::vector<std::string> DataSet::getLabels() { return this->m_labels; }
