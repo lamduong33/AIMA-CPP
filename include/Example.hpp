@@ -2,7 +2,6 @@
 #define EXAMPLE_HPP
 
 #include <iostream>
-#include <map>
 #include <vector>
 
 /**
@@ -16,8 +15,8 @@ struct Labels
  * row of data in a table. An example is made of discrete variables for input
  * attributes.
  *
- * NOTE: Examples are meant for classification tasks. Do not use this for
- * regression tasks.
+ * NOTE: This class is used for categorical data.
+ *
  * */
 class Example
 {
