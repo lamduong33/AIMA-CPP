@@ -20,12 +20,18 @@ class NotCSVException : public std::exception
 class DataSet
 {
     std::string m_fileName;
-    std::vector<double> m_labels;
+    std::vector<std::string> m_labels;
     std::vector<Example> m_examples;
+    bool parsed;
 
 public:
+    DataSet();
     DataSet(std::string& t_fileName);
     void getData();
+
+    std::string getFileName();
+    std::vector<Example> getExamples();
+    std::vector<std::string> getLabels();
 };
 
 #endif
