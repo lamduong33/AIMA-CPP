@@ -5,7 +5,7 @@
 #include "../include/ANN.hpp"
 
 /* Sanity check to ensure that objects are instantiation correctly. */
-TEST_CASE("NeuralNetwork Test 1")
+TEST_CASE("NeuralNetwork Constructor Test 1")
 {
     auto numberOfInputs = 5;
     NeuralNetwork net(numberOfInputs);
