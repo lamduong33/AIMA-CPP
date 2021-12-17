@@ -1,8 +1,9 @@
 #ifndef EXAMPLE_HPP
 #define EXAMPLE_HPP
 
-#include <iostream>
 #include <vector>
+#include <string>
+#include <stdexcept>
 
 /**
  * This class holds the names for attributes of a dataset*/

@@ -61,13 +61,13 @@ void DecisionTreeLeaf<T>::setAttributeValue(std::string t_attributeValue)
 /*Override virtual function from Decision Tree class.*/
 template <class T> void DecisionTreeLeaf<T>::addLeaf()
 {
-    std::cout << "Cannot add leaf to a leaf!\n";
+    throw new std::runtime_error("Cannot add leaf to a leaf!\n");
 }
 
 /*Override virtual function from Decision Tree class.*/
 template <class T> void DecisionTreeLeaf<T>::addNode()
 {
-    std::cout << "Cannot add node to a leaf!\n";
+    throw new std::runtime_error("Cannot add node to a leaf!\n");
 }
 
 /*Override virtual function from Decision Tree class.*/

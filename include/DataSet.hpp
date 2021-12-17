@@ -3,16 +3,7 @@
 
 #include "Example.hpp"
 #include <fstream>
-#include <memory>
-#include <string>
-
-class NotCSVException : public std::exception
-{
-    virtual const char* what() const throw()
-    {
-        return "The file is not in a csv format";
-    }
-};
+#include <sstream>
 
 /**
  * A dataset object is simply a 2 dimensional matrix that takes has labels
@@ -38,9 +29,8 @@ public:
 
     /**
     * getData()
-    * @brief modify the DataSet object by opening the testing and training file
-    * put them in a 2 dimensional array (vector). */
-    void getData();
+    * @brief open the recorded data file, parse values, then assign values. */
+    void getData(); // TODO: finish making test cases for getData()
 
     std::string getFileName();
     std::vector<Example> getExamples();
@@ -50,6 +40,16 @@ public:
      * Append to the  */
     void addExamples(std::vector<Example> t_examples);
 
+};
+
+/**
+ * Exception for when a training/testing file is not a csv file. */
+class NotCSVException : public std::exception
+{
+    virtual const char* what() const throw()
+    {
+        return "The file is not in a csv format";
+    }
 };
 
 #endif
