@@ -13,10 +13,18 @@ Example::Example(std::string& t_exampleName,
 {}
 
 std::string Example::getExampleName() { return this->m_exampleName; }
-
 std::vector<std::string> Example::getAttributes()
 {
     return this->m_inputAttributes;
 }
-
 std::string Example::getOutput() { return this->m_output; }
+
+void Example::setExampleName(std::string& t_exampleName)
+{
+    this->m_exampleName = t_exampleName;
+}
+void Example::setAttributes(std::vector<std::string>& t_attributes)
+{
+    this->m_inputAttributes = t_attributes;
+}
+void Example::setOutputs(std::string& t_output) { this->m_output = t_output; }
