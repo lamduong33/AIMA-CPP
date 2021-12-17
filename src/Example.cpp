@@ -1,24 +1,22 @@
-#include "Example.hpp"
+#include "../include/Example.hpp"
 
-/*Standard constructor for example class. Must provide attributes and target
-attribute.*/
-Example::Example(std::map<std::string, Attribute>& t_attributes,
-                 Attribute& t_mainAttribute)
-    : m_attributes{t_attributes}, m_mainAttribute{t_mainAttribute} {};
+Example::Example()
+    : m_exampleName{std::string{}},
+      m_inputAttributes{std::vector<std::string>{}}, m_output{std::string{}}
+{}
 
-/*Get the value of the attribute as a string.*/
-std::string Example::getAttributeValueString(std::string t_attributeName)
+Example::Example(std::string& t_exampleName,
+                 std::vector<std::string>& t_inputAttributes,
+                 std::string& t_output)
+    : m_exampleName{t_exampleName},
+      m_inputAttributes{t_inputAttributes}, m_output{t_output}
+{}
+
+std::string Example::getExampleName() { return this->m_exampleName; }
+
+std::vector<std::string> Example::getAttributes()
 {
-    return m_attributes.at(t_attributeName).getValue();
+    return this->m_inputAttributes;
 }
 
-/*Get attribute value as a double. Some conversion is required.*/
-double Example::getAttributeValue(std::string t_attributeName)
-{
-    auto targetAttribute = m_attributes.at(t_attributeName);
-    return std::stod(targetAttribute.getValue());
-}
-
-Attribute Example::getMainAttribute() { return m_mainAttribute; }
-
-bool Example::getGoal() { return this->goal; }
+std::string Example::getOutput() { return this->m_output; }
