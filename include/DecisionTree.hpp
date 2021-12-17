@@ -1,8 +1,8 @@
 #ifndef DECISIONTREE_HPP
 #define DECISIONTREE_HPP
 
-#include "Attribute.hpp"
 #include "Example.hpp"
+#include <map>
 
 /* A Decision tree class. This class will have nodes and leaves. It
 will recursively add nodes and leaves. Leaves have their own special
