@@ -18,19 +18,30 @@ DataSet::DataSet(std::string& t_fileName)
 void DataSet::getData()
 {
     // Get files
-    std::ifstream file;
-    file.open(this->m_fileName);
+    std::ifstream file{this->m_fileName};
+    if (!file)
+        throw new std::runtime_error("Error opening file" + m_fileName);
 
-    // Open training data file
-    if (file.is_open())
+    int exampleNum = 1;
+    std::vector<std::string> attributes;
+    std::string line, entry, temp; // for getting each line
+    while (file >> temp)
     {
-        // Add in individual molecule
-        std::string moleculeString;
-        std::vector<std::string> moleculeData;
-        while (std::getline(file, moleculeString))
+        attributes.clear();
+        std::getline(file, line);
+        std::stringstream stream(line);
+        while (std::getline(stream, entry, ','))
         {
+            attributes.push_back(entry);
         }
+        std::string exampleName = "x" + std::to_string(exampleNum);
+        std::string output = attributes.back();
+        attributes.pop_back();
+        this->m_examples.push_back(Example{exampleName, attributes, output});
     }
+
+    file.close();        // close to be sure
+    this->parsed = true; // hopefully everything is done correctly at this point.
 }
 
 std::vector<Example> DataSet::getExamples() { return this->m_examples; }
