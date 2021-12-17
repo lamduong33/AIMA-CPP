@@ -2,8 +2,9 @@
 #define DATASET_HPP
 
 #include "Example.hpp"
-#include <fstream>
-#include <sstream>
+#include <fstream> // for parsing files
+#include <sstream> // for help in parsing files
+#include <stdexcept> // for throwing quick and dirty errors
 
 /**
  * A dataset object is simply a 2 dimensional matrix that takes has labels

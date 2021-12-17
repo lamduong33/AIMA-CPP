@@ -3,7 +3,6 @@
 
 #include <vector>
 #include <string>
-#include <stdexcept>
 
 /**
  * This class holds the names for attributes of a dataset*/
