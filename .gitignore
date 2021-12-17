@@ -17,8 +17,12 @@ include/*
 tests/*
 !tests/*.cpp
 
-
 # Only cpp files within test, prevent binary inclusion
 !gui/
 gui/*
 !gui/*.cpp
+
+# Datasets
+!datasets/
+datasets/*
+!datasets/*.csv
