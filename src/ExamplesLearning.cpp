@@ -11,7 +11,7 @@
  * Inspiration from the alogirthm by Russell and Norvyg, 3rd Ed. */
 template <class T>
 DecisionTree<T> decisionTreeLearning(std::vector<Example> t_examples,
-    std::vector<Attribute> t_attributes, std::vector<Example> t_parentExamples)
+    std::vector<std::string> t_attributes, std::vector<Example> t_parentExamples)
 {
     DecisionTree<double> resultTree;
 
@@ -80,19 +80,19 @@ int importance(std::string& attribute, std::vector<Example> examples)
 bool sameClassification(std::vector<Example> examples)
 {
     bool sameClassification = true;
-    bool goal;
+    std::string goal;
     for (int index = 0; index < examples.size(); index++)
     {
         if (index == 0)
         {
             // Set the goal to be matched intially
-            goal = examples[index].getGoal();
+            goal = examples[index].getOutput();
             continue;
         }
         else
         {
             // Continue, if goal is not the same, then false.
-            if (goal != examples[index].getGoal())
+            if (goal != examples[index].getOutput())
             {
                 sameClassification = false;
                 break;

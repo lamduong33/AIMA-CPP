@@ -26,7 +26,7 @@ void DecisionTree<T>::addLeaf(std::string t_attributeValue,
 
 template <class T> T DecisionTree<T>::predict(Example t_example)
 {
-    std::string value = t_example.getAttributeValueString(this->attributeName);
+    // std::string value = t_example.getAttributeValueString(this->attributeName);
     bool found = false;
 }
 
