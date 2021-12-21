@@ -23,6 +23,7 @@ void DataSet::getData()
         throw new std::runtime_error("Error opening file " + m_fileName);
 
     int exampleNum = 1;
+    auto firstLine = true;
     std::vector<std::string> attributes; // one row
     std::string line, entry, temp; // for getting each line
 
@@ -32,7 +33,15 @@ void DataSet::getData()
         std::stringstream stream(line);
         while (std::getline(stream, entry, ','))
         {
-            attributes.push_back(entry);
+            if (firstLine)
+                this->m_labels.push_back(entry);
+            else
+                attributes.push_back(entry);
+        }
+        if (firstLine)
+        {
+            firstLine = false;
+            break;
         }
         std::string exampleName = "x" + std::to_string(exampleNum++);
         std::string output = attributes.back();
