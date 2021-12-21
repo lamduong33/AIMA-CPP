@@ -19,9 +19,9 @@ class DataSet
 public:
 
     /**
-    * @brief An empty constructor that initializes the member variables. */
+    * @brief An empty constructor that initializes the member variables.
+    */
     DataSet();
-
 
     /**
     * @brief Constructor that takes in a file name, but without parsing.
@@ -29,7 +29,6 @@ public:
     DataSet(std::string& t_fileName);
 
     /**
-    * getData()
     * @brief open the recorded data file, parse values, then assign values. */
     void getData(); // TODO: finish making test cases for getData()
 
