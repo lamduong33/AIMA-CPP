@@ -41,7 +41,7 @@ void DataSet::getData()
         if (firstLine)
         {
             firstLine = false;
-            break;
+            continue;
         }
         std::string exampleName = "x" + std::to_string(exampleNum++);
         std::string output = attributes.back();
