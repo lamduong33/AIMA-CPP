@@ -12,7 +12,7 @@
 class DataSet
 {
     const std::string m_fileName; // filename is fixed, cannot change
-    std::vector<std::string> m_labels;
+    std::vector<std::string> m_labels; // NOTE: m_labels also include result
     std::vector<Example> m_examples;
     bool parsed;
 
