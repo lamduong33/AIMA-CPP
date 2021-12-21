@@ -18,25 +18,23 @@ DataSet::DataSet(std::string& t_fileName)
 void DataSet::getData()
 {
     // Get files
-    std::fstream file{this->m_fileName};
-    if (!file)
+    std::ifstream file{this->m_fileName};
+    if (!file.is_open())
         throw new std::runtime_error("Error opening file " + m_fileName);
-    else
-        file.open(this->m_fileName);
 
     int exampleNum = 1;
     std::vector<std::string> attributes; // one row
     std::string line, entry, temp; // for getting each line
-    while (file >> temp)
+
+    while (std::getline(file, line))
     {
         attributes.clear();
-        std::getline(file, line);
         std::stringstream stream(line);
         while (std::getline(stream, entry, ','))
         {
             attributes.push_back(entry);
         }
-        std::string exampleName = "x" + std::to_string(exampleNum);
+        std::string exampleName = "x" + std::to_string(exampleNum++);
         std::string output = attributes.back();
         attributes.pop_back();
         this->m_examples.push_back(Example{exampleName, attributes, output});
