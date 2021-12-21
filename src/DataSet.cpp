@@ -18,12 +18,14 @@ DataSet::DataSet(std::string& t_fileName)
 void DataSet::getData()
 {
     // Get files
-    std::ifstream file{this->m_fileName};
+    std::fstream file{this->m_fileName};
     if (!file)
-        throw new std::runtime_error("Error opening file" + m_fileName);
+        throw new std::runtime_error("Error opening file " + m_fileName);
+    else
+        file.open(this->m_fileName);
 
     int exampleNum = 1;
-    std::vector<std::string> attributes;
+    std::vector<std::string> attributes; // one row
     std::string line, entry, temp; // for getting each line
     while (file >> temp)
     {
