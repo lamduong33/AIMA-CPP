@@ -17,7 +17,7 @@ TEST_CASE("DataSet - file extensions")
     REQUIRE_THROWS(DataSet{fileName4});
 }
 
-TEST_CASE("DataSet - get data")
+TEST_CASE("DataSet - get data - exceptions")
 {
     std::string pathToData1 = "../datasets/restaurant.csv";
     std::string pathToData2 = "datasets/restaurant.csv";
@@ -25,6 +25,38 @@ TEST_CASE("DataSet - get data")
     DataSet ds2{pathToData2};
     REQUIRE_THROWS(ds1.getData());
     REQUIRE_NOTHROW(ds2.getData());
+}
+
+TEST_CASE("DataSet - get data - correct data")
+{
+    std::vector<std::string> row1{"Yes","No","No","Yes","Some","$$$","No","Yes","French","0-10"};
+    std::vector<std::string> row2{"Yes","No","No","Yes","Full","$","No","No","Thai","30-60"};
+    std::vector<std::string> row3{"No","Yes","No","No","Some","$","No","No","Burger","0-10"};
+    std::vector<std::string> row4{"Yes","No","Yes","Yes","Full","$","Yes","No","Thai","10-30"};
+    std::vector<std::string> row5{"Yes","No","Yes","No","Full","$$$","No","Yes","French",">60"};
+    std::vector<std::string> row6{"No","Yes","No","Yes","Some","$$","Yes","Yes","Italian","0-10"};
+    std::vector<std::string> row7{"No","Yes","No","No","None","$","Yes","No","Burger","0-10"};
+    std::vector<std::string> row8{"No","No","No","Yes","Some","$$","Yes","Yes","Thai","0-10"};
+    std::vector<std::string> row9{"No","Yes","Yes","No","Full","$","Yes","No","Burger",">60"};
+    std::vector<std::string> row10{"Yes","Yes","Yes","Yes","Full","$$$","No","Yes","Italian","10-30"};
+    std::vector<std::string> row11{"No","No","No","No","None","$","No","No","Thai","0-10"};
+    std::vector<std::string> row12{"Yes","Yes","Yes","Yes","Full","$","No","No","Burger","30-60"};
+    std::vector<std::vector<std::string>>rows{row1,row2,row3,row4,row5,row6,row7,row8,row9,row10,row11,row12};
+    std::vector<std::string> outputs{"Yes", "No", "Yes", "Yes", "No", "Yes", "No", "Yes", "No", "No", "No", "Yes"};
+
+    std::string path = "datasets/restaurant.csv";
+    DataSet ds{path};
+    ds.getData();
+    auto examples = ds.getExamples();
+    REQUIRE(!examples.empty());
+
+    for (int i = 1; i < examples.size(); i++)
+    {
+        auto example = examples[i - 1];
+        // Ensure that examples are the correct name, from 1 to n
+        REQUIRE(example.getExampleName() == ("x" + std::to_string(i)));
+        REQUIRE(example.getAttributes() == rows[i - 1]);
+    }
 }
 
 /* Sanity check to ensure that objects are instantiation correctly. */
@@ -35,7 +67,7 @@ TEST_CASE("NeuralNetwork Constructor Test 1")
 
     for (int i = 0; i < numberOfInputs; i++)
     {
-        if (i != numberOfInputs-1)
+        if (i != numberOfInputs - 1)
         {
             auto neuron = net.getInputLayer().getNeuron(i);
             for (int j = i; j < numberOfInputs; j++)
@@ -63,7 +95,7 @@ TEST_CASE("NeuralNetwork Constructor Test 1")
     }
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     int result = Catch::Session().run(argc, argv);
     return result;
