@@ -17,16 +17,6 @@ TEST_CASE("DataSet - file extensions")
     REQUIRE_THROWS(DataSet{fileName4});
 }
 
-TEST_CASE("DataSet - get data - exceptions")
-{
-    std::string pathToData1 = "../datasets/restaurant.csv";
-    std::string pathToData2 = "datasets/restaurant.csv";
-    DataSet ds1{pathToData1};
-    DataSet ds2{pathToData2};
-    REQUIRE_THROWS(ds1.getData());
-    REQUIRE_NOTHROW(ds2.getData());
-}
-
 TEST_CASE("DataSet - get data - correct data")
 {
     std::vector<std::string> row1{"Yes","No","No","Yes","Some","$$$","No","Yes","French","0-10"};
@@ -44,13 +34,17 @@ TEST_CASE("DataSet - get data - correct data")
     std::vector<std::vector<std::string>>rows{row1,row2,row3,row4,row5,row6,row7,row8,row9,row10,row11,row12};
     std::vector<std::string> outputs{"Yes", "No", "Yes", "Yes", "No", "Yes", "No", "Yes", "No", "No", "No", "Yes"};
 
+    // Ensure a bad path throws an error
+    std::string badPath = "..datasets/restaurant.csv";
+    REQUIRE_THROWS(DataSet{badPath}.getData());
+
     std::string path = "datasets/restaurant.csv";
     DataSet ds{path};
-    ds.getData();
+    REQUIRE_NOTHROW(ds.getData());
     auto examples = ds.getExamples();
     REQUIRE(!examples.empty());
 
-    for (int i = 1; i < examples.size(); i++)
+    for (int i = 1; i < (int)examples.size(); i++)
     {
         auto example = examples[i - 1];
         // Ensure that examples are the correct name, from 1 to n
