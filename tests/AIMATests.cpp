@@ -17,6 +17,16 @@ TEST_CASE("DataSet - file extensions")
     REQUIRE_THROWS(DataSet{fileName4});
 }
 
+TEST_CASE("DataSet - get data")
+{
+    std::string pathToData1 = "../datasets/restaurant.csv";
+    std::string pathToData2 = "datasets/restaurant.csv";
+    DataSet ds1{pathToData1};
+    DataSet ds2{pathToData2};
+    REQUIRE_THROWS(ds1.getData());
+    REQUIRE_NOTHROW(ds2.getData());
+}
+
 /* Sanity check to ensure that objects are instantiation correctly. */
 TEST_CASE("NeuralNetwork Constructor Test 1")
 {
