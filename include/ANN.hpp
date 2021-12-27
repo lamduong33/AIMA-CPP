@@ -7,8 +7,6 @@
 #include <string>
 #include <vector>
 
-using rng_engine = std::default_random_engine;
-using rng_distribution = std::uniform_real_distribution<double>;
 using std::vector;
 
 /* A neuron is meant to be in the layers between the NetworkInput nodes and

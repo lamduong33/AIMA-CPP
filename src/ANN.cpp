@@ -1,5 +1,7 @@
 #include "../include/ANN.hpp"
 
+/**
+ * @brief Default constructor with 0 bias and 0 output. */
 Neuron::Neuron() : bias{0.0}, output{0.0} {}
 
 double Neuron::sigmoidFunction(std::vector<double>& inputs,
@@ -16,7 +18,8 @@ double Neuron::reluFunction(std::vector<double>& inputs,
 
 /**
  * @brief intermediate function used for activation functions, such as
- * sigmoidFunction and reluFunction. The list of inputs and weights should be equal
+ * sigmoidFunction and reluFunction.
+ * @throws UnevenWeightInputs when list of inputs and weights are not equal.
  * @param inputs a list of incoming input values from the previous neurons
  * @param weights the weights associated with those inputs */
 double Neuron::activationInput(std::vector<double>& inputs,
@@ -32,24 +35,32 @@ double Neuron::activationInput(std::vector<double>& inputs,
     return result += this->bias;
 }
 
+/**
+ * @brief return the bias member variable. */
 double Neuron::getBias() { return this->bias; }
+
+/**
+ * @brief return the output member variable. */
 double Neuron::getOutput() { return this->output; }
 
+/**
+ * @brief Create the weight object with source and destination
+ * @details Using RNG, create  */
 Weight::Weight(Neuron& t_source, Neuron& t_destination)
     : source{t_source}, destination{t_destination}
 {
-    rng_engine r{};
-    rng_distribution defaultRange{-1.0, 1.0};
-    weightValue = defaultRange(r);
+    static std::default_random_engine rng;
+    std::uniform_real_distribution<double> dist(-1.0, 1.0);
+    weightValue = dist(rng);
 }
 
 Weight::Weight(Neuron& t_source, Neuron& t_destination, double startRange,
                double endRange)
     : source{t_source}, destination{t_destination}
 {
-    rng_engine r{};
-    rng_distribution range{startRange, endRange};
-    weightValue = range(r);
+    static std::default_random_engine rng;
+    std::uniform_real_distribution<double> dist(startRange, endRange);
+    weightValue = dist(rng);
 }
 
 Neuron Weight::getSource() { return this->source; }
