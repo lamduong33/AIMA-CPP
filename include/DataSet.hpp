@@ -18,26 +18,15 @@ class DataSet
 
 public:
 
-    /**
-    * @brief An empty constructor that initializes the member variables.
-    */
     DataSet();
-
-    /**
-    * @brief Constructor that takes in a file name, but without parsing.
-    * @throw NotCSVException if file extension is not .csv */
     DataSet(std::string& t_fileName);
 
-    /**
-    * @brief open the recorded data file, parse values, then assign values. */
     void getData(); // TODO: finish making test cases for getData()
 
     std::string getFileName();
     std::vector<Example> getExamples();
     std::vector<std::string> getLabels();
 
-    /**
-     * Append to the  */
     void addExamples(std::vector<Example> t_examples);
 
 };

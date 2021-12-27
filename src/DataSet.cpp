@@ -1,10 +1,16 @@
 #include "../include/DataSet.hpp"
 
+/**
+ * @brief An empty constructor that initializes the member variables.
+ */
 DataSet::DataSet()
     : m_fileName{std::string{}}, m_labels{std::vector<std::string>{}},
       m_examples{std::vector<Example>{}}, parsed{false}
 {}
 
+/**
+ * @brief Constructor that takes in a file name, but without parsing.
+ * @throw NotCSVException if file extension is not .csv */
 DataSet::DataSet(std::string& t_fileName)
     : m_fileName{t_fileName}, m_labels{std::vector<std::string>{}},
       m_examples{std::vector<Example>{}}, parsed{false}
@@ -15,6 +21,8 @@ DataSet::DataSet(std::string& t_fileName)
         throw new NotCSVException;
 }
 
+/**
+ * @brief open the recorded data file, parse values, then assign values. */
 void DataSet::getData()
 {
     // Get files
@@ -25,7 +33,7 @@ void DataSet::getData()
     int exampleNum = 1;
     auto firstLine = true;
     std::vector<std::string> attributes; // one row
-    std::string line, entry, temp; // for getting each line
+    std::string line, entry, temp;       // for getting each line
 
     while (std::getline(file, line))
     {
@@ -57,6 +65,8 @@ std::vector<Example> DataSet::getExamples() { return this->m_examples; }
 std::string DataSet::getFileName() { return this->m_fileName; }
 std::vector<std::string> DataSet::getLabels() { return this->m_labels; }
 
+/**
+ * Append to the list of examples. */
 void DataSet::addExamples(std::vector<Example> t_examples)
 {
     m_examples.insert(m_examples.end(), t_examples.begin(), t_examples.end());
