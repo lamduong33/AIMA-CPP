@@ -89,6 +89,25 @@ TEST_CASE("Neuron Test")
     REQUIRE(activationInput == -0.44);
 }
 
+TEST_CASE("Weight Randomization Tests")
+{
+    auto numberOfWeights = 5;
+    std::vector<Weight> listOfWeights{};
+    Neuron neuron{};
+    for (int i = 0; i < numberOfWeights; i++)
+    {
+        listOfWeights.push_back(Weight{neuron, neuron});
+        for (int j = i; j >= 0; j--)
+        {
+            if (j != i)
+            {
+                REQUIRE(&listOfWeights[j] != &listOfWeights[i]);
+                REQUIRE(listOfWeights[j].getValue() != listOfWeights[i].getValue());
+            }
+        }
+    }
+}
+
 /* Sanity check to ensure that objects are instantiation correctly. */
 TEST_CASE("NeuralNetwork Constructor Test 1")
 {
