@@ -37,6 +37,15 @@ public:
     double getOutput();
 
 };
+/**
+ * Exception for when a training/testing file is not a csv file. */
+class UnevenWeightsInputs : public std::exception
+{
+    virtual const char* what() const throw()
+    {
+        return "The incoming weights and inputs size do not match!\n";
+    }
+};
 
 class Weight
 {
