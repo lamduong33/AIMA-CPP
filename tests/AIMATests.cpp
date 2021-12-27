@@ -71,6 +71,24 @@ TEST_CASE("DataSet - get data - correct data")
     }
 }
 
+TEST_CASE("Neuron Uneven Test")
+{
+    std::vector<double> weights{-0.02,-0.04};
+    std::vector<double> inputs{2.0};
+    Neuron neuron{};
+    REQUIRE_THROWS(neuron.activationInput(inputs, weights));
+}
+
+/* Check for basic math functions.*/
+TEST_CASE("Neuron Test")
+{
+    std::vector<double> weights{-0.02,-0.04};
+    std::vector<double> inputs{2.0, 10.0};
+    Neuron neuron{};
+    auto activationInput = neuron.activationInput(inputs, weights);
+    REQUIRE(activationInput == -0.44);
+}
+
 /* Sanity check to ensure that objects are instantiation correctly. */
 TEST_CASE("NeuralNetwork Constructor Test 1")
 {

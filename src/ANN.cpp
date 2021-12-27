@@ -14,9 +14,15 @@ double Neuron::reluFunction(std::vector<double>& inputs,
     return std::fmax(0.0, activationInput(inputs, weights));
 }
 
+/**
+ * @brief intermediate function used for activation functions, such as
+ * sigmoidFunction and reluFunction. The list of inputs and weights should be equal
+ * @param inputs a list of incoming input values from the previous neurons
+ * @param weights the weights associated with those inputs */
 double Neuron::activationInput(std::vector<double>& inputs,
                                std::vector<double>& weights)
 {
+    if (weights.size() != inputs.size()) throw new UnevenWeightsInputs;
     double result = 0.0;
     for (int i = 0; i < (int)inputs.size(); i++)
     {
