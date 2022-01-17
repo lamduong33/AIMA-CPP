@@ -84,7 +84,6 @@ public:
  * A feed-forward network. */
 class NeuralNetwork
 {
-
     Layer inputLayer;
     vector<Layer> hiddenLayers;
     vector<Weight> weights;
@@ -93,15 +92,28 @@ class NeuralNetwork
 public:
 
     /**
-     * A constructor to create a barebone perceptron with 3 inputs.*/
+     * @brief A constructor to create a barebone perceptron with 3 inputs and no
+     * hidden layers.*/
     NeuralNetwork();
 
     /**
-     * Given input size, create a perceptron with given input size. This is
-    similar to a linear regression model. */
-    NeuralNetwork(int t_inputSize);
+     * @brief Given input size, create a perceptron with given input size. This is
+     * similar to a linear regression model. This will start with an input layer
+     * the given amount, no hidden layers, and one output node.
+     *
+     * @param t_inputSize the number of input nodes from the input layer.
+     * @param t_outputSize the number of output nodes in the output layer. */
+    NeuralNetwork(int t_inputSize, int t_outputSize);
 
     // TODO: Constructor to construct neural network from text file.
+
+    /**
+     * @brief add a hidden layer to the neural network.
+     * @param t_numberOfNodes the number of nodes to be added. */
+    void addHiddenLayer(std::vector<int> t_numberOfNodes);
+    /**
+     * @brief add an output node to the neural network. */
+    void addOutputNode();
 
     Layer getInputLayer();
     vector<Layer> getHiddenLayers();

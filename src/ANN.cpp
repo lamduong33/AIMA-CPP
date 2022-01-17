@@ -81,27 +81,38 @@ vector<Neuron> Layer::getLayer() { return this->layer; }
 NeuralNetwork::NeuralNetwork()
     : inputLayer{Layer()}, hiddenLayers{vector<Layer>()}, outputLayer(Layer())
 {
-    NeuralNetwork(3);
+    NeuralNetwork(3, 1);
 }
 
-NeuralNetwork::NeuralNetwork(int t_inputSize)
+NeuralNetwork::NeuralNetwork(int t_inputSize, int t_outputSize)
     : inputLayer{Layer()}, hiddenLayers{vector<Layer>()}, outputLayer(Layer())
 {
     // Input layer
     for (int i = 0; i < t_inputSize; i++)
     {
-        Neuron newNeuron;
-        inputLayer.insert(newNeuron);
+        Neuron inputNeuron;
+        inputLayer.insert(inputNeuron);
     }
-    // No hidden layers, but one output layer with one neuron
-    Neuron outputNeuron{};
-    outputLayer.insert(outputNeuron);
+
+    // Output Layer
+    for (int i = 0; i < t_outputSize; i++)
+    {
+        Neuron outputNeuron;
+        outputLayer.insert(outputNeuron);
+    }
+
+    // No hidden layers
+
     // Assign weights
     for (auto& inputNeuron : inputLayer.getLayer())
     {
-        Weight newWeight(inputNeuron, outputNeuron);
-        this->weights.push_back(newWeight);
+        for (auto& outputNeuron: outputLayer.getLayer())
+        {
+            Weight newWeight(inputNeuron, outputNeuron);
+            this->weights.push_back(newWeight);
+        }
     }
+
 }
 
 Layer NeuralNetwork::getInputLayer() { return this->inputLayer; }

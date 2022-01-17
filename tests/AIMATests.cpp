@@ -108,7 +108,8 @@ TEST_CASE("Weight Randomization Tests")
     }
 }
 
-/* Sanity check to ensure that objects are instantiation correctly. */
+/* Sanity check to ensure that objects are instantiation correctly. This checks
+ * for correct number of hidden layers(none), output, bias, and weights. */
 TEST_CASE("NeuralNetwork Constructor Test 1")
 {
     auto numberOfInputs = 5;
@@ -142,6 +143,11 @@ TEST_CASE("NeuralNetwork Constructor Test 1")
         REQUIRE(weight.getValue() < 1.0);
         REQUIRE(weight.getValue() > -1.0);
     }
+}
+
+TEST_CASE("NeuralNetwork Constructor Test 1")
+{
+    NeuralNetwork net;
 }
 
 int main(int argc, char* argv[])
