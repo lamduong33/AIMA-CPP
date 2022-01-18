@@ -112,7 +112,6 @@ NeuralNetwork::NeuralNetwork(int t_inputSize, int t_outputSize)
             this->weights.push_back(newWeight);
         }
     }
-
 }
 
 Layer NeuralNetwork::getInputLayer() { return this->inputLayer; }

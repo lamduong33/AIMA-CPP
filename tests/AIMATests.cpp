@@ -113,8 +113,10 @@ TEST_CASE("Weight Randomization Tests")
 TEST_CASE("NeuralNetwork Constructor Test 1")
 {
     auto numberOfInputs = 5;
-    NeuralNetwork net(numberOfInputs);
+    auto numberOfOutputs = 2;
+    NeuralNetwork net(numberOfInputs, numberOfOutputs);
 
+    // Ensure that inputs aren't identical
     for (int i = 0; i < numberOfInputs; i++)
     {
         if (i != numberOfInputs - 1)
@@ -132,9 +134,21 @@ TEST_CASE("NeuralNetwork Constructor Test 1")
     REQUIRE(net.getHiddenLayers().empty());
 
     // Output test
-    REQUIRE(!net.getOutputLayer().getLayer().empty());
-    REQUIRE(net.getOutputLayer().getLayer()[0].getBias() == 0.0);
-    REQUIRE(net.getOutputLayer().getLayer()[0].getOutput() == 0.0);
+    for (int i = 0; i < numberOfOutputs; i++)
+    {
+        REQUIRE(!net.getOutputLayer().getLayer().empty());
+        REQUIRE(net.getOutputLayer().getLayer()[i].getBias() == 0.0);
+        REQUIRE(net.getOutputLayer().getLayer()[i].getOutput() == 0.0);
+        if (i != numberOfOutputs -1)
+        {
+            auto outputNeuron = net.getOutputLayer().getNeuron(i);
+            for (int j = i; j < numberOfOutputs; j++)
+            {
+                auto outputNeuron2 = net.getOutputLayer().getNeuron(j);
+                REQUIRE(&outputNeuron != &outputNeuron2);
+            }
+        }
+    }
 
     // Test weights
     REQUIRE(!net.getWeights().empty());
@@ -145,9 +159,9 @@ TEST_CASE("NeuralNetwork Constructor Test 1")
     }
 }
 
-TEST_CASE("NeuralNetwork Constructor Test 1")
+TEST_CASE("Neural Network Test 2")
 {
-    NeuralNetwork net;
+    NeuralNetwork net1(2, 2);
 }
 
 int main(int argc, char* argv[])
