@@ -114,6 +114,23 @@ NeuralNetwork::NeuralNetwork(int t_inputSize, int t_outputSize)
     }
 }
 
+void NeuralNetwork::addHiddenLayer(int t_numberOfNodes)
+{
+    // Create the hidden layer
+    Layer hiddenLayer;
+    for (int i = 0; i < t_numberOfNodes; i++)
+    {
+        Neuron n;
+    }
+    // Add it to the net
+    // Adjust weights accordingly
+}
+
+void NeuralNetwork::addOutputNode(int t_hiddenLayerIndex)
+{
+
+}
+
 Layer NeuralNetwork::getInputLayer() { return this->inputLayer; }
 vector<Layer> NeuralNetwork::getHiddenLayers() { return this->hiddenLayers; }
 vector<Weight> NeuralNetwork::getWeights() { return this->weights; }

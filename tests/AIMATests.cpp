@@ -164,6 +164,11 @@ TEST_CASE("Neural Network Test 2")
     NeuralNetwork net1(2, 2);
 }
 
+TEST_CASE("Neural Network Hidden Layer Test")
+{
+
+}
+
 int main(int argc, char* argv[])
 {
     int result = Catch::Session().run(argc, argv);

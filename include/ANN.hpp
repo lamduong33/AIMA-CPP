@@ -87,7 +87,7 @@ class NeuralNetwork
     Layer inputLayer;
     vector<Layer> hiddenLayers;
     vector<Weight> weights;
-    Layer outputLayer;
+    Layer outputLayer; // multiple nodes indicate classification
 
 public:
 
@@ -102,18 +102,19 @@ public:
      * the given amount, no hidden layers, and one output node.
      *
      * @param t_inputSize the number of input nodes from the input layer.
-     * @param t_outputSize the number of output nodes in the output layer. */
+     * @param t_outputSize the number of nodes in the output layer. */
     NeuralNetwork(int t_inputSize, int t_outputSize);
 
     // TODO: Constructor to construct neural network from text file.
 
     /**
-     * @brief add a hidden layer to the neural network.
+     * @brief add a hidden layer to the neural network right before the output.
      * @param t_numberOfNodes the number of nodes to be added. */
-    void addHiddenLayer(std::vector<int> t_numberOfNodes);
+    void addHiddenLayer(int t_numberOfNodes);
+
     /**
-     * @brief add an output node to the neural network. */
-    void addOutputNode();
+     * @brief add an output node to the neural network at a certain layer. */
+    void addOutputNode(int t_hiddenLayerIndex);
 
     Layer getInputLayer();
     vector<Layer> getHiddenLayers();
