@@ -85,6 +85,14 @@ public:
 };
 
 /**
+ * Learning method choices. */
+enum class learningMethod
+{
+    sigmoid,
+    relu
+};
+
+/**
  * A feed-forward network. */
 class NeuralNetwork
 {
@@ -92,18 +100,14 @@ class NeuralNetwork
     vector<Layer> hiddenLayers;
     vector<Weight> weights;
     Layer outputLayer; // multiple nodes indicate classification
-    enum class learningMethod
-    {
-        sigmoid,
-        relu
-    }; // sigmoid by default
+    learningMethod method;
 
 public:
 
     /**
      * @brief Given input size, create a network with given input size. This is
-     * similar to a linear regression model. NOTE: This will create an input
-     * layer with outputs of 0.0
+     * similar to a linear regression model.
+     * NOTE: This will create an input layer with outputs of 0.0
      *
      * @param t_inputSize the number of input neurons from the input layer.
      * @param t_outputSize the number of neurons in the output layer. */
