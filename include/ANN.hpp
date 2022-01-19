@@ -96,11 +96,11 @@ enum class LearningMethod
  * A feed-forward network. */
 class NeuralNetwork
 {
-    Layer inputLayer;
-    vector<Layer> hiddenLayers;
-    vector<Weight> weights;
-    Layer outputLayer; // multiple nodes indicate classification
-    LearningMethod method;
+    Layer m_inputLayer;
+    vector<Layer> m_hiddenLayers;
+    vector<Weight> m_weights;
+    Layer m_outputLayer; // multiple nodes indicate classification
+    LearningMethod m_method;
 
 public:
 
