@@ -159,9 +159,10 @@ TEST_CASE("NeuralNetwork Constructor Test 1")
     }
 }
 
-TEST_CASE("Neural Network Test 2")
+TEST_CASE("Neural Network Constructor Test 2")
 {
-    NeuralNetwork net1(2, 2);
+    std::vector<double> inputs{2.0,10.0};
+    NeuralNetwork net(inputs, 2);
 }
 
 TEST_CASE("Neural Network Hidden Layer Test")
