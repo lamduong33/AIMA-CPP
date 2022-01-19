@@ -128,7 +128,7 @@ public:
      * @param t_inputSize the number of input nodes from the input layer.
      * @param t_outputSize the number of nodes in the output layer. */
     NeuralNetwork(std::vector<double> t_inputs, int t_outputSize,
-                  learningMethod method);
+                  LearningMethod method);
 
     // TODO: Constructor to construct neural network from text file.
 
