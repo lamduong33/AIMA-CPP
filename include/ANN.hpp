@@ -17,6 +17,8 @@ class Neuron
     double output;
 
 public:
+    /**
+     * @brief Default constructor with 0 bias and 0 output. */
     Neuron();
 
     /* Sigmoid activation function: 1 / (1 + e^-x) */
@@ -25,14 +27,22 @@ public:
     /* ReLU (rectifier) activation function: max(0,x) */
     double reluFunction(std::vector<double>& inputs,
                         std::vector<double>& weights);
-    /* Calculate x for different activation functions, such as sigmoid and ReLu.
-     */
+
+    /**
+     * @brief intermediate function used for activation functions, such as
+     * sigmoidFunction and reluFunction.
+     * @throws UnevenWeightInputs when list of inputs and weights are not equal.
+     * @param inputs a list of incoming input values from the previous neurons
+     * @param weights the weights associated with those inputs */
     double activationInput(std::vector<double>& inputs,
                            std::vector<double>& weights);
 
+    /**
+     * @brief return the bias member variable. */
     double getBias();
 
-    /* Get the output saved in neuron, will not update neuron. */
+    /**
+     * @brief Get the output saved in neuron, will not update neuron. */
     double getOutput();
 
     /** @brief set the output of the neuron. Use this for input neurons.*/
@@ -56,9 +66,13 @@ class Weight
 
 public:
     Weight();
-    Weight(Neuron& t_source, Neuron& t_destination);
+
     /**
-     * Create weight with source and destination. startRange and endRange
+     * @brief Create the weight object with source and destination */
+    Weight(Neuron& t_source, Neuron& t_destination);
+
+    /**
+     * @brief Create weight with source and destination. startRange and endRange
      * represent the range of random values to assign initial weights */
     Weight(Neuron& t_source, Neuron& t_destination, double startRange,
            double endRange);
@@ -85,7 +99,9 @@ public:
 };
 
 /**
- * Learning method choices. */
+ * Learning method choices:
+ * - sigmoid
+ * - relu */
 enum class LearningMethod
 {
     sigmoid,
