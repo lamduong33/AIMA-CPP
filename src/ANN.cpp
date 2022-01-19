@@ -43,6 +43,8 @@ double Neuron::getBias() { return this->bias; }
  * @brief return the output member variable. */
 double Neuron::getOutput() { return this->output; }
 
+void Neuron::setOutput(double t_output) { this->output = t_output; }
+
 /**
  * @brief Create the weight object with source and destination
  * @details Using RNG, create  */
@@ -103,6 +105,7 @@ NeuralNetwork::NeuralNetwork(std::vector<double> t_inputs, int t_outputSize)
     for (int i = 0; i < t_inputs.size(); i++)
     {
         Neuron inputNeuron;
+        inputNeuron.setOutput(t_inputs[i]);
         inputLayer.insert(inputNeuron);
     }
     this->createOutputLayer(t_outputSize);

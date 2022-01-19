@@ -34,6 +34,8 @@ public:
     /* Get the output saved in neuron, will not update neuron. */
     double getOutput();
 
+    /** @brief set the output of the neuron. Use this for input neurons.*/
+    void setOutput(double t_output);
 };
 /**
  * Exception for when a training/testing file is not a csv file. */
