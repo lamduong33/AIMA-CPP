@@ -115,6 +115,7 @@ TEST_CASE("NeuralNetwork Constructor Test 1")
     auto numberOfInputs = 5;
     auto numberOfOutputs = 2;
     NeuralNetwork net(numberOfInputs, numberOfOutputs);
+    REQUIRE(net.getLearningMethod() == LearningMethod::sigmoid);
 
     // Ensure that inputs aren't identical
     for (int i = 0; i < numberOfInputs; i++)
@@ -159,15 +160,65 @@ TEST_CASE("NeuralNetwork Constructor Test 1")
     }
 }
 
-TEST_CASE("Neural Network Constructor Test 2")
+/* Test for the constructor that takes in a vector of doubles as inputs.*/
+TEST_CASE("NeuralNetwork Constructor Test 2")
+{
+    std::vector<double> inputs{2.0, 10.0};
+    auto numberOfOutputs = 2;
+    NeuralNetwork net(inputs, numberOfOutputs);
+
+    // Ensure that inputs aren't identical
+    for (int i = 0; i < inputs.size(); i++)
+    {
+        if (i != inputs.size() - 1)
+        {
+            auto neuron = net.getInputLayer().getNeuron(i);
+            for (int j = i; j < inputs.size(); j++)
+            {
+                auto neuron2 = net.getInputLayer().getNeuron(j);
+                REQUIRE(&neuron != &neuron2);
+            }
+        }
+    }
+
+    // Hidden layers test
+    REQUIRE(net.getHiddenLayers().empty());
+
+    // Output test
+    for (int i = 0; i < numberOfOutputs; i++)
+    {
+        REQUIRE(!net.getOutputLayer().getLayer().empty());
+        REQUIRE(net.getOutputLayer().getLayer()[i].getBias() == 0.0);
+        REQUIRE(net.getOutputLayer().getLayer()[i].getOutput() == 0.0);
+        if (i != numberOfOutputs -1)
+        {
+            auto outputNeuron = net.getOutputLayer().getNeuron(i);
+            for (int j = i; j < numberOfOutputs; j++)
+            {
+                auto outputNeuron2 = net.getOutputLayer().getNeuron(j);
+                REQUIRE(&outputNeuron != &outputNeuron2);
+            }
+        }
+    }
+
+    // Test weights
+    REQUIRE(!net.getWeights().empty());
+    for (auto& weight : net.getWeights())
+    {
+        REQUIRE(weight.getValue() < 1.0);
+        REQUIRE(weight.getValue() > -1.0);
+    }
+}
+
+TEST_CASE("Neural Network Constructor Test 3")
 {
     std::vector<double> inputs{2.0,10.0};
-    NeuralNetwork net(inputs, 2);
+    NeuralNetwork net(inputs, 2, LearningMethod::relu);
+    REQUIRE(net.getLearningMethod() == LearningMethod::relu);
 }
 
 TEST_CASE("Neural Network Hidden Layer Test")
 {
-
 }
 
 int main(int argc, char* argv[])
