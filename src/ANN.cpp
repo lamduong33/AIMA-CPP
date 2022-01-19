@@ -25,7 +25,8 @@ double Neuron::reluFunction(std::vector<double>& inputs,
 double Neuron::activationInput(std::vector<double>& inputs,
                                std::vector<double>& weights)
 {
-    if (weights.size() != inputs.size()) throw new UnevenWeightsInputs;
+    if (weights.size() != inputs.size())
+        throw new UnevenWeightsInputs;
     double result = 0.0;
     for (int i = 0; i < (int)inputs.size(); i++)
     {
@@ -81,7 +82,8 @@ Neuron Layer::getNeuron(int index) { return this->layer[index]; }
 vector<Neuron> Layer::getLayer() { return this->layer; }
 
 NeuralNetwork::NeuralNetwork(int t_inputSize, int t_outputSize)
-    : m_inputLayer{Layer()}, m_hiddenLayers{vector<Layer>()}, m_outputLayer(Layer())
+    : m_inputLayer{Layer()}, m_hiddenLayers{vector<Layer>()},
+      m_outputLayer(Layer())
 {
     // Input layer
     for (int i = 0; i < t_inputSize; i++)
@@ -94,7 +96,8 @@ NeuralNetwork::NeuralNetwork(int t_inputSize, int t_outputSize)
 }
 
 NeuralNetwork::NeuralNetwork(std::vector<double> t_inputs, int t_outputSize)
-    : m_inputLayer{Layer()}, m_hiddenLayers{vector<Layer>()}, m_outputLayer(Layer())
+    : m_inputLayer{Layer()}, m_hiddenLayers{vector<Layer>()},
+      m_outputLayer(Layer())
 {
     for (int i = 0; i < t_inputs.size(); i++)
     {
@@ -107,7 +110,8 @@ NeuralNetwork::NeuralNetwork(std::vector<double> t_inputs, int t_outputSize)
 }
 
 NeuralNetwork::NeuralNetwork(std::vector<double> t_inputs, int t_outputSize,
-                             LearningMethod t_method) : m_method{t_method}
+                             LearningMethod t_method)
+    : m_method{t_method}
 {
     NeuralNetwork(t_inputs, t_outputSize);
 }
@@ -125,7 +129,7 @@ void NeuralNetwork::assignWeights()
 {
     for (auto& inputNeuron : this->m_inputLayer.getLayer())
     {
-        for (auto& outputNeuron: this->m_outputLayer.getLayer())
+        for (auto& outputNeuron : this->m_outputLayer.getLayer())
         {
             Weight newWeight(inputNeuron, outputNeuron);
             this->m_weights.push_back(newWeight);
@@ -145,10 +149,7 @@ void NeuralNetwork::addHiddenLayer(int t_numberOfNodes)
     // Adjust weights accordingly
 }
 
-void NeuralNetwork::addOutputNode(int t_hiddenLayerIndex)
-{
-
-}
+void NeuralNetwork::addOutputNode(int t_hiddenLayerIndex) {}
 
 Layer NeuralNetwork::getInputLayer() { return this->m_inputLayer; }
 vector<Layer> NeuralNetwork::getHiddenLayers() { return this->m_hiddenLayers; }
