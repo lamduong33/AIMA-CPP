@@ -116,7 +116,7 @@ class NeuralNetwork
     vector<Layer> m_hiddenLayers;
     vector<Weight> m_weights;
     Layer m_outputLayer; // multiple nodes indicate classification
-    LearningMethod m_method;
+    LearningMethod m_method = LearningMethod::sigmoid;
 
 public:
 
@@ -167,10 +167,13 @@ public:
      * @brief add an output node to the neural network at a certain layer. */
     void addOutputNode(int t_hiddenLayerIndex);
 
+    void setLearningMethod(LearningMethod t_learningMethod);
+
     Layer getInputLayer();
     vector<Layer> getHiddenLayers();
     vector<Weight> getWeights();
     Layer getOutputLayer();
+    LearningMethod getLearningMethod();
 };
 
 #endif // ANN_HPP_

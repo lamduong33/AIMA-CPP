@@ -136,9 +136,16 @@ void NeuralNetwork::addHiddenLayer(int t_numberOfNodes)
     // Adjust weights accordingly
 }
 
+void NeuralNetwork::setLearningMethod(LearningMethod t_learningMethod)
+{
+    this->m_method = t_learningMethod;
+}
+
+/** TODO*/
 void NeuralNetwork::addOutputNode(int t_hiddenLayerIndex) {}
 
 Layer NeuralNetwork::getInputLayer() { return this->m_inputLayer; }
 vector<Layer> NeuralNetwork::getHiddenLayers() { return this->m_hiddenLayers; }
 vector<Weight> NeuralNetwork::getWeights() { return this->m_weights; }
 Layer NeuralNetwork::getOutputLayer() { return this->m_outputLayer; }
+LearningMethod NeuralNetwork::getLearningMethod() { return this->m_method; }
