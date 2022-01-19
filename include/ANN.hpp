@@ -97,13 +97,21 @@ public:
     NeuralNetwork();
 
     /**
-     * @brief Given input size, create a perceptron with given input size. This is
+     * @brief Given input size, create a network with given input size. This is
      * similar to a linear regression model. This will start with an input layer
-     * the given amount, no hidden layers, and one output node.
+     * the given amount and no hidden layers.
+     *
+     * @param t_inputSize the number of input neurons from the input layer.
+     * @param t_outputSize the number of neurons in the output layer. */
+    NeuralNetwork(int t_inputSize, int t_outputSize);
+
+    /**
+     * @brief Given a list of inputs, create a neural network. This has no hidden
+     * layers, and one output node.
      *
      * @param t_inputSize the number of input nodes from the input layer.
      * @param t_outputSize the number of nodes in the output layer. */
-    NeuralNetwork(int t_inputSize, int t_outputSize);
+    NeuralNetwork(std::vector<double> t_inputs, int t_outputSize);
 
     // TODO: Constructor to construct neural network from text file.
 
@@ -111,6 +119,14 @@ public:
      * @brief add a hidden layer to the neural network right before the output.
      * @param t_numberOfNodes the number of nodes to be added. */
     void addHiddenLayer(int t_numberOfNodes);
+
+    /**
+     * @brief create an output layer from given output size and assign it to the
+     * neural network. This is meant to be used in the constructor only.
+     * @param t_outputSize the number of output neurons. */
+    void createOutputLayer(int t_outputSize);
+
+    void assignWeights();
 
     /**
      * @brief add an output node to the neural network at a certain layer. */

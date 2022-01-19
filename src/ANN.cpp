@@ -93,20 +93,36 @@ NeuralNetwork::NeuralNetwork(int t_inputSize, int t_outputSize)
         Neuron inputNeuron;
         inputLayer.insert(inputNeuron);
     }
+    this->createOutputLayer(t_outputSize);
+    this->assignWeights();
+}
 
-    // Output Layer
+NeuralNetwork::NeuralNetwork(std::vector<double> t_inputs, int t_outputSize)
+    : inputLayer{Layer()}, hiddenLayers{vector<Layer>()}, outputLayer(Layer())
+{
+    for (int i = 0; i < t_inputs.size(); i++)
+    {
+        Neuron inputNeuron;
+        inputLayer.insert(inputNeuron);
+    }
+    this->createOutputLayer(t_outputSize);
+    this->assignWeights();
+}
+
+void NeuralNetwork::createOutputLayer(int t_outputSize)
+{
     for (int i = 0; i < t_outputSize; i++)
     {
         Neuron outputNeuron;
-        outputLayer.insert(outputNeuron);
+        this->outputLayer.insert(outputNeuron);
     }
+}
 
-    // No hidden layers
-
-    // Assign weights
-    for (auto& inputNeuron : inputLayer.getLayer())
+void NeuralNetwork::assignWeights()
+{
+    for (auto& inputNeuron : this->inputLayer.getLayer())
     {
-        for (auto& outputNeuron: outputLayer.getLayer())
+        for (auto& outputNeuron: this->outputLayer.getLayer())
         {
             Weight newWeight(inputNeuron, outputNeuron);
             this->weights.push_back(newWeight);
