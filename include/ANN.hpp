@@ -99,10 +99,6 @@ class NeuralNetwork
     }; // sigmoid by default
 
 public:
-    /**
-     * @brief The base constructor that other constructors use. This will
-    generate an empty neural net. */
-    NeuralNetwork(int t_outputSize);
 
     /**
      * @brief Given input size, create a network with given input size. This is
