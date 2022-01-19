@@ -15,19 +15,20 @@ class Neuron
 {
     double bias;
     double output;
-public:
 
+public:
     Neuron();
 
     /* Sigmoid activation function: 1 / (1 + e^-x) */
     double sigmoidFunction(std::vector<double>& inputs,
-        std::vector<double>& weights);
+                           std::vector<double>& weights);
     /* ReLU (rectifier) activation function: max(0,x) */
     double reluFunction(std::vector<double>& inputs,
-        std::vector<double>& weights);
-    /* Calculate x for different activation functions, such as sigmoid and ReLu. */
+                        std::vector<double>& weights);
+    /* Calculate x for different activation functions, such as sigmoid and ReLu.
+     */
     double activationInput(std::vector<double>& inputs,
-        std::vector<double>& weights);
+                           std::vector<double>& weights);
 
     double getBias();
 
@@ -75,6 +76,7 @@ public:
 class Layer
 {
     vector<Neuron> layer;
+
 public:
     Layer();
     void insert(Neuron& neuron);
@@ -90,30 +92,43 @@ class NeuralNetwork
     vector<Layer> hiddenLayers;
     vector<Weight> weights;
     Layer outputLayer; // multiple nodes indicate classification
+    enum class learningMethod
+    {
+        sigmoid,
+        relu
+    }; // sigmoid by default
 
 public:
-
     /**
-     * @brief A constructor to create a barebone perceptron with 3 inputs and no
-     * hidden layers.*/
-    NeuralNetwork();
+     * @brief The base constructor that other constructors use. This will
+    generate an empty neural net. */
+    NeuralNetwork(int t_outputSize);
 
     /**
      * @brief Given input size, create a network with given input size. This is
-     * similar to a linear regression model. This will start with an input layer
-     * the given amount and no hidden layers.
+     * similar to a linear regression model. NOTE: This will create an input
+     * layer with outputs of 0.0
      *
      * @param t_inputSize the number of input neurons from the input layer.
      * @param t_outputSize the number of neurons in the output layer. */
     NeuralNetwork(int t_inputSize, int t_outputSize);
 
     /**
-     * @brief Given a list of inputs, create a neural network. This has no hidden
-     * layers, and one output node.
+     * @brief Given a list of inputs, create a neural network. This will
+     * additionally run the learning algorithm with sigmoid function.
      *
      * @param t_inputSize the number of input nodes from the input layer.
      * @param t_outputSize the number of nodes in the output layer. */
     NeuralNetwork(std::vector<double> t_inputs, int t_outputSize);
+
+    /**
+     * @brief Given a list of inputs, create a neural network. This will
+     * additionally run the learning algorithm based on the chosen method.
+     *
+     * @param t_inputSize the number of input nodes from the input layer.
+     * @param t_outputSize the number of nodes in the output layer. */
+    NeuralNetwork(std::vector<double> t_inputs, int t_outputSize,
+                  learningMethod method);
 
     // TODO: Constructor to construct neural network from text file.
 
@@ -128,6 +143,8 @@ public:
      * @param t_outputSize the number of output neurons. */
     void createOutputLayer(int t_outputSize);
 
+    /**
+     * @brief assign weights so that each input neuron maps to an output. */
     void assignWeights();
 
     /**

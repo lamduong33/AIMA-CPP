@@ -80,12 +80,6 @@ void Layer::insert(Neuron& neuron) { this->layer.push_back(neuron); }
 Neuron Layer::getNeuron(int index) { return this->layer[index]; }
 vector<Neuron> Layer::getLayer() { return this->layer; }
 
-NeuralNetwork::NeuralNetwork()
-    : inputLayer{Layer()}, hiddenLayers{vector<Layer>()}, outputLayer(Layer())
-{
-    NeuralNetwork(3, 1);
-}
-
 NeuralNetwork::NeuralNetwork(int t_inputSize, int t_outputSize)
     : inputLayer{Layer()}, hiddenLayers{vector<Layer>()}, outputLayer(Layer())
 {
