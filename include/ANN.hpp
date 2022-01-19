@@ -86,7 +86,7 @@ public:
 
 /**
  * Learning method choices. */
-enum class learningMethod
+enum class LearningMethod
 {
     sigmoid,
     relu
@@ -100,7 +100,7 @@ class NeuralNetwork
     vector<Layer> hiddenLayers;
     vector<Weight> weights;
     Layer outputLayer; // multiple nodes indicate classification
-    learningMethod method;
+    LearningMethod method;
 
 public:
 

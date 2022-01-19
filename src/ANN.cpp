@@ -106,6 +106,12 @@ NeuralNetwork::NeuralNetwork(std::vector<double> t_inputs, int t_outputSize)
     this->assignWeights();
 }
 
+NeuralNetwork::NeuralNetwork(std::vector<double> t_inputs, int t_outputSize,
+                             LearningMethod t_method) : method{t_method}
+{
+    NeuralNetwork(t_inputs, t_outputSize);
+}
+
 void NeuralNetwork::createOutputLayer(int t_outputSize)
 {
     for (int i = 0; i < t_outputSize; i++)
