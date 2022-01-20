@@ -6,11 +6,11 @@
 #include <random>
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 using std::vector;
 
-/* A neuron is meant to be in the layers between the NetworkInput nodes and
- * NetworkOutput nodes. */
+/* A neuron is meant to be nodes in a NeuralNetwork.*/
 class Neuron
 {
     double bias;
@@ -29,7 +29,7 @@ public:
                         std::vector<double>& weights);
 
     /**
-     * @brief intermediate function used for activation functions, such as
+     * @brief intermediate function used by activation functions, such as
      * sigmoidFunction and reluFunction.
      * @throws UnevenWeightInputs when list of inputs and weights are not equal.
      * @param inputs a list of incoming input values from the previous neurons
@@ -48,6 +48,7 @@ public:
     /** @brief set the output of the neuron. Use this for input neurons.*/
     void setOutput(double t_output);
 };
+
 /**
  * Exception for when a training/testing file is not a csv file. */
 class UnevenWeightsInputs : public std::exception
@@ -116,7 +117,7 @@ class NeuralNetwork
     vector<Layer> m_hiddenLayers;
     vector<Weight> m_weights;
     Layer m_outputLayer; // multiple nodes indicate classification
-    LearningMethod m_method = LearningMethod::sigmoid;
+    LearningMethod m_method = LearningMethod::sigmoid; // sigmoid by default
 
 public:
 
@@ -149,6 +150,10 @@ public:
     // TODO: Constructor to construct neural network from text file.
 
     /**
+     * @brief Perform one pass and update values accordingly  */
+    void update();
+
+    /**
      * @brief add a hidden layer to the neural network right before the output.
      * @param t_numberOfNodes the number of nodes to be added. */
     void addHiddenLayer(int t_numberOfNodes);
@@ -158,7 +163,6 @@ public:
      * neural network. This is meant to be used in the constructor only.
      * @param t_outputSize the number of output neurons. */
     void createOutputLayer(int t_outputSize);
-
     /**
      * @brief assign weights so that each input neuron maps to an output. */
     void assignWeights();
