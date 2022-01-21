@@ -62,6 +62,14 @@ class UnevenWeightsInputs : public std::exception
     }
 };
 
+class NoSuchLearningMethod : public std::exception
+{
+    virtual const char* what() const throw()
+    {
+        return "The learning method does not exist!\n";
+    }
+};
+
 class Weight
 {
     Neuron source;
