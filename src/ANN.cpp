@@ -92,6 +92,7 @@ NeuralNetwork::NeuralNetwork(std::vector<double> t_inputs, int t_outputSize)
         inputNeuron.setOutput(t_inputs[i]);
         m_inputLayer.insert(inputNeuron);
     }
+    this->m_inputSize = t_inputs.size();
     this->createOutputLayer(t_outputSize);
     this->assignWeights();
     this->update();
@@ -99,9 +100,9 @@ NeuralNetwork::NeuralNetwork(std::vector<double> t_inputs, int t_outputSize)
 
 NeuralNetwork::NeuralNetwork(std::vector<double> t_inputs, int t_outputSize,
                              LearningMethod t_method)
-    : m_method{t_method}
+    : NeuralNetwork(t_inputs, t_outputSize)
 {
-    NeuralNetwork(t_inputs, t_outputSize);
+    this->m_method = t_method;
 }
 
 void NeuralNetwork::update()
@@ -169,13 +170,14 @@ void NeuralNetwork::addHiddenLayer(int t_numberOfNodes)
     }
     // Add it to the net
     // Adjust weights accordingly
+    // If everything went correctly, adjust the hidden neurons amount
+    this->m_hiddenNeuronsSize += t_numberOfNodes;
 }
 
 void NeuralNetwork::setLearningMethod(LearningMethod t_learningMethod)
 {
     this->m_method = t_learningMethod;
 }
-
 /** TODO*/
 void NeuralNetwork::addOutputNode(int t_hiddenLayerIndex) {}
 
