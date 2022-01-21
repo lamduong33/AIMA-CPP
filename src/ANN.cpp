@@ -105,11 +105,15 @@ NeuralNetwork::NeuralNetwork(std::vector<double> t_inputs, int t_outputSize,
 void NeuralNetwork::update()
 {
     std::unordered_map<Neuron*, double> map;
+
+    // O(w) for w weights.
     for (auto& weight : this->m_weights)
     {
         auto neuron = weight.getDestination();
         map[&neuron] += weight.getSource().getOutput() + weight.getValue();
     }
+
+    // O(n) for n neurons.
     for (auto& pair : map)
     {
         auto neuron = *pair.first;

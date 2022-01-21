@@ -161,7 +161,8 @@ public:
     // TODO: Constructor to construct neural network from text file.
 
     /**
-     * @brief Perform one pass and update values accordingly  */
+     * @brief Perform one pass and update values accordingly. This will update
+     * every neuron using the list of weights in the object.*/
     void update();
 
     /**
