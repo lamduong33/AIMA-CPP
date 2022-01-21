@@ -130,6 +130,17 @@ class NeuralNetwork
     Layer m_outputLayer; // multiple nodes indicate classification
     LearningMethod m_method = LearningMethod::sigmoid; // sigmoid by default
 
+    /**
+     * @brief add a hidden layer to the neural network right before the output.
+     * @param t_numberOfNodes the number of nodes to be added. */
+    void addHiddenLayer(int t_numberOfNodes);
+
+    /**
+     * @brief create an output layer from given output size and assign it to the
+     * neural network. This is meant to be used in the constructor only.
+     * @param t_outputSize the number of output neurons. */
+    void createOutputLayer(int t_outputSize);
+
 public:
 
     /**
@@ -165,16 +176,6 @@ public:
      * every neuron using the list of weights in the object.*/
     void update();
 
-    /**
-     * @brief add a hidden layer to the neural network right before the output.
-     * @param t_numberOfNodes the number of nodes to be added. */
-    void addHiddenLayer(int t_numberOfNodes);
-
-    /**
-     * @brief create an output layer from given output size and assign it to the
-     * neural network. This is meant to be used in the constructor only.
-     * @param t_outputSize the number of output neurons. */
-    void createOutputLayer(int t_outputSize);
     /**
      * @brief assign weights so that each input neuron maps to an output. */
     void assignWeights();
