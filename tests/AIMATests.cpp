@@ -156,6 +156,7 @@ TEST_CASE("NeuralNetwork Constructor Test 1")
     for (auto& weight : net.getWeights())
     {
         REQUIRE(weight.getValue() < 1.0);
+        REQUIRE(weight.getValue() != 0.0);
         REQUIRE(weight.getValue() > -1.0);
     }
 }
@@ -206,6 +207,7 @@ TEST_CASE("NeuralNetwork Constructor Test 2")
     for (auto& weight : net.getWeights())
     {
         REQUIRE(weight.getValue() < 1.0);
+        REQUIRE(weight.getValue() != 0.0);
         REQUIRE(weight.getValue() > -1.0);
     }
 }

@@ -4,16 +4,14 @@
 
 Neuron::Neuron() : bias{0.0}, output{0.0} {}
 
-double Neuron::sigmoidFunction(std::vector<double>& inputs,
-                               std::vector<double>& weights)
+double Neuron::sigmoidFunction(double t_activationInput)
 {
-    return (1 / (1 + (exp(-activationInput(inputs, weights)))));
+    return (1 / (1 + (exp(-t_activationInput))));
 }
 
-double Neuron::reluFunction(std::vector<double>& inputs,
-                            std::vector<double>& weights)
+double Neuron::reluFunction(double t_activationInput)
 {
-    return std::fmax(0.0, activationInput(inputs, weights));
+    return std::fmax(0.0, t_activationInput);
 }
 
 double Neuron::activationInput(std::vector<double>& inputs,
@@ -94,6 +92,7 @@ NeuralNetwork::NeuralNetwork(std::vector<double> t_inputs, int t_outputSize)
     }
     this->createOutputLayer(t_outputSize);
     this->assignWeights();
+    this->update();
 }
 
 NeuralNetwork::NeuralNetwork(std::vector<double> t_inputs, int t_outputSize,
@@ -101,6 +100,20 @@ NeuralNetwork::NeuralNetwork(std::vector<double> t_inputs, int t_outputSize,
     : m_method{t_method}
 {
     NeuralNetwork(t_inputs, t_outputSize);
+}
+
+void NeuralNetwork::update()
+{
+    std::unordered_map<Neuron*, double> map;
+    for (auto& weight : this->m_weights)
+    {
+        auto neuron = weight.getDestination();
+        map[&neuron] += weight.getSource().getOutput() + weight.getValue();
+    }
+    for (auto& neuron : map)
+    {
+
+    }
 }
 
 void NeuralNetwork::createOutputLayer(int t_outputSize)

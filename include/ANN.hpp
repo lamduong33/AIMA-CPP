@@ -21,16 +21,19 @@ public:
      * @brief Default constructor with 0 bias and 0 output. */
     Neuron();
 
-    /* Sigmoid activation function: 1 / (1 + e^-x) */
-    double sigmoidFunction(std::vector<double>& inputs,
-                           std::vector<double>& weights);
-    /* ReLU (rectifier) activation function: max(0,x) */
-    double reluFunction(std::vector<double>& inputs,
-                        std::vector<double>& weights);
+    /**
+     * @brief Sigmoid activation function: 1 / (1 + e^-x)
+     * @param t_activationInput is the sum of the input's weights and outputs. */
+    double sigmoidFunction(double t_activationInput);
+
+    /**
+     * @brief ReLU (rectifier) activation function: max(0,x)
+     * @param t_activationInput is the sum of the input's weights and outputs. */
+    double reluFunction(double t_activationInput);
 
     /**
      * @brief intermediate function used by activation functions, such as
-     * sigmoidFunction and reluFunction.
+     * sigmoidFunction and reluFunction. NOTE: This is for debugging.
      * @throws UnevenWeightInputs when list of inputs and weights are not equal.
      * @param inputs a list of incoming input values from the previous neurons
      * @param weights the weights associated with those inputs */
