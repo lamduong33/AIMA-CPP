@@ -153,19 +153,24 @@ TEST_CASE("NeuralNetwork Constructor Test 1")
 
     // Test weights
     REQUIRE(!net.getWeights().empty());
+    auto weightSet = std::unordered_set<double>{};
     for (auto& weight : net.getWeights())
     {
+        // Ensuring that the weights are within the right range
         REQUIRE(weight.getValue() < 1.0);
         REQUIRE(weight.getValue() != 0.0);
         REQUIRE(weight.getValue() > -1.0);
+        // Ensuring that weights are not repeat of each other.
+        REQUIRE(weightSet.count(weight.getValue()) == false);
+        weightSet.insert(weight.getValue());
     }
 }
 
 /* Test for the constructor that takes in a vector of doubles as inputs.*/
 TEST_CASE("NeuralNetwork Constructor Test 2")
 {
-    std::vector<double> inputs{2.0, 10.0};
-    auto numberOfOutputs = 2;
+    std::vector<double> inputs{2.0, 10.0, -5.0, 4.0, 1.0, -3.0};
+    auto numberOfOutputs = 5;
     NeuralNetwork net(inputs, numberOfOutputs);
 
     // Ensure that inputs aren't identical
@@ -204,23 +209,24 @@ TEST_CASE("NeuralNetwork Constructor Test 2")
 
     // Test weights
     REQUIRE(!net.getWeights().empty());
+    auto weightSet = std::unordered_set<double>{};
     for (auto& weight : net.getWeights())
     {
+        // Ensuring that the weights are within the right range
         REQUIRE(weight.getValue() < 1.0);
         REQUIRE(weight.getValue() != 0.0);
         REQUIRE(weight.getValue() > -1.0);
+        // Ensuring that weights are not repeat of each other.
+        REQUIRE(weightSet.count(weight.getValue()) == false);
+        weightSet.insert(weight.getValue());
     }
 }
 
 TEST_CASE("Neural Network Constructor Test 3")
 {
     std::vector<double> inputs{2.0,10.0};
-    NeuralNetwork net(inputs, 2, LearningMethod::relu);
+    NeuralNetwork net(inputs, 2, LearningMethod::relu); // 2x2 network
     REQUIRE(net.getLearningMethod() == LearningMethod::relu);
-}
-
-TEST_CASE("Neural Network Hidden Layer Test")
-{
 }
 
 int main(int argc, char* argv[])
