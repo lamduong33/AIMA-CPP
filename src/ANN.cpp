@@ -110,9 +110,21 @@ void NeuralNetwork::update()
         auto neuron = weight.getDestination();
         map[&neuron] += weight.getSource().getOutput() + weight.getValue();
     }
-    for (auto& neuron : map)
+    for (auto& pair : map)
     {
-
+        auto neuron = *pair.first;
+        if (this->getLearningMethod() == LearningMethod::relu)
+        {
+            neuron.reluFunction(pair.second);
+        }
+        else if (this->getLearningMethod() == LearningMethod::sigmoid)
+        {
+            neuron.sigmoidFunction(pair.second);
+        }
+        else
+        {
+            throw new NoSuchLearningMethod;
+        }
     }
 }
 
