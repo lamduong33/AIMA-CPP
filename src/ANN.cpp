@@ -68,7 +68,8 @@ vector<Neuron> Layer::getLayer() { return this->layer; }
 
 NeuralNetwork::NeuralNetwork(int t_inputSize, int t_outputSize)
     : m_inputLayer{Layer()}, m_hiddenLayers{vector<Layer>()},
-      m_outputLayer(Layer())
+      m_outputLayer(Layer()), m_inputSize{t_inputSize},
+      m_outputSize{t_outputSize}, m_hiddenNeuronsSize{0}
 {
     // Input layer
     for (int i = 0; i < t_inputSize; i++)
@@ -82,7 +83,8 @@ NeuralNetwork::NeuralNetwork(int t_inputSize, int t_outputSize)
 
 NeuralNetwork::NeuralNetwork(std::vector<double> t_inputs, int t_outputSize)
     : m_inputLayer{Layer()}, m_hiddenLayers{vector<Layer>()},
-      m_outputLayer(Layer())
+      m_outputLayer(Layer()), m_inputSize{(int)t_inputs.size()},
+      m_outputSize{t_outputSize}, m_hiddenNeuronsSize{0}
 {
     for (int i = 0; i < t_inputs.size(); i++)
     {
@@ -110,6 +112,10 @@ void NeuralNetwork::update()
     for (auto& weight : this->m_weights)
     {
         auto neuron = weight.getDestination();
+        if (!map.count(&neuron))
+        {
+            map[&neuron] = 0.0;
+        }
         map[&neuron] += weight.getSource().getOutput() + weight.getValue();
     }
 
@@ -178,3 +184,6 @@ vector<Layer> NeuralNetwork::getHiddenLayers() { return this->m_hiddenLayers; }
 vector<Weight> NeuralNetwork::getWeights() { return this->m_weights; }
 Layer NeuralNetwork::getOutputLayer() { return this->m_outputLayer; }
 LearningMethod NeuralNetwork::getLearningMethod() { return this->m_method; }
+int NeuralNetwork::getInputSize() { return this->m_inputSize; }
+int NeuralNetwork::getOutputSize() { return this->m_outputSize; }
+int NeuralNetwork::getHiddenNeuronsSize() { return this->m_hiddenNeuronsSize; }

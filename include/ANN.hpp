@@ -130,6 +130,10 @@ class NeuralNetwork
     Layer m_outputLayer; // multiple nodes indicate classification
     LearningMethod m_method = LearningMethod::sigmoid; // sigmoid by default
 
+    int m_inputSize; // the number of input neurons
+    int m_outputSize; // the number of output neurons
+    int m_hiddenNeuronsSize; // the number of neurons in hidden layeres
+
     /**
      * @brief add a hidden layer to the neural network right before the output.
      * @param t_numberOfNodes the number of nodes to be added. */
@@ -191,6 +195,9 @@ public:
     vector<Weight> getWeights();
     Layer getOutputLayer();
     LearningMethod getLearningMethod();
+    int getInputSize();
+    int getOutputSize();
+    int getHiddenNeuronsSize();
 };
 
 #endif // ANN_HPP_
