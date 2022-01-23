@@ -5,9 +5,9 @@
 #include <memory>
 #include <random>
 #include <string>
-#include <vector>
 #include <unordered_map>
 #include <unordered_set>
+#include <vector>
 
 using std::vector;
 
@@ -73,8 +73,8 @@ class NoSuchLearningMethod : public std::exception
 
 class Weight
 {
-    Neuron source;
-    Neuron destination;
+    std::shared_ptr<Neuron> source;
+    std::shared_ptr<Neuron> destination;
     double weightValue;
 
 public:
@@ -82,20 +82,22 @@ public:
 
     /**
      * @brief Create the weight object with source and destination */
-    Weight(Neuron& t_source, Neuron& t_destination);
+    Weight(std::shared_ptr<Neuron> t_source,
+           std::shared_ptr<Neuron> t_destination);
 
     /**
      * @brief Create weight with source and destination. startRange and endRange
      * represent the range of random values to assign initial weights */
-    Weight(Neuron& t_source, Neuron& t_destination, double startRange,
+    Weight(std::shared_ptr<Neuron> t_source,
+           std::shared_ptr<Neuron> t_destination, double startRange,
            double endRange);
 
-    Neuron getSource();
-    Neuron getDestination();
+    std::shared_ptr<Neuron> getSource();
+    std::shared_ptr<Neuron> getDestination();
     double getValue();
 
-    void setSource(Neuron& t_source);
-    void setDestination(Neuron& t_destination);
+    void setSource(std::shared_ptr<Neuron> t_source);
+    void setDestination(std::shared_ptr<Neuron> t_destination);
 };
 
 /**
@@ -131,8 +133,8 @@ class NeuralNetwork
     Layer m_outputLayer; // multiple nodes indicate classification
     LearningMethod m_method = LearningMethod::sigmoid; // sigmoid by default
 
-    int m_inputSize; // the number of input neurons
-    int m_outputSize; // the number of output neurons
+    int m_inputSize;         // the number of input neurons
+    int m_outputSize;        // the number of output neurons
     int m_hiddenNeuronsSize; // the number of neurons in hidden layeres
 
     /**
@@ -147,7 +149,6 @@ class NeuralNetwork
     void createOutputLayer(int t_outputSize);
 
 public:
-
     /**
      * @brief Given input size, create a network with given input size. This is
      * similar to a linear regression model.
