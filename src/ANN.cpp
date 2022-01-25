@@ -34,7 +34,8 @@ double Neuron::getOutput() { return this->output; }
 
 void Neuron::setOutput(double t_output) { this->output = t_output; }
 
-Weight::Weight(Neuron& t_source, Neuron& t_destination)
+Weight::Weight(std::shared_ptr<Neuron> t_source,
+               std::shared_ptr<Neuron> t_destination)
     : source{t_source}, destination{t_destination}
 {
     static std::default_random_engine rng;
@@ -42,7 +43,8 @@ Weight::Weight(Neuron& t_source, Neuron& t_destination)
     weightValue = dist(rng);
 }
 
-Weight::Weight(Neuron& t_source, Neuron& t_destination, double startRange,
+Weight::Weight(std::shared_ptr<Neuron> t_source,
+               std::shared_ptr<Neuron> t_destination, double startRange,
                double endRange)
     : source{t_source}, destination{t_destination}
 {
@@ -51,12 +53,15 @@ Weight::Weight(Neuron& t_source, Neuron& t_destination, double startRange,
     weightValue = dist(rng);
 }
 
-Neuron Weight::getSource() { return this->source; }
-Neuron Weight::getDestination() { return this->destination; }
+std::shared_ptr<Neuron> Weight::getSource() { return this->source; }
+std::shared_ptr<Neuron> Weight::getDestination() { return this->destination; }
 double Weight::getValue() { return this->weightValue; }
 
-void Weight::setSource(Neuron& t_source) { this->source = t_source; }
-void Weight::setDestination(Neuron& t_destination)
+void Weight::setSource(std::shared_ptr<Neuron> t_source)
+{
+    this->source = t_source;
+}
+void Weight::setDestination(std::shared_ptr<Neuron> t_destination)
 {
     this->destination = t_destination;
 }
@@ -107,17 +112,17 @@ NeuralNetwork::NeuralNetwork(std::vector<double> t_inputs, int t_outputSize,
 
 void NeuralNetwork::update()
 {
-    std::unordered_map<Neuron*, double> map;
+    std::unordered_map<std::shared_ptr<Neuron>, double> map;
 
     // O(w) for w weights.
     for (auto& weight : this->m_weights)
     {
         auto neuron = weight.getDestination();
-        if (!map.count(&neuron))
+        if (!map.count(neuron))
         {
-            map[&neuron] = 0.0;
+            map[neuron] = 0.0;
         }
-        map[&neuron] += weight.getSource().getOutput() + weight.getValue();
+        map[neuron] += weight.getSource()->getOutput() + weight.getValue();
     }
 
     // O(n) for n neurons.
@@ -154,7 +159,8 @@ void NeuralNetwork::assignWeights()
     {
         for (auto& outputNeuron : this->m_outputLayer.getLayer())
         {
-            Weight newWeight(inputNeuron, outputNeuron);
+            Weight newWeight(std::shared_ptr<Neuron>(&inputNeuron),
+                             std::shared_ptr<Neuron>{&outputNeuron});
             this->m_weights.push_back(newWeight);
         }
     }
