@@ -227,6 +227,16 @@ TEST_CASE("Neural Network Constructor Test 3")
     std::vector<double> inputs{2.0,10.0};
     NeuralNetwork net(inputs, 2, LearningMethod::relu); // 2x2 network
     REQUIRE(net.getLearningMethod() == LearningMethod::relu);
+    REQUIRE(net.getInputSize() == 2);
+    REQUIRE(net.getOutputSize() == 2);
+    REQUIRE(net.getHiddenNeuronsSize() == 0);
+
+    // Ensuring update() has worked correctly. This does not check for the
+    // correct output. It simply checks if there is an output.
+    for (auto& output : net.getOutputLayer().getLayer())
+    {
+        REQUIRE(output.getOutput() != 0.0);
+    }
 }
 
 int main(int argc, char* argv[])
