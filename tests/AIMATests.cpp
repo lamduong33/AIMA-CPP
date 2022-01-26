@@ -96,7 +96,7 @@ TEST_CASE("Weight Randomization Tests")
     Neuron neuron{};
     for (int i = 0; i < numberOfWeights; i++)
     {
-        listOfWeights.push_back(Weight{neuron, neuron});
+        listOfWeights.push_back(Weight{&neuron, &neuron});
         for (int j = i; j >= 0; j--)
         {
             if (j != i)

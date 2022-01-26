@@ -17,8 +17,7 @@ double Neuron::reluFunction(double t_activationInput)
 double Neuron::activationInput(std::vector<double>& inputs,
                                std::vector<double>& weights)
 {
-    if (weights.size() != inputs.size())
-        throw new UnevenWeightsInputs;
+    if (weights.size() != inputs.size()) throw new UnevenWeightsInputs;
     double result = 0.0;
     for (int i = 0; i < (int)inputs.size(); i++)
     {
@@ -34,22 +33,17 @@ double Neuron::getOutput() { return this->output; }
 
 void Neuron::setOutput(double t_output) { this->output = t_output; }
 
-Weight::Weight(std::shared_ptr<Neuron> t_source,
-               std::shared_ptr<Neuron> t_destination)
-    : source{t_source}, destination{t_destination}
+Weight::Weight(Neuron* t_source, Neuron* t_destination)
+    : Weight(t_source, t_destination, -1.0, 1.0)
+{}
+
+Weight::Weight(Neuron* t_source, Neuron* t_destination, double startRange,
+               double endRange)
+    : source{std::make_shared<Neuron>(t_source)},
+      destination{std::make_shared<Neuron>(t_destination)}
 {
     static std::default_random_engine rng;
     std::uniform_real_distribution<double> dist(-1.0, 1.0);
-    weightValue = dist(rng);
-}
-
-Weight::Weight(std::shared_ptr<Neuron> t_source,
-               std::shared_ptr<Neuron> t_destination, double startRange,
-               double endRange)
-    : source{t_source}, destination{t_destination}
-{
-    static std::default_random_engine rng;
-    std::uniform_real_distribution<double> dist(startRange, endRange);
     weightValue = dist(rng);
 }
 
@@ -57,13 +51,13 @@ std::shared_ptr<Neuron> Weight::getSource() { return this->source; }
 std::shared_ptr<Neuron> Weight::getDestination() { return this->destination; }
 double Weight::getValue() { return this->weightValue; }
 
-void Weight::setSource(std::shared_ptr<Neuron> t_source)
+void Weight::setSource(Neuron* t_source)
 {
-    this->source = t_source;
+    this->source = std::make_shared<Neuron>(t_source);
 }
-void Weight::setDestination(std::shared_ptr<Neuron> t_destination)
+void Weight::setDestination(Neuron* t_destination)
 {
-    this->destination = t_destination;
+    this->destination = std::make_shared<Neuron>(t_destination);
 }
 
 Layer::Layer() : layer{vector<Neuron>()} {}
@@ -159,8 +153,7 @@ void NeuralNetwork::assignWeights()
     {
         for (auto& outputNeuron : this->m_outputLayer.getLayer())
         {
-            Weight newWeight(std::shared_ptr<Neuron>(&inputNeuron),
-                             std::shared_ptr<Neuron>{&outputNeuron});
+            Weight newWeight(&inputNeuron, &outputNeuron);
             this->m_weights.push_back(newWeight);
         }
     }

@@ -24,12 +24,14 @@ public:
 
     /**
      * @brief Sigmoid activation function: 1 / (1 + e^-x)
-     * @param t_activationInput is the sum of the input's weights and outputs. */
+     * @param t_activationInput is the sum of the input's weights and outputs.
+     */
     double sigmoidFunction(double t_activationInput);
 
     /**
      * @brief ReLU (rectifier) activation function: max(0,x)
-     * @param t_activationInput is the sum of the input's weights and outputs. */
+     * @param t_activationInput is the sum of the input's weights and outputs.
+     */
     double reluFunction(double t_activationInput);
 
     /**
@@ -82,22 +84,20 @@ public:
 
     /**
      * @brief Create the weight object with source and destination */
-    Weight(std::shared_ptr<Neuron> t_source,
-           std::shared_ptr<Neuron> t_destination);
+    Weight(Neuron* t_source, Neuron* t_destination);
 
     /**
      * @brief Create weight with source and destination. startRange and endRange
      * represent the range of random values to assign initial weights */
-    Weight(std::shared_ptr<Neuron> t_source,
-           std::shared_ptr<Neuron> t_destination, double startRange,
+    Weight(Neuron* t_source, Neuron* t_destination, double startRange,
            double endRange);
 
     std::shared_ptr<Neuron> getSource();
     std::shared_ptr<Neuron> getDestination();
     double getValue();
 
-    void setSource(std::shared_ptr<Neuron> t_source);
-    void setDestination(std::shared_ptr<Neuron> t_destination);
+    void setSource(Neuron* t_source);
+    void setDestination(Neuron* t_destination);
 };
 
 /**
