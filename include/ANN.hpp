@@ -30,13 +30,13 @@ public:
      * @brief Sigmoid activation function: 1 / (1 + e^-x)
      * @param t_activationInput is the sum of the input's weights and outputs.
      */
-    double sigmoidFunction(double t_activationInput);
+    void sigmoidFunction(double t_activationInput);
 
     /**
      * @brief ReLU (rectifier) activation function: max(0,x)
      * @param t_activationInput is the sum of the input's weights and outputs.
      */
-    double reluFunction(double t_activationInput);
+    void reluFunction(double t_activationInput);
 
     /**
      * @brief intermediate function used by activation functions, such as
@@ -105,20 +105,6 @@ public:
     void setSource(Neuron& t_source);
     void setDestination(Neuron& t_destination);
 };
-
-/**
- * Simple abstraction for a layer of neurons */
-class Layer
-{
-    vector<Neuron> layer;
-
-public:
-    Layer();
-    void insert(Neuron& neuron);
-    Neuron getNeuron(int index);
-    vector<Neuron> getLayer();
-};
-
 /**
  * Learning method choices:
  * - sigmoid
@@ -133,10 +119,10 @@ enum class LearningMethod
  * A feed-forward network. */
 class NeuralNetwork
 {
-    Layer m_inputLayer;
-    vector<Layer> m_hiddenLayers;
+    vector<Neuron> m_inputLayer;
+    vector<vector<Neuron>> m_hiddenLayers;
     vector<Weight> m_weights;
-    Layer m_outputLayer; // multiple nodes indicate classification
+    vector<Neuron> m_outputLayer; // multiple nodes indicate classification
     LearningMethod m_method = LearningMethod::sigmoid; // sigmoid by default
 
     int m_inputSize;         // the number of input neurons
@@ -198,10 +184,10 @@ public:
 
     void setLearningMethod(LearningMethod t_learningMethod);
 
-    Layer getInputLayer();
-    vector<Layer> getHiddenLayers();
+    vector<Neuron> getInputLayer();
+    vector<vector<Neuron>> getHiddenLayers();
     vector<Weight> getWeights();
-    Layer getOutputLayer();
+    vector<Neuron> getOutputLayer();
     LearningMethod getLearningMethod();
     int getInputSize();
     int getOutputSize();

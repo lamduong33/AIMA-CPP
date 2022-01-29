@@ -124,10 +124,10 @@ TEST_CASE("NeuralNetwork Constructor Test 1")
     {
         if (i != numberOfInputs - 1)
         {
-            auto neuron = net.getInputLayer().getNeuron(i);
+            auto neuron = net.getInputLayer()[i];
             for (int j = i; j < numberOfInputs; j++)
             {
-                auto neuron2 = net.getInputLayer().getNeuron(j);
+                auto neuron2 = net.getInputLayer()[j];
                 REQUIRE(&neuron != &neuron2);
             }
         }
@@ -139,15 +139,15 @@ TEST_CASE("NeuralNetwork Constructor Test 1")
     // Output test
     for (int i = 0; i < numberOfOutputs; i++)
     {
-        REQUIRE(!net.getOutputLayer().getLayer().empty());
-        REQUIRE(net.getOutputLayer().getLayer()[i].getBias() == 0.0);
-        REQUIRE(net.getOutputLayer().getLayer()[i].getOutput() == 0.0);
+        REQUIRE(!net.getOutputLayer().empty());
+        REQUIRE(net.getOutputLayer()[i].getBias() == 0.0);
+        REQUIRE(net.getOutputLayer()[i].getOutput() == 0.0);
         if (i != numberOfOutputs -1)
         {
-            auto outputNeuron = net.getOutputLayer().getNeuron(i);
+            auto outputNeuron = net.getOutputLayer()[i];
             for (int j = i; j < numberOfOutputs; j++)
             {
-                auto outputNeuron2 = net.getOutputLayer().getNeuron(j);
+                auto outputNeuron2 = net.getOutputLayer()[j];
                 REQUIRE(&outputNeuron != &outputNeuron2);
             }
         }
@@ -180,10 +180,10 @@ TEST_CASE("NeuralNetwork Constructor Test 2")
     {
         if (i != inputs.size() - 1)
         {
-            auto neuron = net.getInputLayer().getNeuron(i);
+            auto neuron = net.getInputLayer()[i];
             for (int j = i; j < inputs.size(); j++)
             {
-                auto neuron2 = net.getInputLayer().getNeuron(j);
+                auto neuron2 = net.getInputLayer()[j];
                 REQUIRE(&neuron != &neuron2);
             }
         }
@@ -195,15 +195,15 @@ TEST_CASE("NeuralNetwork Constructor Test 2")
     // Output test
     for (int i = 0; i < numberOfOutputs; i++)
     {
-        REQUIRE(!net.getOutputLayer().getLayer().empty());
-        REQUIRE(net.getOutputLayer().getLayer()[i].getBias() == 0.0);
-        REQUIRE(net.getOutputLayer().getLayer()[i].getOutput() == 0.0);
+        REQUIRE(!net.getOutputLayer().empty());
+        REQUIRE(net.getOutputLayer()[i].getBias() == 0.0);
+        REQUIRE(net.getOutputLayer()[i].getOutput() != 0.0);
         if (i != numberOfOutputs -1)
         {
-            auto outputNeuron = net.getOutputLayer().getNeuron(i);
+            auto outputNeuron = net.getOutputLayer()[i];
             for (int j = i; j < numberOfOutputs; j++)
             {
-                auto outputNeuron2 = net.getOutputLayer().getNeuron(j);
+                auto outputNeuron2 = net.getOutputLayer()[j];
                 REQUIRE(&outputNeuron != &outputNeuron2);
             }
         }
@@ -235,7 +235,7 @@ TEST_CASE("Neural Network Constructor Test 3")
 
     // Ensuring update() has worked correctly. This does not check for the
     // correct output. It simply checks if there is an output.
-    for (auto& output : net.getOutputLayer().getLayer())
+    for (auto& output : net.getOutputLayer())
     {
         REQUIRE(output.getOutput() != 0.0);
     }

@@ -6,14 +6,14 @@ Neuron::Neuron() : bias{0.0}, output{0.0} {}
 
 Neuron::Neuron(double t_output) : bias{0.0}, output{t_output} {}
 
-double Neuron::sigmoidFunction(double t_activationInput)
+void Neuron::sigmoidFunction(double t_activationInput)
 {
-    return (1 / (1 + (exp(-t_activationInput))));
+    this->output = (1 / (1 + (exp(-t_activationInput))));
 }
 
-double Neuron::reluFunction(double t_activationInput)
+void Neuron::reluFunction(double t_activationInput)
 {
-    return std::fmax(0.0, t_activationInput);
+    this->output = std::fmax(0.0, t_activationInput);
 }
 
 double Neuron::activationInput(std::vector<double>& inputs,
@@ -65,38 +65,33 @@ void Weight::setDestination(Neuron& t_destination)
     this->destination = t_destination;
 }
 
-Layer::Layer() : layer{vector<Neuron>()} {}
-void Layer::insert(Neuron& neuron) { this->layer.push_back(neuron); }
-Neuron Layer::getNeuron(int index) { return this->layer[index]; }
-vector<Neuron> Layer::getLayer() { return this->layer; }
-
 /** ========================= NEURAL NETWORK ======================== */
 
 NeuralNetwork::NeuralNetwork(int t_inputSize, int t_outputSize)
-    : m_inputLayer{Layer()}, m_hiddenLayers{vector<Layer>()},
-      m_outputLayer(Layer()), m_inputSize{t_inputSize},
+    : m_inputLayer{vector<Neuron>{}}, m_hiddenLayers{vector<vector<Neuron>>{}},
+      m_outputLayer{vector<Neuron>{}}, m_inputSize{t_inputSize},
       m_outputSize{t_outputSize}, m_hiddenNeuronsSize{0}
 {
     // Input layer
     for (int i = 0; i < t_inputSize; i++)
     {
         Neuron inputNeuron;
-        m_inputLayer.insert(inputNeuron);
+        m_inputLayer.push_back(inputNeuron);
     }
     this->createOutputLayer(t_outputSize);
     this->assignWeights();
 }
 
 NeuralNetwork::NeuralNetwork(std::vector<double> t_inputs, int t_outputSize)
-    : m_inputLayer{Layer()}, m_hiddenLayers{vector<Layer>()},
-      m_outputLayer(Layer()), m_inputSize{(int)t_inputs.size()},
+    : m_inputLayer{vector<Neuron>{}}, m_hiddenLayers{vector<vector<Neuron>>{}},
+      m_outputLayer(vector<Neuron>{}), m_inputSize{(int)t_inputs.size()},
       m_outputSize{t_outputSize}, m_hiddenNeuronsSize{0}
 {
     for (int i = 0; i < t_inputs.size(); i++)
     {
         Neuron inputNeuron;
         inputNeuron.setOutput(t_inputs[i]);
-        m_inputLayer.insert(inputNeuron);
+        m_inputLayer.push_back(inputNeuron);
     }
     this->createOutputLayer(t_outputSize);
     this->assignWeights();
@@ -115,28 +110,29 @@ void NeuralNetwork::update()
     std::unordered_map<Neuron*, double> map;
 
     // O(w) for w weights.
-    for (auto& weight : this->m_weights)
+    for (int i = 0; i < this->m_weights.size(); i++)
     {
         // FIXME: neuron will always have the same address
-        auto neuron = weight.getDestinationAddress();
+        auto neuron = m_weights[i].getDestinationAddress();
         if (!map.count(neuron))
         {
             map[neuron] = 0.0;
         }
-        map[neuron] += weight.getSource().getOutput() + weight.getValue();
+        map[neuron] += m_weights[i].getSource().getOutput() + m_weights[i].getValue();
     }
 
     // O(n) for n neurons.
-    for (auto& pair : map)
+    //for (auto& pair : map)
+    for (auto pair = map.begin(); pair != map.end(); pair++)
     {
-        auto neuron = *pair.first;
+        auto neuron = pair->first;
         if (this->getLearningMethod() == LearningMethod::relu)
         {
-            neuron.reluFunction(pair.second);
+            neuron->reluFunction(pair->second);
         }
         else if (this->getLearningMethod() == LearningMethod::sigmoid)
         {
-            neuron.sigmoidFunction(pair.second);
+            neuron->sigmoidFunction(pair->second);
         }
         else
         {
@@ -150,17 +146,17 @@ void NeuralNetwork::createOutputLayer(int t_outputSize)
     for (int i = 0; i < t_outputSize; i++)
     {
         Neuron outputNeuron;
-        this->m_outputLayer.insert(outputNeuron);
+        this->m_outputLayer.push_back(outputNeuron);
     }
 }
 
 void NeuralNetwork::assignWeights()
 {
-    for (auto inputNeuron : this->m_inputLayer.getLayer())
+    for (int i = 0; i < m_inputLayer.size(); i++)
     {
-        for (auto outputNeuron : this->m_outputLayer.getLayer())
+        for (int j = 0; j < m_outputLayer.size(); j++)
         {
-            this->m_weights.push_back(Weight(inputNeuron, outputNeuron, -1.0, 1.0));
+            m_weights.push_back(Weight(m_inputLayer[i], m_outputLayer[j], -1.0, 1.0));
         }
     }
 }
@@ -168,7 +164,7 @@ void NeuralNetwork::assignWeights()
 void NeuralNetwork::addHiddenLayer(int t_numberOfNodes)
 {
     // Create the hidden layer
-    Layer hiddenLayer;
+    vector<Neuron> hiddenLayer;
     for (int i = 0; i < t_numberOfNodes; i++)
     {
         Neuron n;
@@ -186,10 +182,10 @@ void NeuralNetwork::setLearningMethod(LearningMethod t_learningMethod)
 /** TODO*/
 void NeuralNetwork::addOutputNode(int t_hiddenLayerIndex) {}
 
-Layer NeuralNetwork::getInputLayer() { return this->m_inputLayer; }
-vector<Layer> NeuralNetwork::getHiddenLayers() { return this->m_hiddenLayers; }
+vector<Neuron> NeuralNetwork::getInputLayer() { return this->m_inputLayer; }
+vector<vector<Neuron>> NeuralNetwork::getHiddenLayers() { return this->m_hiddenLayers; }
 vector<Weight> NeuralNetwork::getWeights() { return this->m_weights; }
-Layer NeuralNetwork::getOutputLayer() { return this->m_outputLayer; }
+vector<Neuron> NeuralNetwork::getOutputLayer() { return this->m_outputLayer; }
 LearningMethod NeuralNetwork::getLearningMethod() { return this->m_method; }
 int NeuralNetwork::getInputSize() { return this->m_inputSize; }
 int NeuralNetwork::getOutputSize() { return this->m_outputSize; }
