@@ -93,15 +93,17 @@ TEST_CASE("Weight Randomization Tests")
 {
     auto numberOfWeights = 5;
     std::vector<Weight> listOfWeights{};
-    Neuron neuron{};
+    Neuron newNeuron{};
     for (int i = 0; i < numberOfWeights; i++)
     {
-        listOfWeights.push_back(Weight{&neuron, &neuron});
+        listOfWeights.push_back(Weight(newNeuron, newNeuron, -1.0, 1.0));
         for (int j = i; j >= 0; j--)
         {
             if (j != i)
             {
+                // Weights are unique
                 REQUIRE(&listOfWeights[j] != &listOfWeights[i]);
+                // Weights have unique values
                 REQUIRE(listOfWeights[j].getValue() != listOfWeights[i].getValue());
             }
         }
@@ -154,7 +156,7 @@ TEST_CASE("NeuralNetwork Constructor Test 1")
     // Test weights
     REQUIRE(!net.getWeights().empty());
     auto weightSet = std::unordered_set<double>{};
-    for (auto& weight : net.getWeights())
+    for (auto weight : net.getWeights())
     {
         // Ensuring that the weights are within the right range
         REQUIRE(weight.getValue() < 1.0);

@@ -4,6 +4,8 @@
 
 Neuron::Neuron() : bias{0.0}, output{0.0} {}
 
+Neuron::Neuron(double t_output) : bias{0.0}, output{t_output} {}
+
 double Neuron::sigmoidFunction(double t_activationInput)
 {
     return (1 / (1 + (exp(-t_activationInput))));
@@ -17,7 +19,8 @@ double Neuron::reluFunction(double t_activationInput)
 double Neuron::activationInput(std::vector<double>& inputs,
                                std::vector<double>& weights)
 {
-    if (weights.size() != inputs.size()) throw new UnevenWeightsInputs;
+    if (weights.size() != inputs.size())
+        throw new UnevenWeightsInputs;
     double result = 0.0;
     for (int i = 0; i < (int)inputs.size(); i++)
     {
@@ -33,37 +36,41 @@ double Neuron::getOutput() { return this->output; }
 
 void Neuron::setOutput(double t_output) { this->output = t_output; }
 
-Weight::Weight(Neuron* t_source, Neuron* t_destination)
+Weight::Weight(Neuron& t_source, Neuron& t_destination)
     : Weight(t_source, t_destination, -1.0, 1.0)
 {}
 
-Weight::Weight(Neuron* t_source, Neuron* t_destination, double startRange,
+Weight::Weight(Neuron& t_source, Neuron& t_destination, double startRange,
                double endRange)
-    : source{std::make_shared<Neuron>(t_source)},
-      destination{std::make_shared<Neuron>(t_destination)}
+    : source{t_source},
+      destination{t_destination}
 {
     static std::default_random_engine rng;
-    std::uniform_real_distribution<double> dist(-1.0, 1.0);
+    std::uniform_real_distribution<double> dist(startRange, endRange);
     weightValue = dist(rng);
 }
 
-std::shared_ptr<Neuron> Weight::getSource() { return this->source; }
-std::shared_ptr<Neuron> Weight::getDestination() { return this->destination; }
+Neuron& Weight::getSource() { return this->source; }
+Neuron& Weight::getDestination() { return this->destination; }
+Neuron* Weight::getSourceAddress() { return &this->source;}
+Neuron* Weight::getDestinationAddress() { return &this->destination;}
 double Weight::getValue() { return this->weightValue; }
 
-void Weight::setSource(Neuron* t_source)
+void Weight::setSource(Neuron& t_source)
 {
-    this->source = std::make_shared<Neuron>(t_source);
+    this->source = t_source;
 }
-void Weight::setDestination(Neuron* t_destination)
+void Weight::setDestination(Neuron& t_destination)
 {
-    this->destination = std::make_shared<Neuron>(t_destination);
+    this->destination = t_destination;
 }
 
 Layer::Layer() : layer{vector<Neuron>()} {}
 void Layer::insert(Neuron& neuron) { this->layer.push_back(neuron); }
 Neuron Layer::getNeuron(int index) { return this->layer[index]; }
 vector<Neuron> Layer::getLayer() { return this->layer; }
+
+/** ========================= NEURAL NETWORK ======================== */
 
 NeuralNetwork::NeuralNetwork(int t_inputSize, int t_outputSize)
     : m_inputLayer{Layer()}, m_hiddenLayers{vector<Layer>()},
@@ -91,7 +98,6 @@ NeuralNetwork::NeuralNetwork(std::vector<double> t_inputs, int t_outputSize)
         inputNeuron.setOutput(t_inputs[i]);
         m_inputLayer.insert(inputNeuron);
     }
-    this->m_inputSize = t_inputs.size();
     this->createOutputLayer(t_outputSize);
     this->assignWeights();
     this->update();
@@ -106,17 +112,18 @@ NeuralNetwork::NeuralNetwork(std::vector<double> t_inputs, int t_outputSize,
 
 void NeuralNetwork::update()
 {
-    std::unordered_map<std::shared_ptr<Neuron>, double> map;
+    std::unordered_map<Neuron*, double> map;
 
     // O(w) for w weights.
     for (auto& weight : this->m_weights)
     {
-        auto neuron = weight.getDestination();
+        // FIXME: neuron will always have the same address
+        auto neuron = weight.getDestinationAddress();
         if (!map.count(neuron))
         {
             map[neuron] = 0.0;
         }
-        map[neuron] += weight.getSource()->getOutput() + weight.getValue();
+        map[neuron] += weight.getSource().getOutput() + weight.getValue();
     }
 
     // O(n) for n neurons.
@@ -149,12 +156,11 @@ void NeuralNetwork::createOutputLayer(int t_outputSize)
 
 void NeuralNetwork::assignWeights()
 {
-    for (auto& inputNeuron : this->m_inputLayer.getLayer())
+    for (auto inputNeuron : this->m_inputLayer.getLayer())
     {
-        for (auto& outputNeuron : this->m_outputLayer.getLayer())
+        for (auto outputNeuron : this->m_outputLayer.getLayer())
         {
-            Weight newWeight(&inputNeuron, &outputNeuron);
-            this->m_weights.push_back(newWeight);
+            this->m_weights.push_back(Weight(inputNeuron, outputNeuron, -1.0, 1.0));
         }
     }
 }

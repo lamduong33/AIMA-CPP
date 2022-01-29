@@ -23,6 +23,10 @@ public:
     Neuron();
 
     /**
+     * @brief Create a neuron with a given output. */
+    Neuron(double t_output);
+
+    /**
      * @brief Sigmoid activation function: 1 / (1 + e^-x)
      * @param t_activationInput is the sum of the input's weights and outputs.
      */
@@ -75,8 +79,8 @@ class NoSuchLearningMethod : public std::exception
 
 class Weight
 {
-    std::shared_ptr<Neuron> source;
-    std::shared_ptr<Neuron> destination;
+    Neuron& source;
+    Neuron& destination;
     double weightValue;
 
 public:
@@ -84,20 +88,22 @@ public:
 
     /**
      * @brief Create the weight object with source and destination */
-    Weight(Neuron* t_source, Neuron* t_destination);
+    Weight(Neuron& t_source, Neuron& t_destination);
 
     /**
      * @brief Create weight with source and destination. startRange and endRange
      * represent the range of random values to assign initial weights */
-    Weight(Neuron* t_source, Neuron* t_destination, double startRange,
+    Weight(Neuron& t_source, Neuron& t_destination, double startRange,
            double endRange);
 
-    std::shared_ptr<Neuron> getSource();
-    std::shared_ptr<Neuron> getDestination();
+    Neuron& getSource();
+    Neuron& getDestination();
+    Neuron* getSourceAddress();
+    Neuron* getDestinationAddress();
     double getValue();
 
-    void setSource(Neuron* t_source);
-    void setDestination(Neuron* t_destination);
+    void setSource(Neuron& t_source);
+    void setDestination(Neuron& t_destination);
 };
 
 /**
