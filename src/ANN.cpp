@@ -42,8 +42,7 @@ Weight::Weight(Neuron& t_source, Neuron& t_destination)
 
 Weight::Weight(Neuron& t_source, Neuron& t_destination, double startRange,
                double endRange)
-    : source{t_source},
-      destination{t_destination}
+    : source{t_source}, destination{t_destination}
 {
     static std::default_random_engine rng;
     std::uniform_real_distribution<double> dist(startRange, endRange);
@@ -52,14 +51,11 @@ Weight::Weight(Neuron& t_source, Neuron& t_destination, double startRange,
 
 Neuron& Weight::getSource() { return this->source; }
 Neuron& Weight::getDestination() { return this->destination; }
-Neuron* Weight::getSourceAddress() { return &this->source;}
-Neuron* Weight::getDestinationAddress() { return &this->destination;}
+Neuron* Weight::getSourceAddress() { return &this->source; }
+Neuron* Weight::getDestinationAddress() { return &this->destination; }
 double Weight::getValue() { return this->weightValue; }
 
-void Weight::setSource(Neuron& t_source)
-{
-    this->source = t_source;
-}
+void Weight::setSource(Neuron& t_source) { this->source = t_source; }
 void Weight::setDestination(Neuron& t_destination)
 {
     this->destination = t_destination;
@@ -67,10 +63,12 @@ void Weight::setDestination(Neuron& t_destination)
 
 /** ========================= NEURAL NETWORK ======================== */
 
-NeuralNetwork::NeuralNetwork(int t_inputSize, int t_outputSize)
+NeuralNetwork::NeuralNetwork(int t_inputSize, int t_outputSize,
+                             LearningMethod t_method)
     : m_inputLayer{vector<Neuron>{}}, m_hiddenLayers{vector<vector<Neuron>>{}},
-      m_outputLayer{vector<Neuron>{}}, m_inputSize{t_inputSize},
-      m_outputSize{t_outputSize}, m_hiddenNeuronsSize{0}
+      m_outputLayer{vector<Neuron>{}},
+      m_method(t_method), m_inputSize{t_inputSize}, m_outputSize{t_outputSize},
+      m_hiddenNeuronsSize{0}
 {
     // Input layer
     for (int i = 0; i < t_inputSize; i++)
@@ -82,9 +80,11 @@ NeuralNetwork::NeuralNetwork(int t_inputSize, int t_outputSize)
     this->assignWeights();
 }
 
-NeuralNetwork::NeuralNetwork(std::vector<double> t_inputs, int t_outputSize)
+NeuralNetwork::NeuralNetwork(std::vector<double> t_inputs, int t_outputSize,
+                             LearningMethod t_method)
     : m_inputLayer{vector<Neuron>{}}, m_hiddenLayers{vector<vector<Neuron>>{}},
-      m_outputLayer(vector<Neuron>{}), m_inputSize{(int)t_inputs.size()},
+      m_outputLayer(vector<Neuron>{}),
+      m_method(t_method), m_inputSize{(int)t_inputs.size()},
       m_outputSize{t_outputSize}, m_hiddenNeuronsSize{0}
 {
     for (int i = 0; i < t_inputs.size(); i++)
@@ -96,13 +96,6 @@ NeuralNetwork::NeuralNetwork(std::vector<double> t_inputs, int t_outputSize)
     this->createOutputLayer(t_outputSize);
     this->assignWeights();
     this->update();
-}
-
-NeuralNetwork::NeuralNetwork(std::vector<double> t_inputs, int t_outputSize,
-                             LearningMethod t_method)
-    : NeuralNetwork(t_inputs, t_outputSize)
-{
-    this->m_method = t_method;
 }
 
 void NeuralNetwork::update()
@@ -118,11 +111,12 @@ void NeuralNetwork::update()
         {
             map[neuron] = 0.0;
         }
-        map[neuron] += m_weights[i].getSource().getOutput() + m_weights[i].getValue();
+        map[neuron] +=
+            m_weights[i].getSource().getOutput() + m_weights[i].getValue();
     }
 
     // O(n) for n neurons.
-    //for (auto& pair : map)
+    // for (auto& pair : map)
     for (auto pair = map.begin(); pair != map.end(); pair++)
     {
         auto neuron = pair->first;
@@ -156,7 +150,8 @@ void NeuralNetwork::assignWeights()
     {
         for (int j = 0; j < m_outputLayer.size(); j++)
         {
-            m_weights.push_back(Weight(m_inputLayer[i], m_outputLayer[j], -1.0, 1.0));
+            m_weights.push_back(
+                Weight(m_inputLayer[i], m_outputLayer[j], -1.0, 1.0));
         }
     }
 }
@@ -183,7 +178,10 @@ void NeuralNetwork::setLearningMethod(LearningMethod t_learningMethod)
 void NeuralNetwork::addOutputNode(int t_hiddenLayerIndex) {}
 
 vector<Neuron> NeuralNetwork::getInputLayer() { return this->m_inputLayer; }
-vector<vector<Neuron>> NeuralNetwork::getHiddenLayers() { return this->m_hiddenLayers; }
+vector<vector<Neuron>> NeuralNetwork::getHiddenLayers()
+{
+    return this->m_hiddenLayers;
+}
 vector<Weight> NeuralNetwork::getWeights() { return this->m_weights; }
 vector<Neuron> NeuralNetwork::getOutputLayer() { return this->m_outputLayer; }
 LearningMethod NeuralNetwork::getLearningMethod() { return this->m_method; }

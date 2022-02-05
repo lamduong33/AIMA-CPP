@@ -241,6 +241,11 @@ TEST_CASE("Neural Network Constructor Test 3")
     }
 }
 
+TEST_CASE("Neural Network Add Neuron")
+{
+
+}
+
 int main(int argc, char* argv[])
 {
     int result = Catch::Session().run(argc, argv);

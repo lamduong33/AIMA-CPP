@@ -105,6 +105,7 @@ public:
     void setSource(Neuron& t_source);
     void setDestination(Neuron& t_destination);
 };
+
 /**
  * Learning method choices:
  * - sigmoid
@@ -123,7 +124,7 @@ class NeuralNetwork
     vector<vector<Neuron>> m_hiddenLayers;
     vector<Weight> m_weights;
     vector<Neuron> m_outputLayer; // multiple nodes indicate classification
-    LearningMethod m_method = LearningMethod::sigmoid; // sigmoid by default
+    LearningMethod m_method;      // sigmoid by default with constructors
 
     int m_inputSize;         // the number of input neurons
     int m_outputSize;        // the number of output neurons
@@ -148,24 +149,18 @@ public:
      *
      * @param t_inputSize the number of input neurons from the input layer.
      * @param t_outputSize the number of neurons in the output layer. */
-    NeuralNetwork(int t_inputSize, int t_outputSize);
+    NeuralNetwork(int t_inputSize, int t_outputSize,
+                  LearningMethod t_method = LearningMethod::sigmoid);
 
     /**
      * @brief Given a list of inputs, create a neural network. This will
-     * additionally run the learning algorithm with sigmoid function.
-     *
-     * @param t_inputSize the number of input nodes from the input layer.
-     * @param t_outputSize the number of nodes in the output layer. */
-    NeuralNetwork(std::vector<double> t_inputs, int t_outputSize);
-
-    /**
-     * @brief Given a list of inputs, create a neural network. This will
-     * additionally run the learning algorithm based on the chosen method.
+     * additionally run the learning algorithm with sigmoid function by default.
+     * This could be
      *
      * @param t_inputSize the number of input nodes from the input layer.
      * @param t_outputSize the number of nodes in the output layer. */
     NeuralNetwork(std::vector<double> t_inputs, int t_outputSize,
-                  LearningMethod method);
+                  LearningMethod t_method = LearningMethod::sigmoid);
 
     // TODO: Constructor to construct neural network from text file.
 
