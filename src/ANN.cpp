@@ -115,7 +115,6 @@ void NeuralNetwork::update()
     }
 
     // O(n) for n neurons.
-    // for (auto& pair : map)
     for (auto pair = map.begin(); pair != map.end(); pair++)
     {
         auto neuron = pair->first;
@@ -156,16 +155,42 @@ void NeuralNetwork::assignWeights()
 
 void NeuralNetwork::addHiddenLayer(int t_numberOfNodes)
 {
-    // Create the hidden layer
+    // Create the hidden layer and add it to the network.
     vector<Neuron> hiddenLayer;
     for (int i = 0; i < t_numberOfNodes; i++)
     {
-        Neuron n;
+        auto newNeuron = Neuron{};
+        std::vector<Neuron> previous;
+        if (m_hiddenLayers.empty())
+            previous = m_inputLayer;
+        else
+            previous = m_hiddenLayers.back();
+        for (auto& p_neuron : previous)
+        {
+            m_weights.push_back(Weight(p_neuron, newNeuron));
+        }
+        for (auto& output : m_outputLayer)
+        {
+            m_weights.push_back(Weight(newNeuron, output));
+        }
     }
-    // Add it to the net
-    // Adjust weights accordingly
-    // If everything went correctly, adjust the hidden neurons amount
+    this->m_hiddenLayers.push_back(hiddenLayer);
+
+    // If everything went correctly, adjust weights/outputs
+    this->update(); // NOTE: Can be expensive here
     this->m_hiddenNeuronsSize += t_numberOfNodes;
+}
+
+void NeuralNetwork::addNeuron(int t_layerIndex)
+{
+}
+
+void NeuralNetwork::removeHiddenLayer(int t_layerIndex)
+{
+}
+
+void NeuralNetwork::removeNeuron(int t_layerIndex, int t_neuronIndex)
+{
 }
 
 void NeuralNetwork::setLearningMethod(LearningMethod t_learningMethod)
