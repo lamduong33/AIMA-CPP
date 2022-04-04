@@ -131,11 +131,6 @@ class NeuralNetwork
     int m_hiddenNeuronsSize; // the number of neurons in hidden layeres
 
     /**
-     * @brief add a hidden layer to the neural network right before the output.
-     * @param t_numberOfNodes the number of nodes to be added. */
-    void addHiddenLayer(int t_numberOfNodes);
-
-    /**
      * @brief create an output layer from given output size and assign it to the
      * neural network. This is meant to be used in the constructor only.
      * @param t_outputSize the number of output neurons. */
@@ -177,6 +172,33 @@ public:
      * @brief add an output node to the neural network at a certain layer. */
     void addOutputNode(int t_hiddenLayerIndex);
 
+    /**
+     * @brief add a hidden layer to the neural network right before the output.
+     * The neurons will initially have randomized weights.
+     * Will update weights/ouputs at the end of the function.
+     * @param t_numberOfNodes the number of nodes to be added. */
+    void addHiddenLayer(int t_numberOfNodes);
+
+    /**
+     * @brief Insert a new neuron at the end of the specified layer.
+     * Will update weights/ouputs at the end of the function.
+     * @param t_layerIndex */
+    void addNeuron(int t_layerIndex);
+
+    /**
+     * @brief Remove the hidden layer at the specified index.
+     * Will update weights/ouputs at the end of the function.
+     * */
+    void removeHiddenLayer(int t_layerIndex);
+
+    /**
+     * @brief Remove the neuron at the specified index and layer index.
+     * Will update weights/ouputs at the end of the function.
+     * */
+    void removeNeuron(int t_layerIndex, int t_neuronIndex);
+
+    /**
+     * @brief change the learning method to a new LearningMethod. */
     void setLearningMethod(LearningMethod t_learningMethod);
 
     vector<Neuron> getInputLayer();

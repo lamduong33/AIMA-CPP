@@ -249,6 +249,7 @@ TEST_CASE("Neural Network Add Neuron")
 {
     NeuralNetwork net{std::vector<double>{1.0, 2.0, 3.0}, 2,
                       LearningMethod::relu};
+
 }
 
 int main(int argc, char* argv[])
