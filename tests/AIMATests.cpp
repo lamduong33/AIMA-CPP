@@ -73,7 +73,7 @@ TEST_CASE("DataSet - get data - correct data")
 
 TEST_CASE("Neuron Uneven Test")
 {
-    std::vector<double> weights{-0.02,-0.04};
+    std::vector<double> weights{-0.02, -0.04};
     std::vector<double> inputs{2.0};
     Neuron neuron{};
     REQUIRE_THROWS(neuron.activationInput(inputs, weights));
@@ -82,7 +82,7 @@ TEST_CASE("Neuron Uneven Test")
 /* Check for basic math functions.*/
 TEST_CASE("Neuron Test")
 {
-    std::vector<double> weights{-0.02,-0.04};
+    std::vector<double> weights{-0.02, -0.04};
     std::vector<double> inputs{2.0, 10.0};
     Neuron neuron{};
     auto activationInput = neuron.activationInput(inputs, weights);
@@ -104,7 +104,8 @@ TEST_CASE("Weight Randomization Tests")
                 // Weights are unique
                 REQUIRE(&listOfWeights[j] != &listOfWeights[i]);
                 // Weights have unique values
-                REQUIRE(listOfWeights[j].getValue() != listOfWeights[i].getValue());
+                REQUIRE(listOfWeights[j].getValue() !=
+                        listOfWeights[i].getValue());
             }
         }
     }
@@ -142,7 +143,7 @@ TEST_CASE("NeuralNetwork Constructor Test 1")
         REQUIRE(!net.getOutputLayer().empty());
         REQUIRE(net.getOutputLayer()[i].getBias() == 0.0);
         REQUIRE(net.getOutputLayer()[i].getOutput() == 0.0);
-        if (i != numberOfOutputs -1)
+        if (i != numberOfOutputs - 1)
         {
             auto outputNeuron = net.getOutputLayer()[i];
             for (int j = i; j < numberOfOutputs; j++)
@@ -198,7 +199,7 @@ TEST_CASE("NeuralNetwork Constructor Test 2")
         REQUIRE(!net.getOutputLayer().empty());
         REQUIRE(net.getOutputLayer()[i].getBias() == 0.0);
         REQUIRE(net.getOutputLayer()[i].getOutput() != 0.0);
-        if (i != numberOfOutputs -1)
+        if (i != numberOfOutputs - 1)
         {
             auto outputNeuron = net.getOutputLayer()[i];
             for (int j = i; j < numberOfOutputs; j++)
@@ -227,7 +228,7 @@ TEST_CASE("NeuralNetwork Constructor Test 2")
 
 TEST_CASE("Neural Network Constructor Test 3")
 {
-    std::vector<double> inputs{2.0,10.0};
+    std::vector<double> inputs{2.0, 10.0};
     NeuralNetwork net(inputs, 2, LearningMethod::relu); // 2x2 network
     REQUIRE(net.getLearningMethod() == LearningMethod::relu);
     REQUIRE(net.getInputSize() == 2);
@@ -236,15 +237,18 @@ TEST_CASE("Neural Network Constructor Test 3")
 
     // Ensuring update() has worked correctly. This does not check for the
     // correct output. It simply checks if there is an output.
+    auto previous = 0.0;
     for (auto& output : net.getOutputLayer())
     {
-        REQUIRE(output.getOutput() != 0.0);
+        REQUIRE(output.getOutput() != previous);
+        previous = output.getOutput();
     }
 }
 
 TEST_CASE("Neural Network Add Neuron")
 {
-
+    NeuralNetwork net{std::vector<double>{1.0, 2.0, 3.0}, 2,
+                      LearningMethod::relu};
 }
 
 int main(int argc, char* argv[])

@@ -105,7 +105,6 @@ void NeuralNetwork::update()
     // O(w) for w weights.
     for (int i = 0; i < this->m_weights.size(); i++)
     {
-        // FIXME: neuron will always have the same address
         auto neuron = m_weights[i].getDestinationAddress();
         if (!map.count(neuron))
         {
