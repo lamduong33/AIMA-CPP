@@ -1,16 +1,17 @@
 #include "../include/AIMAGUI.hpp"
 
+// Hello
 int main(int argc, char **argv)
 {
     QApplication app(argc, argv);
 
-    QPushButton button;
-    button.setText("Get Started!");
-    button.setToolTip("This will start the program");
-    QFont font("Iosevka");
-    button.setFont(font);
+    QWidget window;
+    window.setFixedSize(100, 50);
 
-    button.show();
+    auto button = new QPushButton("Get Started", &window);
+    button->setGeometry(10, 10, 80, 30);
+
+    window.show();
 
     return app.exec();
 }
