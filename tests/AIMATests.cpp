@@ -184,7 +184,7 @@ TEST_CASE("NeuralNetwork Constructor Test 2")
             for (int j = i; j < inputs.size(); j++)
             {
                 auto neuron2 = net.getInputLayer()[j];
-                REQUIRE(&neuron != &neuron2);
+                REQUIRE(&neuron != &neuron2); // memory requirement
             }
         }
     }
@@ -204,6 +204,7 @@ TEST_CASE("NeuralNetwork Constructor Test 2")
             for (int j = i; j < numberOfOutputs; j++)
             {
                 auto outputNeuron2 = net.getOutputLayer()[j];
+                // different addresses for output neurons
                 REQUIRE(&outputNeuron != &outputNeuron2);
             }
         }

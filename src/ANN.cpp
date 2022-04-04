@@ -139,8 +139,7 @@ void NeuralNetwork::createOutputLayer(int t_outputSize)
 {
     for (int i = 0; i < t_outputSize; i++)
     {
-        Neuron outputNeuron;
-        this->m_outputLayer.push_back(outputNeuron);
+        this->m_outputLayer.push_back(Neuron{});
     }
 }
 
@@ -174,14 +173,18 @@ void NeuralNetwork::setLearningMethod(LearningMethod t_learningMethod)
 {
     this->m_method = t_learningMethod;
 }
-/** TODO*/
-void NeuralNetwork::addOutputNode(int t_hiddenLayerIndex) {}
+
+void NeuralNetwork::addOutputNode(int t_hiddenLayerIndex)
+{
+    this->m_outputLayer.push_back(Neuron{});
+}
 
 vector<Neuron> NeuralNetwork::getInputLayer() { return this->m_inputLayer; }
 vector<vector<Neuron>> NeuralNetwork::getHiddenLayers()
 {
     return this->m_hiddenLayers;
 }
+
 vector<Weight> NeuralNetwork::getWeights() { return this->m_weights; }
 vector<Neuron> NeuralNetwork::getOutputLayer() { return this->m_outputLayer; }
 LearningMethod NeuralNetwork::getLearningMethod() { return this->m_method; }
