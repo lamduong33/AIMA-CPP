@@ -110,54 +110,27 @@ TEST_CASE("Weight Randomization Tests")
         }
     }
 }
-
-/* Sanity check to ensure that objects are instantiation correctly. This checks
- * for correct number of hidden layers(none), output, bias, and weights. */
-TEST_CASE("NeuralNetwork Constructor Test 1")
+void ANNInputTest(int t_inputSize, std::vector<Neuron> t_netInputs)
 {
-    auto numberOfInputs = 5;
-    auto numberOfOutputs = 2;
-    NeuralNetwork net(numberOfInputs, numberOfOutputs);
-    REQUIRE(net.getLearningMethod() == LearningMethod::sigmoid);
-
     // Ensure that inputs aren't identical
-    for (int i = 0; i < numberOfInputs; i++)
+    for (int i = 0; i < t_inputSize; i++)
     {
-        if (i != numberOfInputs - 1)
+        if (i != t_inputSize - 1)
         {
-            auto neuron = net.getInputLayer()[i];
-            for (int j = i; j < numberOfInputs; j++)
+            auto neuron = t_netInputs[i];
+            for (int j = i; j < t_inputSize; j++)
             {
-                auto neuron2 = net.getInputLayer()[j];
-                REQUIRE(&neuron != &neuron2);
+                auto neuron2 = t_netInputs[j];
+                REQUIRE(&neuron != &neuron2); // memory requirement
             }
         }
     }
+}
 
-    // Hidden layers test
-    REQUIRE(net.getHiddenLayers().empty());
-
-    // Output test
-    for (int i = 0; i < numberOfOutputs; i++)
-    {
-        REQUIRE(!net.getOutputLayer().empty());
-        REQUIRE(net.getOutputLayer()[i].getBias() == 0.0);
-        REQUIRE(net.getOutputLayer()[i].getOutput() == 0.0);
-        if (i != numberOfOutputs - 1)
-        {
-            auto outputNeuron = net.getOutputLayer()[i];
-            for (int j = i; j < numberOfOutputs; j++)
-            {
-                auto outputNeuron2 = net.getOutputLayer()[j];
-                REQUIRE(&outputNeuron != &outputNeuron2);
-            }
-        }
-    }
-
-    // Test weights
-    REQUIRE(!net.getWeights().empty());
+void weightTest(std::vector<Weight> t_weights)
+{
     auto weightSet = std::unordered_set<double>{};
-    for (auto weight : net.getWeights())
+    for (auto& weight : t_weights)
     {
         // Ensuring that the weights are within the right range
         REQUIRE(weight.getValue() < 1.0);
@@ -169,6 +142,48 @@ TEST_CASE("NeuralNetwork Constructor Test 1")
     }
 }
 
+void ANNOutputTest(std::vector<Neuron> t_outputLayer)
+{
+    for (int i = 0; i < t_outputLayer.size(); i++)
+    {
+        REQUIRE(!t_outputLayer.empty());
+        REQUIRE(t_outputLayer[i].getBias() == 0.0);
+        REQUIRE(t_outputLayer[i].getOutput() != 0.0);
+        if (i != t_outputLayer.size() - 1)
+        {
+            auto outputNeuron = t_outputLayer[i];
+            for (int j = i; j < t_outputLayer.size(); j++)
+            {
+                auto outputNeuron2 = t_outputLayer[j];
+                // different addresses for output neurons
+                REQUIRE(&outputNeuron != &outputNeuron2);
+            }
+        }
+    }
+}
+
+/* Sanity check to ensure that objects are instantiation correctly. This checks
+ * for correct number of hidden layers(none), output, bias, and weights. */
+TEST_CASE("NeuralNetwork Constructor Test 1")
+{
+    auto numberOfInputs = 5;
+    auto numberOfOutputs = 2;
+    NeuralNetwork net(numberOfInputs, numberOfOutputs);
+    REQUIRE(net.getLearningMethod() == LearningMethod::sigmoid);
+
+    // Ensure that inputs aren't identical
+    ANNInputTest(numberOfInputs, net.getInputLayer());
+
+    // Hidden layers test
+    REQUIRE(net.getHiddenLayers().empty());
+
+    // Output test
+    ANNOutputTest(net.getOutputLayer());
+
+    // Test weights
+    weightTest(net.getWeights());
+}
+
 /* Test for the constructor that takes in a vector of doubles as inputs.*/
 TEST_CASE("NeuralNetwork Constructor Test 2")
 {
@@ -176,54 +191,17 @@ TEST_CASE("NeuralNetwork Constructor Test 2")
     auto numberOfOutputs = 5;
     NeuralNetwork net(inputs, numberOfOutputs);
 
-    // Ensure that inputs aren't identical
-    for (int i = 0; i < inputs.size(); i++)
-    {
-        if (i != inputs.size() - 1)
-        {
-            auto neuron = net.getInputLayer()[i];
-            for (int j = i; j < inputs.size(); j++)
-            {
-                auto neuron2 = net.getInputLayer()[j];
-                REQUIRE(&neuron != &neuron2); // memory requirement
-            }
-        }
-    }
+    ANNInputTest(inputs.size(), net.getInputLayer());
 
     // Hidden layers test
     REQUIRE(net.getHiddenLayers().empty());
 
     // Output test
-    for (int i = 0; i < numberOfOutputs; i++)
-    {
-        REQUIRE(!net.getOutputLayer().empty());
-        REQUIRE(net.getOutputLayer()[i].getBias() == 0.0);
-        REQUIRE(net.getOutputLayer()[i].getOutput() != 0.0);
-        if (i != numberOfOutputs - 1)
-        {
-            auto outputNeuron = net.getOutputLayer()[i];
-            for (int j = i; j < numberOfOutputs; j++)
-            {
-                auto outputNeuron2 = net.getOutputLayer()[j];
-                // different addresses for output neurons
-                REQUIRE(&outputNeuron != &outputNeuron2);
-            }
-        }
-    }
+    ANNOutputTest(net.getOutputLayer());
 
     // Test weights
     REQUIRE(!net.getWeights().empty());
-    auto weightSet = std::unordered_set<double>{};
-    for (auto& weight : net.getWeights())
-    {
-        // Ensuring that the weights are within the right range
-        REQUIRE(weight.getValue() < 1.0);
-        REQUIRE(weight.getValue() != 0.0);
-        REQUIRE(weight.getValue() > -1.0);
-        // Ensuring that weights are not repeat of each other.
-        REQUIRE(weightSet.count(weight.getValue()) == false);
-        weightSet.insert(weight.getValue());
-    }
+    weightTest(net.getWeights());
 }
 
 TEST_CASE("Neural Network Constructor Test 3")
@@ -245,10 +223,28 @@ TEST_CASE("Neural Network Constructor Test 3")
     }
 }
 
-TEST_CASE("Neural Network Add Neuron")
+TEST_CASE("Add Neuron")
 {
-    NeuralNetwork net{std::vector<double>{1.0, 2.0, 3.0}, 2,
-                      LearningMethod::relu};
+    NeuralNetwork net{std::vector<double>{2.0, 10.0}, 2, LearningMethod::relu};
+    REQUIRE(net.getHiddenLayers().size() == 0);
+    net.addHiddenLayer(3);
+    REQUIRE(net.getHiddenLayers().size() == 1);
+
+    // Check if neurons are correct
+    for (auto& layer : net.getHiddenLayers())
+    {
+        for (auto& neuron : layer)
+        {
+            REQUIRE(neuron.getBias() != 0.0);
+            REQUIRE(neuron.getOutput() != 0.0);
+        }
+    }
+
+    // Check weights are correct
+    weightTest(net.getWeights());
+
+    // Check outputs are correct
+    ANNOutputTest(net.getOutputLayer());
 }
 
 int main(int argc, char* argv[])
