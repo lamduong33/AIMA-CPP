@@ -230,13 +230,14 @@ TEST_CASE("Add Neuron")
     net.addHiddenLayer(3);
     REQUIRE(net.getHiddenLayers().size() == 1);
 
+    ANNInputTest(2, net.getInputLayer());
+
     // Check if neurons are correct
     for (auto& layer : net.getHiddenLayers())
     {
         for (auto& neuron : layer)
         {
-            REQUIRE(neuron.getBias() != 0.0);
-            REQUIRE(neuron.getOutput() != 0.0);
+            REQUIRE(neuron.getBias() == 0.0);
         }
     }
 
