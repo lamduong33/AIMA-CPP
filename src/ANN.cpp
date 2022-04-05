@@ -184,6 +184,15 @@ void NeuralNetwork::addHiddenLayer(int t_numberOfNodes)
 
 void NeuralNetwork::addNeuron(int t_layerIndex)
 {
+    if (t_layerIndex >= (int) this->m_hiddenLayers.size())
+    {
+        throw std::out_of_range("The hidden layer does not have this index");
+    }
+}
+
+void NeuralNetwork::addNeuron()
+{
+    this->addNeuron(m_hiddenLayers.size()-1);
 }
 
 void NeuralNetwork::removeHiddenLayer(int t_layerIndex)
