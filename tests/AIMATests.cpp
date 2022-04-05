@@ -112,7 +112,7 @@ TEST_CASE("Weight Randomization Tests")
 }
 
 /**
- * @brief Ensure that the input neurons are unique in value and address. */
+ * @brief Ensure that the input neurons are unique in address. */
 void ANNInputTest(std::vector<Neuron> t_inputs)
 {
     std::unordered_set<Neuron*> neurons;
@@ -238,14 +238,13 @@ TEST_CASE("Add Hidden Layer Test")
     net.addHiddenLayer(3);
     REQUIRE(net.getHiddenLayers().size() == 1);
 
-    ANNInputTest(net.getInputLayer());
-
     // Check if neurons are correct
     for (auto& layer : net.getHiddenLayers())
     {
         for (auto& neuron : layer)
         {
             REQUIRE(neuron.getBias() == 0.0);
+            REQUIRE(neuron.getOutput() != 0.0);
         }
     }
 
