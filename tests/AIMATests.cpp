@@ -110,23 +110,30 @@ TEST_CASE("Weight Randomization Tests")
         }
     }
 }
-void ANNInputTest(int t_inputSize, std::vector<Neuron> t_netInputs)
+
+/**
+ * @brief Ensure that the inputs are  */
+void ANNInputTest(std::vector<Neuron> t_inputs)
 {
     // Ensure that inputs aren't identical
-    for (int i = 0; i < t_inputSize; i++)
+    for (int i = 0; i < t_inputs.size(); i++)
     {
-        if (i != t_inputSize - 1)
+        if (i != t_inputs.size() - 1)
         {
-            auto neuron = t_netInputs[i];
-            for (int j = i; j < t_inputSize; j++)
+            auto neuron = t_inputs[i];
+            for (int j = i; j < t_inputs.size(); j++)
             {
-                auto neuron2 = t_netInputs[j];
+                auto neuron2 = t_inputs[j];
                 REQUIRE(&neuron != &neuron2); // memory requirement
             }
         }
     }
 }
 
+/**
+ * @brief Test to see if weights are intialized correctly. This test to see if
+ * the weights in the neural net will produce non-zero unique weights. This uses
+ * an unordered_map so this can be somewhat memory expensive. */
 void weightTest(std::vector<Weight> t_weights)
 {
     auto weightSet = std::unordered_set<double>{};
@@ -180,7 +187,7 @@ TEST_CASE("NeuralNetwork Constructor Test 1")
     REQUIRE(net.getLearningMethod() == LearningMethod::sigmoid);
 
     // Ensure that inputs aren't identical
-    ANNInputTest(numberOfInputs, net.getInputLayer());
+    ANNInputTest(net.getInputLayer());
 
     // Hidden layers test
     REQUIRE(net.getHiddenLayers().empty());
@@ -199,7 +206,7 @@ TEST_CASE("NeuralNetwork Constructor Test 2")
     auto numberOfOutputs = 5;
     NeuralNetwork net(inputs, numberOfOutputs);
 
-    ANNInputTest(inputs.size(), net.getInputLayer());
+    ANNInputTest(net.getInputLayer());
 
     // Hidden layers test
     REQUIRE(net.getHiddenLayers().empty());
@@ -238,7 +245,7 @@ TEST_CASE("Add Hidden Layer Test")
     net.addHiddenLayer(3);
     REQUIRE(net.getHiddenLayers().size() == 1);
 
-    ANNInputTest(2, net.getInputLayer());
+    ANNInputTest(net.getInputLayer());
 
     // Check if neurons are correct
     for (auto& layer : net.getHiddenLayers())
