@@ -186,6 +186,11 @@ public:
     void addNeuron(int t_layerIndex);
 
     /**
+     * @brief Insert a new neuron at the end of the last hidden layer.
+     * Will update weights/ouputs at the end of the function.*/
+    void addNeuron();
+
+    /**
      * @brief Remove the hidden layer at the specified index.
      * Will update weights/ouputs at the end of the function.
      * */
@@ -196,6 +201,7 @@ public:
      * Will update weights/ouputs at the end of the function.
      * */
     void removeNeuron(int t_layerIndex, int t_neuronIndex);
+
 
     /**
      * @brief change the learning method to a new LearningMethod. */
