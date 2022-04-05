@@ -112,28 +112,21 @@ TEST_CASE("Weight Randomization Tests")
 }
 
 /**
- * @brief Ensure that the inputs are  */
+ * @brief Ensure that the input neurons are unique in value and address. */
 void ANNInputTest(std::vector<Neuron> t_inputs)
 {
-    // Ensure that inputs aren't identical
-    for (int i = 0; i < t_inputs.size(); i++)
+    std::unordered_set<Neuron*> neurons;
+    for (auto& neuron : t_inputs)
     {
-        if (i != t_inputs.size() - 1)
-        {
-            auto neuron = t_inputs[i];
-            for (int j = i; j < t_inputs.size(); j++)
-            {
-                auto neuron2 = t_inputs[j];
-                REQUIRE(&neuron != &neuron2); // memory requirement
-            }
-        }
+        REQUIRE(neurons.count(&neuron) == 0);
+        neurons.insert(&neuron);
     }
 }
 
 /**
  * @brief Test to see if weights are intialized correctly. This test to see if
  * the weights in the neural net will produce non-zero unique weights. This uses
- * an unordered_map so this can be somewhat memory expensive. */
+ * an unordered_map so this can be somewhat memory expensive.*/
 void weightTest(std::vector<Weight> t_weights)
 {
     auto weightSet = std::unordered_set<double>{};
