@@ -142,6 +142,14 @@ void weightTest(std::vector<Weight> t_weights)
     }
 }
 
+/**
+ * @brief Test to see if the output looking the way it should. NOTE: This should
+ * only used for a new neural net (such as constructors or if testing to see
+ * things are unchanged).
+ * This function will check if the output layer:
+ * 1) has 0 bias in each node
+ * 2) produces non-zero and unique output nodes
+ * */
 void ANNOutputTest(std::vector<Neuron> t_outputLayer)
 {
     for (int i = 0; i < t_outputLayer.size(); i++)
@@ -223,7 +231,7 @@ TEST_CASE("Neural Network Constructor Test 3")
     }
 }
 
-TEST_CASE("Add Neuron")
+TEST_CASE("Add Hidden Layer Test")
 {
     NeuralNetwork net{std::vector<double>{2.0, 10.0}, 2, LearningMethod::relu};
     REQUIRE(net.getHiddenLayers().size() == 0);
