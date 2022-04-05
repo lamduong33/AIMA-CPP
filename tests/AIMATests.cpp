@@ -170,6 +170,19 @@ void ANNOutputTest(std::vector<Neuron> t_outputLayer)
     }
 }
 
+void hiddenNeuronsTest(std::vector<std::vector<Neuron>> t_hiddenLayers)
+{
+    // Check if neurons are correct
+    for (auto& layer : t_hiddenLayers)
+    {
+        for (auto& neuron : layer)
+        {
+            REQUIRE(neuron.getBias() == 0.0);
+            REQUIRE(neuron.getOutput() != 0.0);
+        }
+    }
+}
+
 /* Sanity check to ensure that objects are instantiation correctly. This checks
  * for correct number of hidden layers(none), output, bias, and weights. */
 TEST_CASE("NeuralNetwork Constructor Test 1")
@@ -238,21 +251,32 @@ TEST_CASE("Add Hidden Layer Test")
     net.addHiddenLayer(3);
     REQUIRE(net.getHiddenLayers().size() == 1);
 
-    // Check if neurons are correct
-    for (auto& layer : net.getHiddenLayers())
-    {
-        for (auto& neuron : layer)
-        {
-            REQUIRE(neuron.getBias() == 0.0);
-            REQUIRE(neuron.getOutput() != 0.0);
-        }
-    }
+    hiddenNeuronsTest(net.getHiddenLayers());
 
     // Check weights are correct
     weightTest(net.getWeights());
 
     // Check outputs are correct
     ANNOutputTest(net.getOutputLayer());
+}
+
+TEST_CASE("Add Neuron Test")
+{
+    NeuralNetwork net{std::vector<double>{2.0, 10.0}, 2, LearningMethod::relu};
+    net.addHiddenLayer(2);
+    REQUIRE_THROWS(net.addNeuron(1), std::out_of_range(""));
+    REQUIRE_NOTHROW(net.addNeuron(0));
+    net.addHiddenLayer(3);
+    REQUIRE_NOTHROW(net.addNeuron(0));
+    REQUIRE_NOTHROW(net.addNeuron(1));
+    REQUIRE_THROWS(net.addNeuron(2), std::out_of_range(""));
+    net.addNeuron();
+    net.addNeuron();
+    REQUIRE(net.getHiddenNeuronsSize() == 10);
+    REQUIRE(net.getHiddenLayers()[0].size() == 4);
+    REQUIRE(net.getHiddenLayers()[1].size() == 6);
+
+    hiddenNeuronsTest(net.getHiddenLayers());
 }
 
 int main(int argc, char* argv[])
