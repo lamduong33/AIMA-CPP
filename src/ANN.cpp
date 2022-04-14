@@ -156,39 +156,38 @@ void NeuralNetwork::assignWeights()
 
 void NeuralNetwork::addHiddenLayer(int t_numberOfNodes)
 {
-    // Create the hidden layer and add it to the network.
-    vector<Neuron> hiddenLayer;
+    // TODO: pick a different exception to throw for this error
+    if (t_numberOfNodes < 1)
+        throw std::out_of_range("Cannot have fewer than 1 node in the layer");
+    m_hiddenLayers.push_back(vector<Neuron>{});
     for (int i = 0; i < t_numberOfNodes; i++)
-    {
-        auto newNeuron = Neuron{};
-        hiddenLayer.push_back(newNeuron);
-        std::vector<Neuron> previousLayer =
-            m_hiddenLayers.empty() ? m_inputLayer : m_hiddenLayers.back();
-
-        for (auto& p_neuron : previousLayer)
-        {
-            m_weights.push_back(Weight(p_neuron, newNeuron));
-        }
-        for (auto& output : m_outputLayer)
-        {
-            m_weights.push_back(Weight(newNeuron, output));
-        }
-        m_hiddenNeuronsSize++;
-    }
-    m_hiddenLayers.push_back(hiddenLayer);
-
+        addNeuron();
     // If everything went correctly, adjust weights/outputs
-    update(); // NOTE: Can be expensive here.
 }
 
 void NeuralNetwork::addNeuron(int t_layerIndex)
 {
     if (t_layerIndex >= (int)this->m_hiddenLayers.size())
     {
-        throw std::out_of_range("The hidden layer does not have this index");
+        throw std::out_of_range("Add neuron failed: The hidden layer does not have this index");
     }
-    m_hiddenLayers[t_layerIndex].push_back(Neuron{});
+
+    Neuron newNeuron;
+    m_hiddenLayers[t_layerIndex].push_back(newNeuron);
+    std::vector<Neuron> previousLayer =
+        m_hiddenLayers.size() == 1 && m_hiddenLayers[0].size() == 1
+            ? m_inputLayer
+            : m_hiddenLayers.back();
+    for (auto& p_neuron : previousLayer)
+    {
+        m_weights.push_back(Weight(p_neuron, newNeuron));
+    }
+    for (auto& output : m_outputLayer)
+    {
+        m_weights.push_back(Weight(newNeuron, output));
+    }
     m_hiddenNeuronsSize++;
+    update(); // NOTE: Can be expensive here.
 }
 
 void NeuralNetwork::addNeuron() { this->addNeuron(m_hiddenLayers.size() - 1); }

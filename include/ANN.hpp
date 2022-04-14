@@ -173,7 +173,7 @@ public:
     void addOutputNode(int t_hiddenLayerIndex);
 
     /**
-     * @brief add a hidden layer to the neural network right before the output.
+     * @brief add a hidden layer to the end of the vector of hidden layers.
      * The neurons will initially have randomized weights.
      * Will update weights/outputs at the end of the function.
      * @param t_numberOfNodes the number of nodes to be added. */
