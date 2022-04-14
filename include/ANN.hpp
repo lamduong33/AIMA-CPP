@@ -128,7 +128,7 @@ class NeuralNetwork
 
     int m_inputSize;         // the number of input neurons
     int m_outputSize;        // the number of output neurons
-    int m_hiddenNeuronsSize; // the number of neurons in hidden layeres
+    int m_hiddenNeuronsSize; // the number of neurons in hidden layers
 
     /**
      * @brief create an output layer from given output size and assign it to the
@@ -175,30 +175,30 @@ public:
     /**
      * @brief add a hidden layer to the neural network right before the output.
      * The neurons will initially have randomized weights.
-     * Will update weights/ouputs at the end of the function.
+     * Will update weights/outputs at the end of the function.
      * @param t_numberOfNodes the number of nodes to be added. */
     void addHiddenLayer(int t_numberOfNodes);
 
     /**
      * @brief Insert a new neuron at the end of the specified layer.
-     * Will update weights/ouputs at the end of the function.
+     * Will update weights/outputs at the end of the function.
      * @param t_layerIndex */
     void addNeuron(int t_layerIndex);
 
     /**
      * @brief Insert a new neuron at the end of the last hidden layer.
-     * Will update weights/ouputs at the end of the function.*/
+     * Will update weights/outputs at the end of the function.*/
     void addNeuron();
 
     /**
      * @brief Remove the hidden layer at the specified index.
-     * Will update weights/ouputs at the end of the function.
+     * Will update weights/outputs at the end of the function.
      * */
     void removeHiddenLayer(int t_layerIndex);
 
     /**
      * @brief Remove the neuron at the specified index and layer index.
-     * Will update weights/ouputs at the end of the function.
+     * Will update weights/outputs at the end of the function.
      * */
     void removeNeuron(int t_layerIndex, int t_neuronIndex);
 
@@ -222,7 +222,7 @@ public:
     int getOutputSize();
 
     /**
-     * @brief return the amoutn of hidden layers in the neural net. */
+     * @brief return the amount of hidden layers in the neural net. */
     int getHiddenNeuronsSize();
 };
 
