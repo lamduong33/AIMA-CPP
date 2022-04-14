@@ -222,7 +222,7 @@ public:
     int getOutputSize();
 
     /**
-     * @brief return the amount of hidden layers in the neural net. */
+     * @brief return the amount of neurons in hidden layers in the neural net. */
     int getHiddenNeuronsSize();
 };
 
