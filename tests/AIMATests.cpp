@@ -170,20 +170,6 @@ void ANNOutputTest(std::vector<Neuron> t_outputLayer)
     }
 }
 
-/* NOTE: This is only for initialization */
-void hiddenNeuronsTest(std::vector<std::vector<Neuron>> t_hiddenLayers)
-{
-    // Check if neurons are correct
-    for (auto& layer : t_hiddenLayers)
-    {
-        for (auto& neuron : layer)
-        {
-            REQUIRE(neuron.getBias() == 0.0);
-            REQUIRE(neuron.getOutput() != 0.0);
-        }
-    }
-}
-
 /* Sanity check to ensure that objects are instantiation correctly. This checks
  * for correct number of hidden layers(none), output, bias, and weights. */
 TEST_CASE("NeuralNetwork Constructor Test 1")
@@ -254,7 +240,6 @@ TEST_CASE("Add Hidden Layer Test")
     net.addHiddenLayer(2);
     REQUIRE(net.getHiddenLayers().size() == 2);
 
-    hiddenNeuronsTest(net.getHiddenLayers());
 
     // Check weights are correct
     weightTest(net.getWeights());
@@ -279,7 +264,6 @@ TEST_CASE("Add Neuron Test")
     REQUIRE(net.getHiddenLayers()[0].size() == 4); // 4 in first
     REQUIRE(net.getHiddenLayers()[1].size() == 6); // 6 in second
 
-    hiddenNeuronsTest(net.getHiddenLayers());
 }
 
 int main(int argc, char* argv[])
