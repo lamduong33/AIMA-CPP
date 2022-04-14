@@ -170,6 +170,7 @@ void ANNOutputTest(std::vector<Neuron> t_outputLayer)
     }
 }
 
+/* NOTE: This is only for initialization */
 void hiddenNeuronsTest(std::vector<std::vector<Neuron>> t_hiddenLayers)
 {
     // Check if neurons are correct
@@ -250,6 +251,8 @@ TEST_CASE("Add Hidden Layer Test")
     REQUIRE(net.getHiddenLayers().size() == 0);
     net.addHiddenLayer(3);
     REQUIRE(net.getHiddenLayers().size() == 1);
+    net.addHiddenLayer(2);
+    REQUIRE(net.getHiddenLayers().size() == 2);
 
     hiddenNeuronsTest(net.getHiddenLayers());
 
@@ -263,18 +266,18 @@ TEST_CASE("Add Hidden Layer Test")
 TEST_CASE("Add Neuron Test")
 {
     NeuralNetwork net{std::vector<double>{2.0, 10.0}, 2, LearningMethod::relu};
-    net.addHiddenLayer(2);
+    net.addHiddenLayer(2); // 2 neurons
     REQUIRE_THROWS(net.addNeuron(1), std::out_of_range(""));
-    REQUIRE_NOTHROW(net.addNeuron(0));
-    net.addHiddenLayer(3);
-    REQUIRE_NOTHROW(net.addNeuron(0));
-    REQUIRE_NOTHROW(net.addNeuron(1));
+    REQUIRE_NOTHROW(net.addNeuron(0)); // 1 neuron
+    net.addHiddenLayer(3); // 3 neurons
+    REQUIRE_NOTHROW(net.addNeuron(0)); // 1 neuron
+    REQUIRE_NOTHROW(net.addNeuron(1)); // 1 neuron
     REQUIRE_THROWS(net.addNeuron(2), std::out_of_range(""));
-    net.addNeuron();
-    net.addNeuron();
-    REQUIRE(net.getHiddenNeuronsSize() == 10);
-    REQUIRE(net.getHiddenLayers()[0].size() == 4);
-    REQUIRE(net.getHiddenLayers()[1].size() == 6);
+    REQUIRE_NOTHROW(net.addNeuron()); // 1 neuron
+    REQUIRE_NOTHROW(net.addNeuron()); // 1 neuron
+    REQUIRE(net.getHiddenNeuronsSize() == 10); // 10 total
+    REQUIRE(net.getHiddenLayers()[0].size() == 4); // 4 in first
+    REQUIRE(net.getHiddenLayers()[1].size() == 6); // 6 in second
 
     hiddenNeuronsTest(net.getHiddenLayers());
 }

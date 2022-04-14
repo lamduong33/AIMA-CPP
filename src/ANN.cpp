@@ -161,12 +161,11 @@ void NeuralNetwork::addHiddenLayer(int t_numberOfNodes)
     for (int i = 0; i < t_numberOfNodes; i++)
     {
         auto newNeuron = Neuron{};
-        std::vector<Neuron> previous;
-        if (m_hiddenLayers.empty())
-            previous = m_inputLayer;
-        else
-            previous = m_hiddenLayers.back();
-        for (auto& p_neuron : previous)
+        hiddenLayer.push_back(newNeuron);
+        std::vector<Neuron> previousLayer =
+            m_hiddenLayers.empty() ? m_inputLayer : m_hiddenLayers.back();
+
+        for (auto& p_neuron : previousLayer)
         {
             m_weights.push_back(Weight(p_neuron, newNeuron));
         }
@@ -174,34 +173,29 @@ void NeuralNetwork::addHiddenLayer(int t_numberOfNodes)
         {
             m_weights.push_back(Weight(newNeuron, output));
         }
+        m_hiddenNeuronsSize++;
     }
-    this->m_hiddenLayers.push_back(hiddenLayer);
+    m_hiddenLayers.push_back(hiddenLayer);
 
     // If everything went correctly, adjust weights/outputs
-    this->update(); // NOTE: Can be expensive here
-    this->m_hiddenNeuronsSize += t_numberOfNodes;
+    update(); // NOTE: Can be expensive here.
 }
 
 void NeuralNetwork::addNeuron(int t_layerIndex)
 {
-    if (t_layerIndex >= (int) this->m_hiddenLayers.size())
+    if (t_layerIndex >= (int)this->m_hiddenLayers.size())
     {
         throw std::out_of_range("The hidden layer does not have this index");
     }
+    m_hiddenLayers[t_layerIndex].push_back(Neuron{});
+    m_hiddenNeuronsSize++;
 }
 
-void NeuralNetwork::addNeuron()
-{
-    this->addNeuron(m_hiddenLayers.size()-1);
-}
+void NeuralNetwork::addNeuron() { this->addNeuron(m_hiddenLayers.size() - 1); }
 
-void NeuralNetwork::removeHiddenLayer(int t_layerIndex)
-{
-}
+void NeuralNetwork::removeHiddenLayer(int t_layerIndex) {}
 
-void NeuralNetwork::removeNeuron(int t_layerIndex, int t_neuronIndex)
-{
-}
+void NeuralNetwork::removeNeuron(int t_layerIndex, int t_neuronIndex) {}
 
 void NeuralNetwork::setLearningMethod(LearningMethod t_learningMethod)
 {
