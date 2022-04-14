@@ -207,13 +207,22 @@ public:
      * @brief change the learning method to a new LearningMethod. */
     void setLearningMethod(LearningMethod t_learningMethod);
 
-    vector<Neuron> getInputLayer();
     vector<vector<Neuron>> getHiddenLayers();
     vector<Weight> getWeights();
     vector<Neuron> getOutputLayer();
+    vector<Neuron> getInputLayer();
     LearningMethod getLearningMethod();
+
+    /**
+     * @brief get the size of the input layer */
     int getInputSize();
+
+    /**
+     * @brief get the size of the output layer */
     int getOutputSize();
+
+    /**
+     * @brief return the amoutn of hidden layers in the neural net. */
     int getHiddenNeuronsSize();
 };
 
