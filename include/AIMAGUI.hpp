@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QPushButton>
+#include <QVBoxLayout>
 #include <QWidget>
 
 namespace Ui {
@@ -18,11 +19,10 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget* parent = nullptr);
 private slots:
-    void handleButton();
-
+    void showANNPage();
+    void showDecTreePage();
 private:
-    QPushButton* m_ANNButton;
-    QPushButton* m_DecisionTreeButton;
+    QVBoxLayout* m_menuLayout;
 };
 
 #endif // AIMAGUI_HPP

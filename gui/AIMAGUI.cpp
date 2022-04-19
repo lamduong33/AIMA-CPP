@@ -1,18 +1,20 @@
+#include <QButtonGroup>
+#include <QPushButton>
 #include "../include/AIMAGUI.hpp"
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 {
-    m_ANNButton = new QPushButton("Artificial Neural Network", this);
-    m_ANNButton->setGeometry(QRect(QPoint(100,100), QSize(200, 50)));
-    m_DecisionTreeButton = new QPushButton("Decision Tree", this);
-    m_ANNButton->setGeometry(QRect(QPoint(100,200), QSize(200, 50)));
-
-    connect(m_ANNButton, &QPushButton::released, this, &MainWindow::handleButton);
-
+    QPushButton *button1 = new QPushButton("Artificial Neural Network");
+    QPushButton *button2 = new QPushButton("Decision Tree");
+    m_menuLayout = new QVBoxLayout(this);
+    m_menuLayout->addWidget(button1);
+    m_menuLayout->addWidget(button2);
 }
 
-void MainWindow::handleButton()
+void MainWindow::showDecTreePage()
 {
-    m_ANNButton->setText("This worked!");
-    m_ANNButton->resize(100,100);
+}
+
+void MainWindow::showANNPage()
+{
 }
