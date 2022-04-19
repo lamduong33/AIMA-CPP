@@ -1,14 +1,28 @@
 #ifndef AIMAGUI_HPP_
 #define AIMAGUI_HPP_
 
-#include <QWidget>
 #include <QMainWindow>
+#include <QPushButton>
+#include <QWidget>
 
-class WeightVisual : QWidget
+namespace Ui {
+  class MainWindow;
+}
+
+/**
+ * This class represents the main window with the main menu. This is the first
+ * thing the user sees. */
+class MainWindow : public QMainWindow
 {
     Q_OBJECT
 public:
-    explicit WeightVisual(QWidget* parent = 0);
+    explicit MainWindow(QWidget* parent = nullptr);
+private slots:
+    void handleButton();
+
+private:
+    QPushButton* m_ANNButton;
+    QPushButton* m_DecisionTreeButton;
 };
 
 #endif // AIMAGUI_HPP
