@@ -1,31 +1,28 @@
 ##
-# AI: A Modern Approach- C++
+# AI Visualizer
 # Author: Lam Duong
 #
 # Compiler setup
 CXXFLAGS = -std=c++20 -g -Wall -I $(INCDIR)
-GUIFLAGS = `pkg-config --cflags --libs Qt5Widgets` -fPIC
+# GUIFLAGS = `pkg-config --cflags --libs Qt5Widgets` -fPIC
 CXX = clang++
 
 # Directory setup
 INCDIR := include
 SRCDIR := src
 BINDIR := bin
-GUIDIR := gui
+#GUIDIR := gui
 TESTDIR := tests
 
-TARGET = AIMA
+#TARGET = AIMA
 TESTS = AIMATests
 SRCFILES = $(SRCDIR)/*.cpp
 GUIFILES = $(GUIDIR)/*.cpp
 INCFILES = $(INCDIR)/*.hpp
 
-all: $(TARGET)
-$(TARGET): $(GUIDIR)/$(TARGET).cpp
-	$(CXX) $(GUIFLAGS) $(CXXFLAGS) -o $(TARGET) $(GUIFILES) $(SRCFILES)
 tests: $(TESTS)
 $(TESTS): $(TESTDIR)/$(TESTS).cpp
-	$(CXX) $(CXXFLAGS) $(TESTDIR)/$(TESTS).cpp -o $(TESTS) $(SRCDIR)/*.cpp
+	$(CXX) $(CXXFLAGS) $(TESTDIR)/$(TESTS).cpp -o $(TESTS) $(SRCFILES)
 clean:
 	$(RM) $(TARGET)
 	$(RM) $(TESTS)
