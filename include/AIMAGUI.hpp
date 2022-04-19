@@ -1,25 +1,19 @@
 #ifndef AIMAGUI_HPP_
 #define AIMAGUI_HPP_
 
-#include <QApplication>
-#include <QGraphicsItem>
-#include <QIcon>
-#include <QPushButton>
-#include <QtWidgets>
-#include <vector>
+#include <QWidget>
 
-#include "ANN.hpp"
-
+class QPushButton;
 class Window : public QWidget
 {
-    vector<int> h;
-    NeuralNetwork n;
+    Q_OBJECT
+public:
+    explicit Window(QWidget *parent = 0);
+private slots:
+    void slotButtonClicked(bool checked);
+private:
+    QPushButton *m_button;
 };
 
-class G_Neuron
-{
 
-};
-
-
-#endif
+#endif // AIMAGUI_HPP
