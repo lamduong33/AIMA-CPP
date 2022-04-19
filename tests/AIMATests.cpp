@@ -240,7 +240,6 @@ TEST_CASE("Add Hidden Layer Test")
     net.addHiddenLayer(2);
     REQUIRE(net.getHiddenLayers().size() == 2);
 
-
     // Check weights are correct
     weightTest(net.getWeights());
 
@@ -263,7 +262,6 @@ TEST_CASE("Add Neuron Test")
     REQUIRE(net.getHiddenNeuronsSize() == 10); // 10 total
     REQUIRE(net.getHiddenLayers()[0].size() == 4); // 4 in first
     REQUIRE(net.getHiddenLayers()[1].size() == 6); // 6 in second
-
 }
 
 int main(int argc, char* argv[])
