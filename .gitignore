@@ -1,6 +1,7 @@
 *
 !.gitignore
 !Makefile
+!AIMA.pro
 
 # Only cpp files within src
 !src/
