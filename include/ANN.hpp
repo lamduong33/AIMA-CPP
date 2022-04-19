@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+#include <stdexcept> // for std::out_of_range
 
 using std::vector;
 
