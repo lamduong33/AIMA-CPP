@@ -22,7 +22,8 @@ private slots:
     void showANNPage();
     void showDecTreePage();
 private:
-    QVBoxLayout* m_menuLayout;
+    QVBoxLayout* m_menuLayout; // the button layout
+    QWidget* m_mainMenu; // the menu  for the buttons to be displayed
 };
 
 #endif // AIMAGUI_HPP
