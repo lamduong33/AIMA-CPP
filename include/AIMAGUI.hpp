@@ -22,8 +22,12 @@ private slots:
     void showANNPage();
     void showDecTreePage();
 private:
-    QVBoxLayout* m_menuLayout; // the button layout
-    QWidget* m_mainMenu; // the menu  for the buttons to be displayed
+    QVBoxLayout* m_menuLayout; // the button layout for the main menu
+    QWidget* m_mainMenu; // the menu for the buttons to be displayed
+};
+
+class NeuralNetworkWindow : public QMainWindow
+{
 };
 
 #endif // AIMAGUI_HPP

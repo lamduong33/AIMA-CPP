@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 
 void MainWindow::showDecTreePage()
 {
+
 }
 
 void MainWindow::showANNPage()
