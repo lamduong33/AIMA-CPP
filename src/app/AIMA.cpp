@@ -1,4 +1,4 @@
-#include "../include/AIMAGUI.hpp"
+#include "../../include/AIMAGUI.hpp"
 
 int main(int argc, char** argv)
 {
