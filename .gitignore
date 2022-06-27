@@ -6,7 +6,9 @@
 # Only cpp files within src
 !src/
 src/*
-!src/*.cpp
+!src/*
+src/*/*
+!src/*/*
 
 # Only hpp files within include
 !include/

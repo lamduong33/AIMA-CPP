@@ -1,5 +1,5 @@
-#include <QButtonGroup>
-#include <QPushButton>
+#include <qt6/QtWidgets/QButtonGroup>
+#include <qt6/QtWidgets/QPushButton>
 #include "../include/AIMAGUI.hpp"
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
