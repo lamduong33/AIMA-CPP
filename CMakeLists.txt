@@ -9,22 +9,5 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
 qt_standard_project_setup()
 
-add_executable(
-  AIMA-CPP
-  src/app/AIMA.cpp
-)
-
-add_library(
-  AIMAGUI STATIC
-  src/gui/AIMAGUI.cpp
-)
-
-target_link_libraries(AIMA-CPP PRIVATE Qt6::Widgets)
-target_link_libraries(AIMAGUI PRIVATE Qt6::Core)
-target_include_directories(AIMAGUI INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/src/gui)
-
-set_target_properties(
-  AIMA-CPP PROPERTIES
-  WIN32_EXECUTABLE ON
-  MACOSX_BUNDLE ON
-)
+add_subdirectory(src/gui)
+add_subdirectory(src/aima)

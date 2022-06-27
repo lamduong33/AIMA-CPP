@@ -126,21 +126,8 @@ AIMA-CPP: cmake_check_build_system
 
 # fast build rule for target.
 AIMA-CPP/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMA-CPP.dir/build.make CMakeFiles/AIMA-CPP.dir/build
+	$(MAKE) $(MAKESILENT) -f src/gui/CMakeFiles/AIMA-CPP.dir/build.make src/gui/CMakeFiles/AIMA-CPP.dir/build
 .PHONY : AIMA-CPP/fast
-
-#=============================================================================
-# Target rules for targets named AIMAGUI
-
-# Build rule for target.
-AIMAGUI: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AIMAGUI
-.PHONY : AIMAGUI
-
-# fast build rule for target.
-AIMAGUI/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMAGUI.dir/build.make CMakeFiles/AIMAGUI.dir/build
-.PHONY : AIMAGUI/fast
 
 #=============================================================================
 # Target rules for targets named AIMA-CPP_autogen
@@ -152,117 +139,34 @@ AIMA-CPP_autogen: cmake_check_build_system
 
 # fast build rule for target.
 AIMA-CPP_autogen/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMA-CPP_autogen.dir/build.make CMakeFiles/AIMA-CPP_autogen.dir/build
+	$(MAKE) $(MAKESILENT) -f src/gui/CMakeFiles/AIMA-CPP_autogen.dir/build.make src/gui/CMakeFiles/AIMA-CPP_autogen.dir/build
 .PHONY : AIMA-CPP_autogen/fast
 
 #=============================================================================
-# Target rules for targets named AIMAGUI_autogen
+# Target rules for targets named aima
 
 # Build rule for target.
-AIMAGUI_autogen: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AIMAGUI_autogen
-.PHONY : AIMAGUI_autogen
+aima: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 aima
+.PHONY : aima
 
 # fast build rule for target.
-AIMAGUI_autogen/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMAGUI_autogen.dir/build.make CMakeFiles/AIMAGUI_autogen.dir/build
-.PHONY : AIMAGUI_autogen/fast
+aima/fast:
+	$(MAKE) $(MAKESILENT) -f src/aima/CMakeFiles/aima.dir/build.make src/aima/CMakeFiles/aima.dir/build
+.PHONY : aima/fast
 
-AIMA-CPP_autogen/mocs_compilation.o: AIMA-CPP_autogen/mocs_compilation.cpp.o
-.PHONY : AIMA-CPP_autogen/mocs_compilation.o
+#=============================================================================
+# Target rules for targets named aima_autogen
 
-# target to build an object file
-AIMA-CPP_autogen/mocs_compilation.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMA-CPP.dir/build.make CMakeFiles/AIMA-CPP.dir/AIMA-CPP_autogen/mocs_compilation.cpp.o
-.PHONY : AIMA-CPP_autogen/mocs_compilation.cpp.o
+# Build rule for target.
+aima_autogen: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 aima_autogen
+.PHONY : aima_autogen
 
-AIMA-CPP_autogen/mocs_compilation.i: AIMA-CPP_autogen/mocs_compilation.cpp.i
-.PHONY : AIMA-CPP_autogen/mocs_compilation.i
-
-# target to preprocess a source file
-AIMA-CPP_autogen/mocs_compilation.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMA-CPP.dir/build.make CMakeFiles/AIMA-CPP.dir/AIMA-CPP_autogen/mocs_compilation.cpp.i
-.PHONY : AIMA-CPP_autogen/mocs_compilation.cpp.i
-
-AIMA-CPP_autogen/mocs_compilation.s: AIMA-CPP_autogen/mocs_compilation.cpp.s
-.PHONY : AIMA-CPP_autogen/mocs_compilation.s
-
-# target to generate assembly for a file
-AIMA-CPP_autogen/mocs_compilation.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMA-CPP.dir/build.make CMakeFiles/AIMA-CPP.dir/AIMA-CPP_autogen/mocs_compilation.cpp.s
-.PHONY : AIMA-CPP_autogen/mocs_compilation.cpp.s
-
-AIMAGUI_autogen/mocs_compilation.o: AIMAGUI_autogen/mocs_compilation.cpp.o
-.PHONY : AIMAGUI_autogen/mocs_compilation.o
-
-# target to build an object file
-AIMAGUI_autogen/mocs_compilation.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMAGUI.dir/build.make CMakeFiles/AIMAGUI.dir/AIMAGUI_autogen/mocs_compilation.cpp.o
-.PHONY : AIMAGUI_autogen/mocs_compilation.cpp.o
-
-AIMAGUI_autogen/mocs_compilation.i: AIMAGUI_autogen/mocs_compilation.cpp.i
-.PHONY : AIMAGUI_autogen/mocs_compilation.i
-
-# target to preprocess a source file
-AIMAGUI_autogen/mocs_compilation.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMAGUI.dir/build.make CMakeFiles/AIMAGUI.dir/AIMAGUI_autogen/mocs_compilation.cpp.i
-.PHONY : AIMAGUI_autogen/mocs_compilation.cpp.i
-
-AIMAGUI_autogen/mocs_compilation.s: AIMAGUI_autogen/mocs_compilation.cpp.s
-.PHONY : AIMAGUI_autogen/mocs_compilation.s
-
-# target to generate assembly for a file
-AIMAGUI_autogen/mocs_compilation.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMAGUI.dir/build.make CMakeFiles/AIMAGUI.dir/AIMAGUI_autogen/mocs_compilation.cpp.s
-.PHONY : AIMAGUI_autogen/mocs_compilation.cpp.s
-
-src/app/AIMA.o: src/app/AIMA.cpp.o
-.PHONY : src/app/AIMA.o
-
-# target to build an object file
-src/app/AIMA.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMA-CPP.dir/build.make CMakeFiles/AIMA-CPP.dir/src/app/AIMA.cpp.o
-.PHONY : src/app/AIMA.cpp.o
-
-src/app/AIMA.i: src/app/AIMA.cpp.i
-.PHONY : src/app/AIMA.i
-
-# target to preprocess a source file
-src/app/AIMA.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMA-CPP.dir/build.make CMakeFiles/AIMA-CPP.dir/src/app/AIMA.cpp.i
-.PHONY : src/app/AIMA.cpp.i
-
-src/app/AIMA.s: src/app/AIMA.cpp.s
-.PHONY : src/app/AIMA.s
-
-# target to generate assembly for a file
-src/app/AIMA.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMA-CPP.dir/build.make CMakeFiles/AIMA-CPP.dir/src/app/AIMA.cpp.s
-.PHONY : src/app/AIMA.cpp.s
-
-src/gui/AIMAGUI.o: src/gui/AIMAGUI.cpp.o
-.PHONY : src/gui/AIMAGUI.o
-
-# target to build an object file
-src/gui/AIMAGUI.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMAGUI.dir/build.make CMakeFiles/AIMAGUI.dir/src/gui/AIMAGUI.cpp.o
-.PHONY : src/gui/AIMAGUI.cpp.o
-
-src/gui/AIMAGUI.i: src/gui/AIMAGUI.cpp.i
-.PHONY : src/gui/AIMAGUI.i
-
-# target to preprocess a source file
-src/gui/AIMAGUI.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMAGUI.dir/build.make CMakeFiles/AIMAGUI.dir/src/gui/AIMAGUI.cpp.i
-.PHONY : src/gui/AIMAGUI.cpp.i
-
-src/gui/AIMAGUI.s: src/gui/AIMAGUI.cpp.s
-.PHONY : src/gui/AIMAGUI.s
-
-# target to generate assembly for a file
-src/gui/AIMAGUI.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMAGUI.dir/build.make CMakeFiles/AIMAGUI.dir/src/gui/AIMAGUI.cpp.s
-.PHONY : src/gui/AIMAGUI.cpp.s
+# fast build rule for target.
+aima_autogen/fast:
+	$(MAKE) $(MAKESILENT) -f src/aima/CMakeFiles/aima_autogen.dir/build.make src/aima/CMakeFiles/aima_autogen.dir/build
+.PHONY : aima_autogen/fast
 
 # Help Target
 help:
@@ -273,21 +177,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... AIMA-CPP_autogen"
-	@echo "... AIMAGUI_autogen"
+	@echo "... aima_autogen"
 	@echo "... AIMA-CPP"
-	@echo "... AIMAGUI"
-	@echo "... AIMA-CPP_autogen/mocs_compilation.o"
-	@echo "... AIMA-CPP_autogen/mocs_compilation.i"
-	@echo "... AIMA-CPP_autogen/mocs_compilation.s"
-	@echo "... AIMAGUI_autogen/mocs_compilation.o"
-	@echo "... AIMAGUI_autogen/mocs_compilation.i"
-	@echo "... AIMAGUI_autogen/mocs_compilation.s"
-	@echo "... src/app/AIMA.o"
-	@echo "... src/app/AIMA.i"
-	@echo "... src/app/AIMA.s"
-	@echo "... src/gui/AIMAGUI.o"
-	@echo "... src/gui/AIMAGUI.i"
-	@echo "... src/gui/AIMAGUI.s"
+	@echo "... aima"
 .PHONY : help
 
 
