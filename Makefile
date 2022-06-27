@@ -216,53 +216,53 @@ AIMAGUI_autogen/mocs_compilation.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMAGUI.dir/build.make CMakeFiles/AIMAGUI.dir/AIMAGUI_autogen/mocs_compilation.cpp.s
 .PHONY : AIMAGUI_autogen/mocs_compilation.cpp.s
 
-gui/AIMA.o: gui/AIMA.cpp.o
-.PHONY : gui/AIMA.o
+src/app/AIMA.o: src/app/AIMA.cpp.o
+.PHONY : src/app/AIMA.o
 
 # target to build an object file
-gui/AIMA.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMA-CPP.dir/build.make CMakeFiles/AIMA-CPP.dir/gui/AIMA.cpp.o
-.PHONY : gui/AIMA.cpp.o
+src/app/AIMA.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMA-CPP.dir/build.make CMakeFiles/AIMA-CPP.dir/src/app/AIMA.cpp.o
+.PHONY : src/app/AIMA.cpp.o
 
-gui/AIMA.i: gui/AIMA.cpp.i
-.PHONY : gui/AIMA.i
+src/app/AIMA.i: src/app/AIMA.cpp.i
+.PHONY : src/app/AIMA.i
 
 # target to preprocess a source file
-gui/AIMA.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMA-CPP.dir/build.make CMakeFiles/AIMA-CPP.dir/gui/AIMA.cpp.i
-.PHONY : gui/AIMA.cpp.i
+src/app/AIMA.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMA-CPP.dir/build.make CMakeFiles/AIMA-CPP.dir/src/app/AIMA.cpp.i
+.PHONY : src/app/AIMA.cpp.i
 
-gui/AIMA.s: gui/AIMA.cpp.s
-.PHONY : gui/AIMA.s
+src/app/AIMA.s: src/app/AIMA.cpp.s
+.PHONY : src/app/AIMA.s
 
 # target to generate assembly for a file
-gui/AIMA.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMA-CPP.dir/build.make CMakeFiles/AIMA-CPP.dir/gui/AIMA.cpp.s
-.PHONY : gui/AIMA.cpp.s
+src/app/AIMA.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMA-CPP.dir/build.make CMakeFiles/AIMA-CPP.dir/src/app/AIMA.cpp.s
+.PHONY : src/app/AIMA.cpp.s
 
-gui/AIMAGUI.o: gui/AIMAGUI.cpp.o
-.PHONY : gui/AIMAGUI.o
+src/gui/AIMAGUI.o: src/gui/AIMAGUI.cpp.o
+.PHONY : src/gui/AIMAGUI.o
 
 # target to build an object file
-gui/AIMAGUI.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMAGUI.dir/build.make CMakeFiles/AIMAGUI.dir/gui/AIMAGUI.cpp.o
-.PHONY : gui/AIMAGUI.cpp.o
+src/gui/AIMAGUI.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMAGUI.dir/build.make CMakeFiles/AIMAGUI.dir/src/gui/AIMAGUI.cpp.o
+.PHONY : src/gui/AIMAGUI.cpp.o
 
-gui/AIMAGUI.i: gui/AIMAGUI.cpp.i
-.PHONY : gui/AIMAGUI.i
+src/gui/AIMAGUI.i: src/gui/AIMAGUI.cpp.i
+.PHONY : src/gui/AIMAGUI.i
 
 # target to preprocess a source file
-gui/AIMAGUI.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMAGUI.dir/build.make CMakeFiles/AIMAGUI.dir/gui/AIMAGUI.cpp.i
-.PHONY : gui/AIMAGUI.cpp.i
+src/gui/AIMAGUI.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMAGUI.dir/build.make CMakeFiles/AIMAGUI.dir/src/gui/AIMAGUI.cpp.i
+.PHONY : src/gui/AIMAGUI.cpp.i
 
-gui/AIMAGUI.s: gui/AIMAGUI.cpp.s
-.PHONY : gui/AIMAGUI.s
+src/gui/AIMAGUI.s: src/gui/AIMAGUI.cpp.s
+.PHONY : src/gui/AIMAGUI.s
 
 # target to generate assembly for a file
-gui/AIMAGUI.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMAGUI.dir/build.make CMakeFiles/AIMAGUI.dir/gui/AIMAGUI.cpp.s
-.PHONY : gui/AIMAGUI.cpp.s
+src/gui/AIMAGUI.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AIMAGUI.dir/build.make CMakeFiles/AIMAGUI.dir/src/gui/AIMAGUI.cpp.s
+.PHONY : src/gui/AIMAGUI.cpp.s
 
 # Help Target
 help:
@@ -282,12 +282,12 @@ help:
 	@echo "... AIMAGUI_autogen/mocs_compilation.o"
 	@echo "... AIMAGUI_autogen/mocs_compilation.i"
 	@echo "... AIMAGUI_autogen/mocs_compilation.s"
-	@echo "... gui/AIMA.o"
-	@echo "... gui/AIMA.i"
-	@echo "... gui/AIMA.s"
-	@echo "... gui/AIMAGUI.o"
-	@echo "... gui/AIMAGUI.i"
-	@echo "... gui/AIMAGUI.s"
+	@echo "... src/app/AIMA.o"
+	@echo "... src/app/AIMA.i"
+	@echo "... src/app/AIMA.s"
+	@echo "... src/gui/AIMAGUI.o"
+	@echo "... src/gui/AIMAGUI.i"
+	@echo "... src/gui/AIMAGUI.s"
 .PHONY : help
 
 
