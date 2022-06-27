@@ -1,4 +1,4 @@
-#include "../include/DecisionTree.hpp"
+#include "../../include/DecisionTree.hpp"
 
 // TODO: CHANGE NODES TO A SMART POINTER TO PREVENT MEMORY LEAKS
 template <class T> DecisionTree<T>::DecisionTree() { nodes = nullptr; }

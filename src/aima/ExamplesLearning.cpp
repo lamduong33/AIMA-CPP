@@ -3,7 +3,7 @@
  * @Description: Learning from examples algorithms.
  */
 #include <iostream>
-#include "../include/ExamplesLearning.hpp"
+#include "../../include/ExamplesLearning.hpp"
 
 /* A Decision Tree learning algorithm that will return a tree given
  * a set of examples. This set of examples will have a corresponding

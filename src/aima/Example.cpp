@@ -1,4 +1,4 @@
-#include "../include/Example.hpp"
+#include "../../include/Example.hpp"
 
 Example::Example()
     : m_exampleName{std::string{}},
