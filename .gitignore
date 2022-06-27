@@ -8,7 +8,8 @@
 src/*
 !src/*
 src/*/*
-!src/*/*
+!src/*/*.cpp
+!src/*/CMakeLists.txt
 
 # Only hpp files within include
 !include/
