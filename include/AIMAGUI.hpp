@@ -1,10 +1,10 @@
 #ifndef AIMAGUI_HPP_
 #define AIMAGUI_HPP_
 
-#include <QMainWindow>
-#include <QPushButton>
-#include <QVBoxLayout>
-#include <QWidget>
+#include <qt6/QtWidgets/QMainWindow>
+#include <qt6/QtWidgets/QPushButton>
+#include <qt6/QtWidgets/QVBoxLayout>
+#include <qt6/QtWidgets/QtWidgets>
 
 namespace Ui {
   class MainWindow;
