@@ -11,17 +11,17 @@ qt_standard_project_setup()
 
 add_executable(
   AIMA-CPP
-  gui/AIMA.cpp
+  src/app/AIMA.cpp
 )
 
 add_library(
   AIMAGUI STATIC
-  gui/AIMAGUI.cpp
+  src/gui/AIMAGUI.cpp
 )
 
 target_link_libraries(AIMA-CPP PRIVATE Qt6::Widgets)
 target_link_libraries(AIMAGUI PRIVATE Qt6::Core)
-target_include_directories(AIMAGUI INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/gui)
+target_include_directories(AIMAGUI INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/src/gui)
 
 set_target_properties(
   AIMA-CPP PROPERTIES
