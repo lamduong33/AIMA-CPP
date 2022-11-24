@@ -9,6 +9,7 @@
 #include <unordered_set>
 #include <vector>
 #include <stdexcept> // for std::out_of_range
+#include <iostream>
 
 using std::vector;
 

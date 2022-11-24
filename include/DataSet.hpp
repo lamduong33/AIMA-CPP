@@ -41,4 +41,5 @@ class NotCSVException : public std::exception
     }
 };
 
+
 #endif

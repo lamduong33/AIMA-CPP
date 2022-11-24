@@ -19,8 +19,7 @@ void Neuron::reluFunction(double t_activationInput)
 double Neuron::activationInput(std::vector<double>& inputs,
                                std::vector<double>& weights)
 {
-    if (weights.size() != inputs.size())
-        throw new UnevenWeightsInputs;
+    if (weights.size() != inputs.size()) throw new UnevenWeightsInputs;
     double result = 0.0;
     for (int i = 0; i < (int)inputs.size(); i++)
     {
@@ -169,7 +168,8 @@ void NeuralNetwork::addNeuron(int t_layerIndex)
 {
     if (t_layerIndex >= (int)this->m_hiddenLayers.size())
     {
-        throw std::out_of_range("Add neuron failed: The hidden layer does not have this index");
+        throw std::out_of_range(
+            "Add neuron failed: The hidden layer does not have this index");
     }
 
     Neuron newNeuron;
@@ -192,9 +192,31 @@ void NeuralNetwork::addNeuron(int t_layerIndex)
 
 void NeuralNetwork::addNeuron() { this->addNeuron(m_hiddenLayers.size() - 1); }
 
-void NeuralNetwork::removeHiddenLayer(int t_layerIndex) {}
+void NeuralNetwork::removeHiddenLayer(int t_layerIndex)
+{
+    if (t_layerIndex >= this->m_hiddenNeuronsSize)
+    {
+        throw std::out_of_range(
+            "Index layer is greater than hidden neurons layer size.");
+    }
+    this->m_hiddenLayers.erase(this->m_hiddenLayers.begin() + t_layerIndex);
+}
 
-void NeuralNetwork::removeNeuron(int t_layerIndex, int t_neuronIndex) {}
+void NeuralNetwork::removeNeuron(int t_layerIndex, int t_neuronIndex)
+{
+    if (t_layerIndex >= this->m_hiddenNeuronsSize)
+    {
+        throw std::out_of_range(
+            "Layer index is greater than hidden neurons layer size.");
+    }
+    auto layer = this->m_hiddenLayers[t_layerIndex];
+    if (t_neuronIndex >= layer.size()) {
+
+        throw std::out_of_range(
+            "Neuron Index is greater than layer size.");
+    }
+    layer.erase(layer.begin() + t_neuronIndex);
+}
 
 void NeuralNetwork::setLearningMethod(LearningMethod t_learningMethod)
 {

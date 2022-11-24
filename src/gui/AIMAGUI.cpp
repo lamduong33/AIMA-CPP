@@ -1,5 +1,5 @@
 #include "../../include/AIMAGUI.hpp"
-#include "../../include/moc_AIMAGUI.cpp" // CMake needs to know the moc for Qt6
+//#include "../../include/moc_AIMAGUI.cpp" // CMake needs to know the moc for Qt6
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 {
