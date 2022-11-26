@@ -7,6 +7,7 @@ The purpose of this library is to visualize AI methodologies.
 
 ### Building
 
-- To run test files, run ```make``` with the default Makefile.
+- To build test files, run ```make -f Maketests``` with the tests Makefile.
 - To build the program with GUI, make sure that Qt5 and qmake are intalled. Run
-  ```qmake``` and then ```make``` to build. This will overwrite the old Makefile.
+  ```qmake``` and then ```make``` to build. Makefiles are auto-generated and are
+  not part of the repo.
