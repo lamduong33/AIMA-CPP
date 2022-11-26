@@ -229,15 +229,27 @@ void NeuralNetwork::addOutputNode(int t_hiddenLayerIndex)
     this->m_outputLayer.push_back(Neuron{});
 }
 
-vector<Neuron> NeuralNetwork::getInputLayer() const { return this->m_inputLayer; }
+vector<Neuron> NeuralNetwork::getInputLayer() const
+{
+    return this->m_inputLayer;
+}
 vector<vector<Neuron>> NeuralNetwork::getHiddenLayers() const
 {
     return this->m_hiddenLayers;
 }
 
 vector<Weight> NeuralNetwork::getWeights() const { return this->m_weights; }
-vector<Neuron> NeuralNetwork::getOutputLayer() const { return this->m_outputLayer; }
-LearningMethod NeuralNetwork::getLearningMethod() const { return this->m_method; }
+vector<Neuron> NeuralNetwork::getOutputLayer() const
+{
+    return this->m_outputLayer;
+}
+LearningMethod NeuralNetwork::getLearningMethod() const
+{
+    return this->m_method;
+}
 int NeuralNetwork::getInputSize() const { return this->m_inputSize; }
 int NeuralNetwork::getOutputSize() const { return this->m_outputSize; }
-int NeuralNetwork::getHiddenNeuronsSize() const { return this->m_hiddenNeuronsSize; }
+int NeuralNetwork::getHiddenNeuronsSize() const
+{
+    return this->m_hiddenNeuronsSize;
+}

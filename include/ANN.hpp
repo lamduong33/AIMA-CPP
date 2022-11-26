@@ -2,14 +2,14 @@
 #define ANN_HPP_
 
 #include <cmath>
+#include <iostream>
 #include <memory>
 #include <random>
+#include <stdexcept> // for std::out_of_range
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
-#include <stdexcept> // for std::out_of_range
-#include <iostream>
 
 using std::vector;
 
@@ -89,7 +89,12 @@ public:
     Weight();
 
     /**
-     * @brief Create the weight object with source and destination */
+     * @brief Create the weight object with source and destination. This will
+     * use the other constructor:
+     * Weight(Neuron& t_source, Neuron& t_destination, double startRange, double endRange);
+     * using the parameters:
+     * Weight(t_source, t_destination, -1.0, 1.0)
+     * */
     Weight(Neuron& t_source, Neuron& t_destination);
 
     /**
@@ -203,7 +208,6 @@ public:
      * Will update weights/outputs at the end of the function.
      * */
     void removeNeuron(int t_layerIndex, int t_neuronIndex);
-
 
     /**
      * @brief change the learning method to a new LearningMethod. */
