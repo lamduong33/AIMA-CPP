@@ -51,11 +51,11 @@ public:
 
     /**
      * @brief return the bias member variable. */
-    double getBias();
+    double getBias() const;
 
     /**
      * @brief Get the output saved in neuron, will not update neuron. */
-    double getOutput();
+    double getOutput() const;
 
     /** @brief set the output of the neuron. Use this for input neurons.*/
     void setOutput(double t_output);
@@ -98,14 +98,14 @@ public:
     Weight(Neuron& t_source, Neuron& t_destination, double startRange,
            double endRange);
 
-    Neuron& getSource();
-    Neuron& getDestination();
-    Neuron* getSourceAddress();
-    Neuron* getDestinationAddress();
-    double getValue();
+    Neuron& getSource() const;
+    Neuron& getDestination() const;
+    Neuron* getSourceAddress() const;
+    Neuron* getDestinationAddress() const;
+    double getValue() const;
 
-    void setSource(Neuron& t_source);
-    void setDestination(Neuron& t_destination);
+    void setSource(const Neuron& t_source);
+    void setDestination(const Neuron& t_destination);
 };
 
 /**
@@ -209,23 +209,23 @@ public:
      * @brief change the learning method to a new LearningMethod. */
     void setLearningMethod(LearningMethod t_learningMethod);
 
-    vector<vector<Neuron>> getHiddenLayers();
-    vector<Weight> getWeights();
-    vector<Neuron> getOutputLayer();
-    vector<Neuron> getInputLayer();
-    LearningMethod getLearningMethod();
+    vector<vector<Neuron>> getHiddenLayers() const;
+    vector<Weight> getWeights() const;
+    vector<Neuron> getOutputLayer() const;
+    vector<Neuron> getInputLayer() const;
+    LearningMethod getLearningMethod() const;
 
     /**
      * @brief get the size of the input layer */
-    int getInputSize();
+    int getInputSize() const;
 
     /**
      * @brief get the size of the output layer */
-    int getOutputSize();
+    int getOutputSize() const;
 
     /**
      * @brief return the amount of neurons in hidden layers in the neural net. */
-    int getHiddenNeuronsSize();
+    int getHiddenNeuronsSize() const;
 };
 
 #endif // ANN_HPP_

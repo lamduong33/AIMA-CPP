@@ -19,7 +19,8 @@ void Neuron::reluFunction(double t_activationInput)
 double Neuron::activationInput(std::vector<double>& inputs,
                                std::vector<double>& weights)
 {
-    if (weights.size() != inputs.size()) throw new UnevenWeightsInputs;
+    if (weights.size() != inputs.size())
+        throw new UnevenWeightsInputs;
     double result = 0.0;
     for (int i = 0; i < (int)inputs.size(); i++)
     {
@@ -29,9 +30,9 @@ double Neuron::activationInput(std::vector<double>& inputs,
     return result += this->bias;
 }
 
-double Neuron::getBias() { return this->bias; }
+double Neuron::getBias() const { return this->bias; }
 
-double Neuron::getOutput() { return this->output; }
+double Neuron::getOutput() const { return this->output; }
 
 void Neuron::setOutput(double t_output) { this->output = t_output; }
 
@@ -45,17 +46,17 @@ Weight::Weight(Neuron& t_source, Neuron& t_destination, double startRange,
 {
     static std::default_random_engine rng;
     std::uniform_real_distribution<double> dist(startRange, endRange);
-    weightValue = dist(rng);
+    this->weightValue = dist(rng);
 }
 
-Neuron& Weight::getSource() { return this->source; }
-Neuron& Weight::getDestination() { return this->destination; }
-Neuron* Weight::getSourceAddress() { return &this->source; }
-Neuron* Weight::getDestinationAddress() { return &this->destination; }
-double Weight::getValue() { return this->weightValue; }
+Neuron& Weight::getSource() const { return this->source; }
+Neuron& Weight::getDestination() const { return this->destination; }
+Neuron* Weight::getSourceAddress() const { return &this->source; }
+Neuron* Weight::getDestinationAddress() const { return &this->destination; }
+double Weight::getValue() const { return this->weightValue; }
 
-void Weight::setSource(Neuron& t_source) { this->source = t_source; }
-void Weight::setDestination(Neuron& t_destination)
+void Weight::setSource(const Neuron& t_source) { this->source = t_source; }
+void Weight::setDestination(const Neuron& t_destination)
 {
     this->destination = t_destination;
 }
@@ -210,10 +211,10 @@ void NeuralNetwork::removeNeuron(int t_layerIndex, int t_neuronIndex)
             "Layer index is greater than hidden neurons layer size.");
     }
     auto layer = this->m_hiddenLayers[t_layerIndex];
-    if (t_neuronIndex >= layer.size()) {
+    if (t_neuronIndex >= layer.size())
+    {
 
-        throw std::out_of_range(
-            "Neuron Index is greater than layer size.");
+        throw std::out_of_range("Neuron Index is greater than layer size.");
     }
     layer.erase(layer.begin() + t_neuronIndex);
 }
@@ -228,15 +229,15 @@ void NeuralNetwork::addOutputNode(int t_hiddenLayerIndex)
     this->m_outputLayer.push_back(Neuron{});
 }
 
-vector<Neuron> NeuralNetwork::getInputLayer() { return this->m_inputLayer; }
-vector<vector<Neuron>> NeuralNetwork::getHiddenLayers()
+vector<Neuron> NeuralNetwork::getInputLayer() const { return this->m_inputLayer; }
+vector<vector<Neuron>> NeuralNetwork::getHiddenLayers() const
 {
     return this->m_hiddenLayers;
 }
 
-vector<Weight> NeuralNetwork::getWeights() { return this->m_weights; }
-vector<Neuron> NeuralNetwork::getOutputLayer() { return this->m_outputLayer; }
-LearningMethod NeuralNetwork::getLearningMethod() { return this->m_method; }
-int NeuralNetwork::getInputSize() { return this->m_inputSize; }
-int NeuralNetwork::getOutputSize() { return this->m_outputSize; }
-int NeuralNetwork::getHiddenNeuronsSize() { return this->m_hiddenNeuronsSize; }
+vector<Weight> NeuralNetwork::getWeights() const { return this->m_weights; }
+vector<Neuron> NeuralNetwork::getOutputLayer() const { return this->m_outputLayer; }
+LearningMethod NeuralNetwork::getLearningMethod() const { return this->m_method; }
+int NeuralNetwork::getInputSize() const { return this->m_inputSize; }
+int NeuralNetwork::getOutputSize() const { return this->m_outputSize; }
+int NeuralNetwork::getHiddenNeuronsSize() const { return this->m_hiddenNeuronsSize; }
