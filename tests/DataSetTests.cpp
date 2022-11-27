@@ -1,6 +1,7 @@
+#include "../include/DataSet.hpp"
 #include <catch2/catch.hpp> // NOTE: assuming intalled via package manager.
 #include <iostream>
-#include "../include/DataSet.hpp"
+
 TEST_CASE("DataSet - file extensions")
 {
     std::string fileName1 = "fakename.csv";
