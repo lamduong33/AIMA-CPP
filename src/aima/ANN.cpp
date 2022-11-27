@@ -239,14 +239,17 @@ vector<vector<Neuron>> NeuralNetwork::getHiddenLayers() const
 }
 
 vector<Weight> NeuralNetwork::getWeights() const { return this->m_weights; }
+
 vector<Neuron> NeuralNetwork::getOutputLayer() const
 {
     return this->m_outputLayer;
 }
+
 LearningMethod NeuralNetwork::getLearningMethod() const
 {
     return this->m_method;
 }
+
 int NeuralNetwork::getInputSize() const { return this->m_inputSize; }
 int NeuralNetwork::getOutputSize() const { return this->m_outputSize; }
 int NeuralNetwork::getHiddenNeuronsSize() const
