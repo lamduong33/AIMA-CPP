@@ -13,6 +13,32 @@ TEST_CASE("Neuron Test")
     REQUIRE(activationInput == -0.44);
 }
 
+TEST_CASE("Neuron Bias Test")
+{
+    // Bias should always be 0.0 when starting out
+    Neuron newNeuron{};
+    Neuron newNeuron2{12.1};
+    Neuron newNeuron3{-28.3};
+    REQUIRE(newNeuron.getBias() == 0.0);
+    REQUIRE(newNeuron2.getBias() == 0.0);
+    REQUIRE(newNeuron3.getBias() == 0.0);
+
+    // Bias isn't 0.0 when being trained.
+    std::vector<double> weights{-0.02, -0.04};
+    std::vector<double> inputs{2.0, 10.0};
+    newNeuron.activationInput(inputs, weights);
+    newNeuron2.activationInput(inputs, weights);
+    REQUIRE(newNeuron.getBias() != 0.0);
+    REQUIRE(newNeuron2.getBias() == 0.0);
+    REQUIRE(newNeuron3.getBias() != 0.0);
+}
+
+
+TEST_CASE("Neuron Output Test")
+{
+    // TODO: Ensure output is correct
+}
+
 TEST_CASE("Weight Randomization Tests")
 {
     auto numberOfWeights = 5;

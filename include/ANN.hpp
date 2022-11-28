@@ -16,7 +16,7 @@ using std::vector;
 /* A neuron is meant to be nodes in a NeuralNetwork.*/
 class Neuron
 {
-    double bias;
+    double bias; // bias is always 0.0 initially.
     double output;
 
 public:
